@@ -1,0 +1,102 @@
+<div class="page">
+
+    <section class="panel panel-default">
+        <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span> Getting Started!</strong></div>
+        <div class="panel-body">
+            <div data-ui-wizard-form>
+                <h1>Welcome</h1>
+                <div class="text-center" style="font-size:20px">
+                    Welcome to EasyGrade. You are just few steps away from fully
+                    experiencing the power of this application developed just for you. <br><br>
+
+                    In the next steps, we will walk you through creating your courses and its rules, and finally setting
+                    your document manager for your assignments, tests and quizzes. This where EasyGrade makes grading
+                    simple,fun and takes annoying steps off your plate.<br><br>
+
+                    Hit the NEXT button to get started!
+                </div>
+
+                <h1>Class Set-Up</h1>
+                <div class="text-center">
+                    <div data-ng-hide="stepTwoCompleted">
+                        <p style="font-size:20px">Before anything! Let's get some info on you. Then we will create your
+                            classes. <br>
+                            Hit the "About Me" button right below this sentence!</p>
+                        <!-- Button trigger modal -->
+                        <div>
+                            <button type="button" class="btn btn-lg"
+                                    data-ng-class="aboutYouSuccess?'btn-success':'btn-primary'"
+                                    data-ng-click="openAboutYou()" data-ng-bind-html="aboutYouHtml">
+                            </button>
+                        </div>
+                        <hr>
+                        <div data-ng-show="aboutYouSuccess">
+                            <p class="text-center" style="font-size:20px">
+                                We are now ready to create your classes.<br>
+                                Hit the "Create Classes" button below this sentence.
+                            </p>
+                            <button type="button" class="btn btn-primary btn-lg"
+                                    data-ng-class="createClassSuccess?'btn-success':'btn-primary'"
+                                    data-ng-click="openCreateClass()"
+                                    data-ng-bind-html="createClassHtml">
+                            </button>
+                        </div>
+                    </div>
+                    <div data-ng-show="stepTwoCompleted">
+                        <br>
+                        <p class="text-center" style="font-size:20px">Great,we are almost done!<br><br>
+                            The next step is to add some assignments to get you familiar as to how you uploading
+                            your assignments will make grading the EasyGrade Way! <br><br>
+                            Hit the NEXT button on the right-lower corner to continue!</p>
+                    </div>
+                </div>
+
+                <h1>Upload Documents</h1>
+                <div>
+                    <div data-ng-hide="awesomeClicked" class="text-center">
+                        <p style="font-size:20px">
+                            Why uploading your documents? <br>
+                            All the documents you upload (tests, quizzes, homework), will be stamped with a unique
+                            header above them. <br>
+                            This stamp will ask students to bubble in their id, and it will provide you with a space
+                            to grade the document.<br>
+                            Once you upload them again, now graded with the stamp, EasyGrade will automatically update
+                            the
+                            score
+                            of each student, and send a push notification to the student to their phone!<br>
+                            How GREAT is that?<br><br>
+                            Hit the "AWESOME" button below this sentence, if you agree and to continue.
+                        </p>
+                        <button type="button" class="btn btn-success btn-lg"
+                                data-ng-click="awesome()">AWESOME
+                        </button>
+                    </div>
+                    <div data-ng-show="awesomeClicked">
+                        <p class="text-center" style="font-size:20px">
+                            Let's focus on uploading HOMEWORK documents for now!<br>
+                            Drag and Drop as many homework assignments as you want from your files in the space below!
+                        </p>
+
+                        <div class="row" >
+                            <div class="col-sm-8 col-sm-offset-2">
+                                <form class="dropzone"
+                                      method="post"
+                                      enctype="multipart/form-data"
+                                      ng-dropzone
+                                      dropzone="dropzone"
+                                      dropzone-config="dropzoneConfig"
+                                      event-handlers="{ 'addedfile': dzAddedFile, 'error': dzError }">
+                                </form>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</div>
+
+<!--Good News, you won't have to add students! They will add themselves to your course,-->
+<!--after they download EasyGrade App in their phone!-->
+<!--data-ng-show="aboutYouSuccess"-->

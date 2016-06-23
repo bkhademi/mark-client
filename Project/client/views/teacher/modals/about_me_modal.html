@@ -1,0 +1,34 @@
+<div class="modal-header">
+    <h3 class="text-center">Tell us a little more about you, please fill out the fields below!</h3>
+</div>
+<form name="userForm" data-ng-submit="submitForm(userForm.$valid)" novalidate>
+    <div class="modal-body">
+
+        <div class="text-center">
+            <style> .custom {
+                padding-left: 46%;
+            }
+            </style>
+            <label for="selectDepartment"> Select Your Department: </label>
+            <select class="form-control custom" id="selectDepartment" data-ng-options="department as department.type
+    for department in departments" data-ng-model="aboutYouInfo.deptSelection" required>
+            </select>
+        </div>
+        <br><br>
+        <div class="text-center" data-ng-class="{ 'has-error' : userForm.school.$invalid && !userForm.school.$pristine }">
+            <label for="school"> Enter the Name of the School You Teach at: </label>
+            <input class="form-control text-center" type="text" name="school" id="school" data-ng-model="aboutYouInfo.schoolName" required>
+            <p data-ng-show="userForm.school.$invalid && !userForm.school.$pristine" class="help-block">Your school is required.</p>
+        </div>
+        <br><br>
+        <div class="text-center" data-ng-class="{ 'has-error' : userForm.almaName.$invalid && !userForm.almaName.$pristine }">
+            <label for="almaName"> Enter the Name of Your Alma Mater: </label>
+            <input class="form-control text-center" type="text" name="almaName" id="almaName" data-ng-model="aboutYouInfo.almaName" required>
+            <p data-ng-show="userForm.almaName.$invalid && !userForm.almaName.$pristine" class="help-block">Your Alma Mater is required.</p>
+        </div>
+
+    </div>
+    <div class="modal-footer">
+        <button  type="submit" class="btn btn-primary" data-ng-disabled="userForm.$invalid">Submit</button>
+    </div>
+</form>
