@@ -3,11 +3,18 @@
 angular.module('app.ui.form.directives', [])
 
 # Dependency: http://www.eyecon.ro/bootstrap-slider/ OR https://github.com/seiyria/bootstrap-slider
-.directive('uiRangeSlider', [ ->
+.directive('uiRangeSlider', ['$compile','$log',($compile,$log) ->
     return {
-        restrict: 'A'
-        link: (scope, ele) ->
+        restrict: 'A',
+        scope:
+            range:'=?range'
+ 
+        link: (scope, ele, attrs) ->
             ele.slider()
+            scope.range = attrs.sliderValue
+            ele.change (event)->
+                value = this.defaultValue
+                scope.range = '['+value+']'
     }
 ])
 
@@ -38,10 +45,12 @@ angular.module('app.ui.form.directives', [])
 ])
 
 # Dependency: https://github.com/rstaib/jquery-steps
-.directive('uiWizardForm', [ ->
+.directive('uiWizardForm', [ '$compile', ($compile)->
     return {
         link: (scope, ele) ->
-            ele.steps()
+            ele.wrapInner('<div class="steps-wrapper">' )
+            steps =  ele.children('.steps-wrapper').steps()
+            $compile(steps)(scope)
     }
 ])
 
