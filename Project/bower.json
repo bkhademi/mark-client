@@ -27,7 +27,8 @@
     "angular-wizard": "~0.6.1",
     "morris.js": "~0.5.1",
     "flot.tooltip": "~0.8.4",
-    "satellizer": "^0.14.1"
+    "satellizer": "^0.14.1",
+    "angular-dropzone": "^0.1.2"
   },
   "devDependencies": {
     "bootstrap-sass-official": "~3.3.0"
