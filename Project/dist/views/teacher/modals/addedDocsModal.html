@@ -1,0 +1,113 @@
+<div class="modal-header">
+    <h3 class="text-center"> Let's focus on uploading HOMEWORK documents for now!</h3>
+</div>
+<
+<div name="userForm" data-ng-submit="submitForm(userForm.$valid)" novalidate>
+    <div class="modal-body">
+        <div data-ng-hide="firstTime" class="row">
+            <div class="text-center col-sm-10 col-sm-offset-1">
+                <p class="text-center" style="font-size:20px">
+                    Drag and Drop as many homework assignments as you want from your files in the space below!
+                </p>
+            </div>
+        </div>
+        <br><br>
+        <!--Drop Zone Starts-->
+        <div class="row">
+            <div class="col-sm-10 col-sm-offset-1">
+                <div class="dropzone"
+                     method="post"
+                     enctype="multipart/form-data"
+                     ng-dropzone
+                     dropzone="dropzone"
+                     dropzone-config="dropzoneConfig"
+                     event-handlers="{ 'addedfile': dzAddedFile, 'error': dzError, 'removedfile': dz.removedfile }">
+                </div>
+                <style>
+                    .dropzone {
+                        min-height: 200px;
+                    }
+                </style>
+            </div>
+        </div>
+        <br><br><br>
+        <!--Drop Zone Ends-->
+
+        <!--Add Points Begins-->
+        <div data-ng-hide="!firstTime">
+            <div class="row ">
+                <div class="text-center col-sm-10 col-sm-offset-1">
+                    <p style="font-size:20px">
+                        Great! You added some files! <br>
+                        Now its time to assign them points. You get two simple options: <br>
+                        You can apply the same amount of points to all the documents at once. <br>
+                        Or you can, assign points to specific assignments of your choice!<br>
+                        Pick your style!
+                    </p>
+                </div>
+            </div>
+            <br>
+            <div class="row">
+                <div class="text-center col-sm-10 col-sm-offset-1">
+                    <label class="ui-radio"><input name="pointAssign" type="radio" data-ng-model="pointsMethod"
+                                                   value="ApplyToAll" checked>
+                        <span>Apply to All</span></label>
+                    <label class="ui-radio"><input name="pointAssign" type="radio" data-ng-model="pointsMethod"
+                                                   value="ApplyToSelected">
+                        <span>Apply to Selected</span></label>
+                </div>
+            </div>
+            <br>
+            <div class="row" data-ng-show="pointsMethod == 'ApplyToAll'">
+                <div class="col-sm-10 col-sm-offset-1">
+                    <div class="col-sm-3 col-sm-offset-3">
+                        <input type="number" class="form-control" data-ng-model="assignToAllPoints" id="totalPoints"
+                               placeholder="# of Points">
+                    </div>
+                    <div class="col-sm-3">
+                        <input type="button" class="btn btn-primary" value="Apply to All" data-ng-click="applyToAll()">
+                    </div>
+                </div>
+            </div>
+            <div data-ng-show="pointsMethod == 'ApplyToSelected'">
+                <div class="col-sm-2 col-sm-offset-1">
+                    <input type="number" class="form-control" data-ng-model="assignToSelected" id="points"
+                           placeholder="# Points">
+                </div>
+                <div class="col-sm-6">
+                    <select multiple chosen class="form-control" placeholder-text-multiple="Select Documents"
+                            data-ng-model="selectedDocs"
+                            data-ng-options="documentName as documentName.docName for documentName in hwDocuments"
+                            id="selectDoc"></select>
+                </div>
+                <div class="col-sm-1">
+                    <input type="button" class="btn btn-primary" value="Apply to Selected"
+                           data-ng-click="applyToSelected()">
+                </div>
+            </div>
+            <br><br>
+            <div class="row">
+                <div class="col-sm-offset-1 col-sm-10">
+                    <table class="table table-responsive table-hover table-striped">
+                        <thead>
+                        <tr>
+                            <th>Assignment Name</th>
+                            <th>Points</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr data-ng-repeat="hwDoc in hwDocuments track by $index">
+                            <td>{{hwDoc.docName}}</td>
+                            <td>{{hwDoc.points}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--Add Points Ends-->
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-primary" data-ng-disabled="userForm.$invalid">Submit</button>
+    </div>
+    </form>

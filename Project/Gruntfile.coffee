@@ -21,11 +21,17 @@ module.exports = (grunt) ->
         app: "client"
         dist: "dist"
         docs: "documentation"
-
+    aws =  
+        "AWSAccessKeyId": "AKIAJYVMQ27BI4VKDS2Q"
+        "AWSSecretKey": "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"
+      
+    
     try
         yeomanConfig.app = require("./bower.json").appPath or yeomanConfig.app
+        
     grunt.initConfig
         yeoman: yeomanConfig
+        aws:aws
         watch:
             coffee:
                 files: ["<%= yeoman.app %>/scripts/**/*.coffee"]
@@ -327,6 +333,21 @@ module.exports = (grunt) ->
                     "<%= yeoman.app %>/scripts/ezgrade.min.js":[
                         "<%= yeoman.app %>/assets/**/*.js"
                     ]
+        aws_s3:
+            options:
+                accessKeyId: '<%= aws.AWSAccessKeyId %>'# Use the variables
+                secretAccessKey: '<%= aws.AWSSecretKey %>'# You can also use env variables
+                uploadConcurrency: 5 # 5 simultaneous uploads
+                downloadConcurrency: 5 # simultaneous downloads
+            production:
+                options:
+                    bucket: 'ezgrade'
+                    # params:
+                        # ContentEncoding:'gzip'
+                files:[
+                    {expand:true,cwd:'dist/', src:['**'], dest:'/'}
+                ]
+            
     grunt.registerTask "docs", ->
         grunt.task.run ["jade:docs", "connect:docs", "open", "watch"]
 

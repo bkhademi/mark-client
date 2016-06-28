@@ -41,50 +41,62 @@
 
                 <div class="row text-center">
                     <label class="ui-radio"><input name="gradeBreakdown" type="radio" data-ng-model="breakdown"
-                                                   value="default" checked>
+                                                   data-ng-change="totalPercentSum()" value="default" checked>
                         <span>Default</span></label>
                     <label class="ui-radio"><input name="gradeBreakdown" type="radio" data-ng-model="breakdown"
                                                    value="custom">
                         <span>Custom</span></label>
                 </div>
                 <br>
+                <br>
+                <div>
+                    <p  data-ng-show="breakdown =='default'" data-ng-class="(newClass.gradeBreakdown.exams + newClass.gradeBreakdown.quizzes + newClass.gradeBreakdown.homework + newClass.gradeBreakdown.final) == 100 ?'bg-success':''"
+                       class="text-center col-sm-offset-4 col-sm-4"
+                       style="font-size: 18px; margin-bottom:0px; border-radius: 7px ;">
+                        {{newClass.gradeBreakdown.exams + newClass.gradeBreakdown.quizzes
+                        + newClass.gradeBreakdown.homework + newClass.gradeBreakdown.final}}%</p>
+                </div>
                 <div data-ng-show="breakdown =='default'">
+                    <br>
                     <div class="row">
                         <div class="col-sm-4 col-sm-offset-1">
                             <h4 class="text-center">Exams</h4>
-                            <input range="newClass.gradeBreakdown.exams" type="number"
+                            <p style="border-radius: 7px" class="col-sm-4 col-sm-offset-4 bg-primary text-center">
+                                {{newClass.gradeBreakdown.exams}}</p>
+                            <input data-ng-model="newClass.gradeBreakdown.exams" type="number"
                                    ui-range-slider
-                                   data-slider-min="1"
-                                   data-slider-max="50"
+                                   data-slider-min="0"
+                                   data-slider-max="100"
                                    data-slider-step="1"
                                    data-slider-orientation="horizontal"
-                                   data-slider-value="0"
-                                   data-slider-selection="before"
-                                   data-slider-tooltip="show"
-                                   data-slider-handle="round">
+                                   data-slider-value=""
+                                   data-slider-selection="before">
                         </div>
                         <div class="col-sm-4 col-sm-offset-2">
                             <h4 class="text-center">Quizzes</h4>
-                            <input range="newClass.gradeBreakdown.quizzes" type="number"
+                            <p style="border-radius: 7px" class="col-sm-4 col-sm-offset-4 bg-primary text-center">
+                                {{newClass.gradeBreakdown.quizzes}}</p>
+                            <input data-ng-model="newClass.gradeBreakdown.quizzes" type="number"
                                    ui-range-slider
-                                   data-slider-min="1"
-                                   data-slider-max="50"
+                                   data-slider-min="0"
+                                   data-slider-max="100"
                                    data-slider-step="1"
                                    data-slider-orientation="horizontal"
-                                   data-slider-value="0"
-                                   data-slider-selection="before"
-                                   data-slider-tooltip="show"
-                                   data-slider-handle="round">
+                                   data-slider-value=""
+                                   data-slider-selection="before">
                         </div>
                     </div>
+                    <br>
                     <br>
                     <div class="row">
                         <div class="col-sm-4 col-sm-offset-1">
                             <h4 class="text-center -bold">Homework</h4>
-                            <input range="newClass.gradeBreakdown.homework" type="number"
+                            <p  style="border-radius: 7px" class="col-sm-4 col-sm-offset-4 bg-primary text-center">
+                                {{newClass.gradeBreakdown.homework}}</p>
+                            <input data-ng-model="newClass.gradeBreakdown.homework" type="number"
                                    ui-range-slider
-                                   data-slider-min="1"
-                                   data-slider-max="50"
+                                   data-slider-min="0"
+                                   data-slider-max="100"
                                    data-slider-step="1"
                                    data-slider-orientation="horizontal"
                                    data-slider-value="0"
@@ -94,16 +106,28 @@
                         </div>
                         <div class="col-sm-4 col-sm-offset-2">
                             <h4 class="text-center">Final</h4>
+                            <p style="border-radius: 7px" class="col-sm-4 col-sm-offset-4 bg-primary text-center">
+                                {{newClass.gradeBreakdown.final}}</p>
                             <input data-ng-model="newClass.gradeBreakdown.final" type="number"
                                    ui-range-slider
-                                   data-slider-min="1"
-                                   data-slider-max="50"
+                                   data-slider-min="0"
+                                   data-slider-max="100"
                                    data-slider-step="1"
                                    data-slider-orientation="horizontal"
-                                   data-slider-value="0"
+                                   data-slider-value=""
                                    data-slider-selection="before"
                                    data-slider-tooltip="show"
                                    data-slider-handle="round">
+                        </div>
+                        <br><br><br><br>
+                        <div class="row">
+                            <br><br>
+                            <p data-ng-show="(newClass.gradeBreakdown.exams + newClass.gradeBreakdown.quizzes + newClass.gradeBreakdown.homework + newClass.gradeBreakdown.final) < 100 && newClass.gradeBreakdown.final > 0"
+                               class="col-sm-6 col-sm-offset-3 bg-warning text-center"
+                               style="font-size: 18px; margin-bottom:0px; border-radius: 7px">Composition Sum is less than 100%</p>
+                            <p data-ng-show="(newClass.gradeBreakdown.exams + newClass.gradeBreakdown.quizzes + newClass.gradeBreakdown.homework + newClass.gradeBreakdown.final) > 100"
+                               class="col-sm-6 col-sm-offset-3 bg-danger text-center"
+                               style="font-size: 18px; margin-bottom:0px; border-radius: 7px ">Composition Sum is more than 100%</p>
                         </div>
                     </div>
                 </div>
@@ -201,26 +225,28 @@
                     <th class="text-center">Period</th>
                     <th class="text-center">Grade Breakdown</th>
                     <th class="text-center">Grade Scale</th>
+                    <th class="text-center">Remove</th>
                 </tr>
                 </thead>
                 <tbody>
-                <tr data-ng-repeat="classes in addedClasses">
+                <tr data-ng-repeat="classes in addedClasses track by $index">
                     <td>{{classes.className}}</td>
                     <td>{{classes.classPeriod}}</td>
-                    <td><input type="button" class="btn btn-primary" value="Click"
+                    <td><input type="button" class="btn btn-primary" value="G Breakdown"
                                popover="Exam: {{classes.gradeBreakdown.exams}}%{{'&nbsp;'}}
                                Quizzes: {{classes.gradeBreakdown.quizzes}}%{{'&nbsp;'}}
                                Homework: {{classes.gradeBreakdown.homework}}%{{'&nbsp;'}}
                                Final: {{classes.gradeBreakdown.final}}%"
                                popover-append-to-body="false"
                                popover-trigger="mouseenter"></td>
-                    <td><input type="button" class="btn btn-primary" value="Click"
+                    <td><input type="button" class="btn btn-primary" value="G Scale"
                                popover="A: {{classes.gradeScale.aScale}}%{{'&nbsp;'}}
                                B: {{classes.gradeScale.bScale}}%{{'&nbsp;'}}
                                C: {{classes.gradeScale.cScale}}%{{'&nbsp;'}}
                                D: {{classes.gradeScale.dScale}}"
                                popover-append-to-body="false"
                                popover-trigger="mouseenter"></td>
+                    <td><input type="button" class="btn btn-danger" value="X" data-ng-click="removeRow($index, classes.period)"></td>
                 </tr>
                 </tbody>
             </table>

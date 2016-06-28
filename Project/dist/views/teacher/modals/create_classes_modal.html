@@ -1,0 +1,271 @@
+<div class="modal-header">
+    <h3 class="text-center">Lets Create Your Classes!</h3>
+</div>
+<form name="userForm" data-ng-submit="submitForm(userForm.$valid)" novalidate>
+    <div class="row">
+        <div class="modal-body col-sm-10 col-sm-offset-1">
+            <p data-ng-hide="firstTime" class="text-center" style="font-size: 18px">
+                Good News, you won't have to add students! <br>
+                They will add themselves to your course, after they download EasyGrade App in their phone!
+            </p>
+            <br><br>
+            <!--Class Basic Info Begins-->
+            <div class="form-group col-sm-5 col-md-offset-1">
+                <label for="nameClass"> Class Name: </label>
+                <input type="text" class="form-control" id="nameClass" data-ng-model="newClass.className">
+            </div>
+            <div class="form-group col-sm-3 col-md-offset-2" data-ng-class="newClass.className ||
+        firstTime ? 'ng-show' :
+        'ng-hide' ">
+                <label for="period"> Class Period: </label>
+                <select class="form-control" name="period" id="period" data-ng-options="period as period.value for
+            period in periods" data-ng-model="newClass.period">
+                </select>
+            </div>
+            <!--Class Basic Info Ends-->
+
+            <br><br><br><br>
+
+            <!--Class Grade Breakdown Begins-->
+            <div data-ng-class="newClass.period || firstTime? 'ng-show' : 'ng-hide'">
+                <div>
+                    <p data-ng-hide="firstTime" class="text-center" style="font-size: 18px"> Set your grade components
+                        and their respective weight!
+                        <br>
+                        You can follow our default set-up of : <br>
+                        quizzes, tests, homework and final exam. <br>
+                        Or you can create your own components. <br>
+                        In both, use the range slider to set the percentage weight of each rule!</p>
+                </div>
+                <br>
+
+                <div class="row text-center">
+                    <label class="ui-radio"><input name="gradeBreakdown" type="radio" data-ng-model="breakdown"
+                                                   data-ng-change="totalPercentSum()" value="default" checked>
+                        <span>Default</span></label>
+                    <label class="ui-radio"><input name="gradeBreakdown" type="radio" data-ng-model="breakdown"
+                                                   value="custom">
+                        <span>Custom</span></label>
+                </div>
+                <br>
+                <br>
+                <div>
+                    <p  data-ng-show="breakdown =='default'" data-ng-class="(newClass.gradeBreakdown.exams + newClass.gradeBreakdown.quizzes + newClass.gradeBreakdown.homework + newClass.gradeBreakdown.final) == 100 ?'bg-success':''"
+                       class="text-center col-sm-offset-4 col-sm-4"
+                       style="font-size: 18px; margin-bottom:0px; border-radius: 7px ;">
+                        {{newClass.gradeBreakdown.exams + newClass.gradeBreakdown.quizzes
+                        + newClass.gradeBreakdown.homework + newClass.gradeBreakdown.final}}%</p>
+                </div>
+                <div data-ng-show="breakdown =='default'">
+                    <br>
+                    <div class="row">
+                        <div class="col-sm-4 col-sm-offset-1">
+                            <h4 class="text-center">Exams</h4>
+                            <p style="border-radius: 7px" class="col-sm-4 col-sm-offset-4 bg-primary text-center">
+                                {{newClass.gradeBreakdown.exams}}</p>
+                            <input data-ng-model="newClass.gradeBreakdown.exams" type="number"
+                                   ui-range-slider
+                                   data-slider-min="0"
+                                   data-slider-max="100"
+                                   data-slider-step="1"
+                                   data-slider-orientation="horizontal"
+                                   data-slider-value=""
+                                   data-slider-selection="before">
+                        </div>
+                        <div class="col-sm-4 col-sm-offset-2">
+                            <h4 class="text-center">Quizzes</h4>
+                            <p style="border-radius: 7px" class="col-sm-4 col-sm-offset-4 bg-primary text-center">
+                                {{newClass.gradeBreakdown.quizzes}}</p>
+                            <input data-ng-model="newClass.gradeBreakdown.quizzes" type="number"
+                                   ui-range-slider
+                                   data-slider-min="0"
+                                   data-slider-max="100"
+                                   data-slider-step="1"
+                                   data-slider-orientation="horizontal"
+                                   data-slider-value=""
+                                   data-slider-selection="before">
+                        </div>
+                    </div>
+                    <br>
+                    <br>
+                    <div class="row">
+                        <div class="col-sm-4 col-sm-offset-1">
+                            <h4 class="text-center -bold">Homework</h4>
+                            <p  style="border-radius: 7px" class="col-sm-4 col-sm-offset-4 bg-primary text-center">
+                                {{newClass.gradeBreakdown.homework}}</p>
+                            <input data-ng-model="newClass.gradeBreakdown.homework" type="number"
+                                   ui-range-slider
+                                   data-slider-min="0"
+                                   data-slider-max="100"
+                                   data-slider-step="1"
+                                   data-slider-orientation="horizontal"
+                                   data-slider-value="0"
+                                   data-slider-selection="before"
+                                   data-slider-tooltip="show"
+                                   data-slider-handle="round">
+                        </div>
+                        <div class="col-sm-4 col-sm-offset-2">
+                            <h4 class="text-center">Final</h4>
+                            <p style="border-radius: 7px" class="col-sm-4 col-sm-offset-4 bg-primary text-center">
+                                {{newClass.gradeBreakdown.final}}</p>
+                            <input data-ng-model="newClass.gradeBreakdown.final" type="number"
+                                   ui-range-slider
+                                   data-slider-min="0"
+                                   data-slider-max="100"
+                                   data-slider-step="1"
+                                   data-slider-orientation="horizontal"
+                                   data-slider-value=""
+                                   data-slider-selection="before"
+                                   data-slider-tooltip="show"
+                                   data-slider-handle="round">
+                        </div>
+                        <br><br><br><br>
+                        <div class="row">
+                            <br><br>
+                            <p data-ng-show="(newClass.gradeBreakdown.exams + newClass.gradeBreakdown.quizzes + newClass.gradeBreakdown.homework + newClass.gradeBreakdown.final) < 100 && newClass.gradeBreakdown.final > 0"
+                               class="col-sm-6 col-sm-offset-3 bg-warning text-center"
+                               style="font-size: 18px; margin-bottom:0px; border-radius: 7px">Composition Sum is less than 100%</p>
+                            <p data-ng-show="(newClass.gradeBreakdown.exams + newClass.gradeBreakdown.quizzes + newClass.gradeBreakdown.homework + newClass.gradeBreakdown.final) > 100"
+                               class="col-sm-6 col-sm-offset-3 bg-danger text-center"
+                               style="font-size: 18px; margin-bottom:0px; border-radius: 7px ">Composition Sum is more than 100%</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--Class Grade Breakdown Ends-->
+            <br><br><br><br>
+
+            <!--Class Grade Scale Begins-->
+            <div data-ng-class="newClass.gradeBreakdown.final > 0 || firstTime? 'ng-show': 'ng-hide' ">
+                <div>
+                    <p data-ng-hide="firstTime" class="text-center" style="font-size: 18px"> Set your grade scale rules!
+                        <br><br>
+                        You can follow our default set-up of : <br>
+                        A: 90-100%, B: 80-89%, C: 70-79%, D: 60-69% <br>
+                        anything below is an F :(
+                        Or you can create your own rules. Just use the range slider to set the percentage of each.</p>
+                </div>
+                <br>
+
+                <br>
+                <div class="row">
+                    <div class="col-sm-4 col-sm-offset-1">
+                        <h4 class="text-center">A</h4>
+                        <input type="number" range="newClass.gradeScale.aScale"
+                               ui-range-slider
+                               data-slider-min="80"
+                               data-slider-max="100"
+                               data-slider-step="1"
+                               data-slider-orientation="horizontal"
+                               data-slider-value="[90,100]"
+                               data-slider-selection="before"
+                               data-slider-tooltip="show"
+                               data-slider-handle="round">
+                    </div>
+                    <div class="col-sm-4 col-sm-offset-2">
+                        <h4 class="text-center">B</h4>
+                        <input range="newClass.gradeScale.bScale" type="number"
+                               ui-range-slider
+                               data-slider-min="70"
+                               data-slider-max="100"
+                               data-slider-step="1"
+                               data-slider-orientation="horizontal"
+                               data-slider-value="[80,89]"
+                               data-slider-selection="before"
+                               data-slider-tooltip="show"
+                               data-slider-handle="round">
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                    <div class="col-sm-4 col-sm-offset-1">
+                        <h4 class="text-center">C</h4>
+                        <input range="newClass.gradeScale.cScale" type="number"
+                               ui-range-slider
+                               data-slider-min="60"
+                               data-slider-max="100"
+                               data-slider-step="1"
+                               data-slider-orientation="horizontal"
+                               data-slider-value="[70,79]"
+                               data-slider-selection="before"
+                               data-slider-tooltip="show"
+                               data-slider-handle="round">
+                    </div>
+                    <div class="col-sm-4 col-sm-offset-2">
+                        <h4 class="text-center">D</h4>
+                        <input range="newClass.gradeScale.dScale" type="number"
+                               ui-range-slider
+                               data-slider-min="50"
+                               data-slider-max="100"
+                               data-slider-step="1"
+                               data-slider-orientation="horizontal"
+                               data-slider-value="[60,69]"
+                               data-slider-selection="before"
+                               data-slider-tooltip="show"
+                               data-slider-handle="round">
+                    </div>
+                </div>
+            </div>
+            <!--Class Grade Scale Ends-->
+            <br><br><br>
+
+            <input type="button" class="btn btn-primary col-sm-6 col-lg-offset-3" value="Add Class"
+                   data-ng-class="newClass.gradeBreakdown.final > 0 || firstTime? 'ng-show': 'ng-hide'"
+                   data-ng-click="addClass()">
+            <br><br><br><br>
+        </div>
+    </div>
+    <div class="row">
+        <!--Added Classes Table- Begings-->
+        <div class="text-center col-sm-10 col-sm-offset-1">
+            <table data-ng-hide="!firstTime" class="table table-hover table-responsive table-striped">
+                <thead>
+                <tr>
+                    <th class="text-center">Class Name</th>
+                    <th class="text-center">Period</th>
+                    <th class="text-center">Grade Breakdown</th>
+                    <th class="text-center">Grade Scale</th>
+                    <th class="text-center">Remove</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr data-ng-repeat="classes in addedClasses track by $index">
+                    <td>{{classes.className}}</td>
+                    <td>{{classes.classPeriod}}</td>
+                    <td><input type="button" class="btn btn-primary" value="G Breakdown"
+                               popover="Exam: {{classes.gradeBreakdown.exams}}%{{'&nbsp;'}}
+                               Quizzes: {{classes.gradeBreakdown.quizzes}}%{{'&nbsp;'}}
+                               Homework: {{classes.gradeBreakdown.homework}}%{{'&nbsp;'}}
+                               Final: {{classes.gradeBreakdown.final}}%"
+                               popover-append-to-body="false"
+                               popover-trigger="mouseenter"></td>
+                    <td><input type="button" class="btn btn-primary" value="G Scale"
+                               popover="A: {{classes.gradeScale.aScale}}%{{'&nbsp;'}}
+                               B: {{classes.gradeScale.bScale}}%{{'&nbsp;'}}
+                               C: {{classes.gradeScale.cScale}}%{{'&nbsp;'}}
+                               D: {{classes.gradeScale.dScale}}"
+                               popover-append-to-body="false"
+                               popover-trigger="mouseenter"></td>
+                    <td><input type="button" class="btn btn-danger" value="X" data-ng-click="removeRow($index, classes.period)"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <!--Added Classes Table Ends-->
+    <div class="modal-footer">
+        <button type="submit" class="btn btn-primary" data-ng-disabled="userForm.$invalid">Submit</button>
+    </div>
+</form>
+<script type="text/ng-template" id="gradeBreakdown.html">
+    <div>Exam:{{classes.gradeBreakdown.exams}}%</div>
+    <div>Quizzes:{{classes.gradeBreakdown.quizzes}}%</div>
+    <div>Homework:{{classes.gradeBreakdown.homework}}%</div>
+    <div>Final:{{classes.gradeBreakdown.final}}%</div>
+</script>
+<script type="text/ng-template" id="gradeScale.html">
+    <div>A:{{classes.gradeScale.aScale}}%</div>
+    <div>B:{{classes.gradeScale.bScale}}%</div>
+    <div>C:{{classes.gradeScale.cScale}}%</div>
+    <div>D:{{classes.gradeScale.dScale}}%</div>
+</script>

@@ -14,6 +14,9 @@ angular.module('app.ui.form.directives', [])
             scope.range = attrs.sliderValue
             ele.change (event)->
                 value = this.defaultValue
+                $log.info(value);
+                $log.info(ele);
+                $log.info(ele.context.defaultValue);
                 scope.range = '['+value+']'
     }
 ])

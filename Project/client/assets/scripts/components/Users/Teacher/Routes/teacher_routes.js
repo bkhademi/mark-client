@@ -1,0 +1,11 @@
+/**
+ * Created by Brandon on 6/25/2016.
+ */
+//ROUTES
+ezApp.config(function ($routeProvider) {
+    $routeProvider
+        .when('/getting_started', {
+            templateUrl: 'views/teacher/getting_started.html',
+            controller: 'getStartedController'
+        })
+});
