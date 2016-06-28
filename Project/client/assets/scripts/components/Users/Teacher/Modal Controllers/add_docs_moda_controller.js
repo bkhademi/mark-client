@@ -55,13 +55,17 @@ ezApp.controller('addedDocsController', ['$scope', '$modalInstance', '$log',
             $log.log(errorMessage);
         };
         $scope.removedfile = function (file) {
-            var _ref;
-            return (_ref = file.previewElement) != null ? _ref.parentNode.removeChild(file.previewElement) : void 0;
+            // var _ref;
+            var i = arrayObjectIndexOf($scope.hwDocuments, file.name, "docName");
+            $scope.hwDocuments.splice(i,1);
+            // return (_ref = file.previewElement) != null ? _ref.parentNode.removeChild(file.previewElement) : void 0;
         };
         $scope.dropzoneConfig = {
             parallelUploads: 1,
             maxFileSize: 10,
-            url: api + '/files'
+            url: api + '/files',
+            acceptedFiles: 'application/pdf',
+            addRemoveLinks: true
         };
         //DropZone Functions Ends
 
