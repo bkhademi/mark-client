@@ -49,13 +49,6 @@
                 </div>
                 <br>
                 <br>
-                <div>
-                    <p  data-ng-show="breakdown =='default'" data-ng-class="(newClass.gradeBreakdown.exams + newClass.gradeBreakdown.quizzes + newClass.gradeBreakdown.homework + newClass.gradeBreakdown.final) == 100 ?'bg-success':''"
-                       class="text-center col-sm-offset-4 col-sm-4"
-                       style="font-size: 18px; margin-bottom:0px; border-radius: 7px ;">
-                        {{newClass.gradeBreakdown.exams + newClass.gradeBreakdown.quizzes
-                        + newClass.gradeBreakdown.homework + newClass.gradeBreakdown.final}}%</p>
-                </div>
                 <div data-ng-show="breakdown =='default'">
                     <br>
                     <div class="row">
@@ -86,8 +79,15 @@
                                    data-slider-selection="before">
                         </div>
                     </div>
-                    <br>
-                    <br>
+                    <br><br>
+                    <div>
+                        <p  data-ng-show="breakdown =='default'" data-ng-class="(newClass.gradeBreakdown.exams + newClass.gradeBreakdown.quizzes + newClass.gradeBreakdown.homework + newClass.gradeBreakdown.final) == 100 ?'bg-success':''"
+                            class="text-center col-sm-offset-4 col-sm-4"
+                            style="font-size: 18px; margin-bottom:0px; border-radius: 7px ;">
+                            {{newClass.gradeBreakdown.exams + newClass.gradeBreakdown.quizzes
+                            + newClass.gradeBreakdown.homework + newClass.gradeBreakdown.final}}%</p>
+                    </div>
+                    <br><br>
                     <div class="row">
                         <div class="col-sm-4 col-sm-offset-1">
                             <h4 class="text-center -bold">Homework</h4>

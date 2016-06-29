@@ -2,7 +2,7 @@
  * Created by Brandon on 6/25/2016.
  */
 //GetStarted Controller Starts
-ezApp.controller('getStartedController', ['$scope', '$modal', '$log', '$location', '$http', 'logger',
+ezApp.controller('getStartedController', ['$scope', '$modal', '$log', '$location', '$http', 'logger', 
     function ($scope, $modal, $log, $location, $http, logger) {
 
         $scope.notify = function (type) {
@@ -67,7 +67,6 @@ ezApp.controller('getStartedController', ['$scope', '$modal', '$log', '$location
         };
 
         $scope.finalSubmit = function () {
-            alert("caca");
             var promise = $http.post(api + "initial_info", wizardData);
             promise.then(function (response) {
                     $scope.notify('success');
