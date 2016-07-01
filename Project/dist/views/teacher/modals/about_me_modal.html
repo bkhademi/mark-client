@@ -17,13 +17,13 @@
         <br><br>
         <div class="text-center" data-ng-class="{ 'has-error' : userForm.school.$invalid && !userForm.school.$pristine }">
             <label for="school"> Enter the Name of the School You Teach at: </label>
-            <input class="form-control text-center" type="text" name="school" id="school" data-ng-model="aboutYouInfo.schoolName" required>
+            <input class="form-control text-center" type="text"  data-ng-minlength="3" id="school" data-ng-model="aboutYouInfo.schoolName" required>
             <p data-ng-show="userForm.school.$invalid && !userForm.school.$pristine" class="help-block">Your school is required.</p>
         </div>
         <br><br>
         <div class="text-center" data-ng-class="{ 'has-error' : userForm.almaName.$invalid && !userForm.almaName.$pristine }">
-            <label for="almaName"> Enter the Name of Your Alma Mater: </label>
-            <input class="form-control text-center" type="text" name="almaName" id="almaName" data-ng-model="aboutYouInfo.almaName" required>
+            <label for="almaName"> Enter the Name of Your University Alma Mater: </label>
+            <input class="form-control text-center" type="text" data-ng-minlength="3" id="almaName" data-ng-model="aboutYouInfo.almaName" required>
             <p data-ng-show="userForm.almaName.$invalid && !userForm.almaName.$pristine" class="help-block">Your Alma Mater is required.</p>
         </div>
 

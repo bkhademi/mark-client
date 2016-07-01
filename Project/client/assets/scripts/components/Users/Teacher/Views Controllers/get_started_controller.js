@@ -67,11 +67,12 @@ ezApp.controller('getStartedController', ['$scope', '$modal', '$log', '$location
         };
 
         $scope.finalSubmit = function () {
-            var promise = $http.post(api + "initial_info", wizardData);
+            var promise = $http.post(api + "/initial_info", wizardData);
             promise.then(function (response) {
                     $scope.notify('success');
                 }, function (response) {
                     $scope.notify('error');
+                    $location.path('/manage_docs');
                 }
             );
 

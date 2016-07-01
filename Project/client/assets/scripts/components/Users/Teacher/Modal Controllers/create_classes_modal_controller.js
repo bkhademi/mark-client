@@ -38,8 +38,9 @@ ezApp.controller('createClassesController', ['$scope', '$modalInstance', '$log',
 
         $log.info(classesInfo);
         $scope.firstTime = false;
-        //AddClass Functions Starts
-        $scope.addClass = function () {
+
+        //addClass Function Starts
+        var addClass = function () {
             var className = $scope.newClass.className;
             var classPeriod = $scope.newClass.period.value;
             debugger;
@@ -57,7 +58,20 @@ ezApp.controller('createClassesController', ['$scope', '$modalInstance', '$log',
             }
             $log.info(classesInfo);
         };
-        //AddClass Function Ends
+
+        //addClassFunction Ends
+
+        //checkValidity Functions Starts
+        $scope.checkValidity = function () {
+            if(($scope.newClass.gradeBreakdown.exams + $scope.newClass.gradeBreakdown.quizzes +
+                $scope.newClass.gradeBreakdown.homework + $scope.newClass.gradeBreakdown.final)===100){
+                addClass();
+            }
+            else{
+                alert('Ops, looks like your the sum of each of your grade components is not equal to 100!')
+            }
+        };
+        //checkValidity Function Ends
 
         //Remove Table Row Function
         $scope.removeRow = function(index,period){
@@ -67,6 +81,7 @@ ezApp.controller('createClassesController', ['$scope', '$modalInstance', '$log',
 
         //Validate on Submit
         $scope.submitForm = function (isValid) {
+
             if (isValid) {
                 $modalInstance.close(classesInfo);
             }

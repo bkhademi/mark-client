@@ -7,7 +7,7 @@
             <wizard on-finish="finalSubmit()" class="wizard-steps-container">
                 <wz-step class="text-right" title="Welcome">
                     <h2 class="text-center">Hello <span class="highlight">Mr. Arreola</span></h2>
-                    <br>
+                    <hr>
                     <div class="text-center" style="font-size:20px">
                         Welcome to EasyGrade. You are just few steps away from fully
                         experiencing the power of this application developed just for you. <br><br>
@@ -25,7 +25,7 @@
 
                 <wz-step class="text-right" title="Class Set-Up">
                     <h2 class="text-center">Class Set-Up</h2>
-                    <br>
+                    <hr>
                     <div class="text-center">
                         <div data-ng-hide="stepTwoCompleted">
                             <p style="font-size:20px">Before anything! Let's get some info on you. Then we will create
@@ -39,7 +39,7 @@
                                         data-ng-click="openAboutYou()" data-ng-bind-html="aboutYouHtml">
                                 </button>
                             </div>
-                            <hr>
+                            <br>
                             <div>
                                 <div data-ng-show="aboutYouSuccess">
                                     <p class="text-center" style="font-size:20px">
@@ -67,7 +67,7 @@
 
                 <wz-step class="text-right" title="Finish">
                     <h2 class="text-center">Upload Documents</h2>
-                    <br>
+                    <hr>
                     <div>
                         <div class="text-center">
                             <p style="font-size:20px">

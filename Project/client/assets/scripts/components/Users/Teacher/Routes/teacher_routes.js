@@ -8,4 +8,8 @@ ezApp.config(function ($routeProvider) {
             templateUrl: 'views/teacher/getting_started.html',
             controller: 'getStartedController'
         })
+        .when('/easy_box', {
+            templateUrl: 'views/teacher/easy_box.html',
+            controller: 'easyBoxController'
+        })
 });

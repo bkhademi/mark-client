@@ -1,84 +1,97 @@
 <div class="page">
-
     <section class="panel panel-default">
-        <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span> Getting Started!</strong></div>
-        <div class="panel-body">
-            <div data-ui-wizard-form on-finish="finalSubmit()">
-                <h1>Welcome</h1>
-                <div class="text-center" style="font-size:20px">
-                    Welcome to EasyGrade. You are just few steps away from fully
-                    experiencing the power of this application developed just for you. <br><br>
+        <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span> Getting Started!</strong>
+        </div>
+        <div class="panel-body" data-ng-controller="wizardFormCtrl">
 
-                    In the next steps, we will walk you through creating your courses and its rules, and finally setting
-                    your document manager for your assignments, tests and quizzes. This where EasyGrade makes grading
-                    simple,fun and takes annoying steps off your plate.<br><br>
+            <wizard on-finish="finalSubmit()" class="wizard-steps-container">
+                <wz-step class="text-right" title="Welcome">
+                    <h2 class="text-center">Hello <span class="highlight">Mr. Arreola</span></h2>
+                    <hr>
+                    <div class="text-center" style="font-size:20px">
+                        Welcome to EasyGrade. You are just few steps away from fully
+                        experiencing the power of this application developed just for you. <br><br>
 
-                    Hit the NEXT button to get started!
-                </div>
+                        In 3 easy steps, we will walk you through creating your courses with its rules, and
+                        setting
+                        your document manager for your assignments, tests and quizzes. This where EasyGrade makes
+                        grading
+                        simple,fun and takes annoying steps off your plate.<br><br>
 
-                <h1>Class Set-Up</h1>
-                <div class="text-center">
-                    <div data-ng-hide="stepTwoCompleted">
-                        <p style="font-size:20px">Before anything! Let's get some info on you. Then we will create your
-                            classes. <br>
-                            Hit the "About Me" button right below this sentence!</p>
-                        <!-- Button trigger modal -->
-                        <div>
-                            <button type="button" class="btn btn-lg"
-                                    data-ng-class="aboutYouSuccess?'btn-success':'btn-primary'"
-                                    data-ng-click="openAboutYou()" data-ng-bind-html="aboutYouHtml">
-                            </button>
-                        </div>
-                        <hr>
-                        <div>
-                            <div data-ng-show="aboutYouSuccess">
-                                <p class="text-center" style="font-size:20px">
-                                    We are now ready to create your classes.<br>
-                                    Hit the "Create Classes" button below this sentence.
-                                </p>
-                                <button type="button" class="btn btn-primary btn-lg"
-                                        data-ng-class="createClassSuccess?'btn-success':'btn-primary'"
-                                        data-ng-click="openCreateClass()"
-                                        data-ng-bind-html="createClassHtml">
+                        Hit the NEXT button to get started!
+                    </div>
+                    <buttton class="btn btn-primary" wz-next>Next</buttton>
+                </wz-step>
+
+                <wz-step class="text-right" title="Class Set-Up">
+                    <h2 class="text-center">Class Set-Up</h2>
+                    <hr>
+                    <div class="text-center">
+                        <div data-ng-hide="stepTwoCompleted">
+                            <p style="font-size:20px">Before anything! Let's get some info on you. Then we will create
+                                your
+                                classes. <br>
+                                Hit the "About Me" button right below this sentence!</p>
+                            <!-- Button trigger modal -->
+                            <div>
+                                <button type="button" class="btn btn-lg"
+                                        data-ng-class="aboutYouSuccess?'btn-success':'btn-primary'"
+                                        data-ng-click="openAboutYou()" data-ng-bind-html="aboutYouHtml">
                                 </button>
                             </div>
+                            <br>
+                            <div>
+                                <div data-ng-show="aboutYouSuccess">
+                                    <p class="text-center" style="font-size:20px">
+                                        We are now ready to create your classes.<br>
+                                        Hit the "Create Classes" button below this sentence.
+                                    </p>
+                                    <button type="button" class="btn btn-primary btn-lg"
+                                            data-ng-class="createClassSuccess?'btn-success':'btn-primary'"
+                                            data-ng-click="openCreateClass()"
+                                            data-ng-bind-html="createClassHtml">
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div data-ng-show="stepTwoCompleted">
+                            <br>
+                            <p class="text-center" style="font-size:20px">Great,we are almost done!<br><br>
+                                The next step is to add some assignments to get you familiar as to how you uploading
+                                your assignments will make grading the EasyGrade Way! <br><br>
+                                Hit the NEXT button on the left-lower corner to continue!</p>
                         </div>
                     </div>
-                    <div data-ng-show="stepTwoCompleted">
-                        <br>
-                        <p class="text-center" style="font-size:20px">Great,we are almost done!<br><br>
-                            The next step is to add some assignments to get you familiar as to how you uploading
-                            your assignments will make grading the EasyGrade Way! <br><br>
-                            Hit the NEXT button on the right-lower corner to continue!</p>
-                    </div>
-                </div>
+                    <buttton class="btn btn-primary" wz-next>Next</buttton>
+                </wz-step>
 
-                <h1>Upload Documents</h1>
-                <div>
-                    <div class="text-center">
-                        <p style="font-size:20px">
-                            Why uploading your documents? <br>
-                            All the documents you upload (tests, quizzes, homework) will be stamped with a unique
-                            header above them. <br>
-                            This stamp will ask students to bubble in their id, and it will provide you with a space
-                            to grade the document.<br>
-                            Once you upload them again, now graded with the stamp, EasyGrade will automatically update
-                            the
-                            score
-                            of each student, and send a push notification to the student to their phone!<br>
-                            How GREAT is that?<br><br>
-                            Hit the "GREAT" button below this sentence, if you agree and to continue.
-                        </p>
-                        <button type="button" class="btn btn-success btn-lg"
-                                data-ng-click="awesome()">GREAT
-                        </button>
+                <wz-step class="text-right" title="Finish">
+                    <h2 class="text-center">Upload Documents</h2>
+                    <hr>
+                    <div>
+                        <div class="text-center">
+                            <p style="font-size:20px">
+                                Why uploading your documents? <br>
+                                All the documents you upload (tests, quizzes, homework) will be stamped with a unique
+                                header above them. <br>
+                                This stamp will ask students to bubble in their id, and it will provide you with a space
+                                to grade the document.<br>
+                                Once you upload them again, now graded with the stamp, EasyGrade will automatically
+                                update
+                                the
+                                score
+                                of each student, and send a push notification to the student to their phone!<br>
+                                How GREAT is that?<br><br>
+                                Hit the "GREAT" button below this sentence, if you agree and to continue.
+                            </p>
+                            <button type="button" class="btn btn-success btn-lg"
+                                    data-ng-click="awesome()">GREAT
+                            </button>
+                        </div>
                     </div>
-                </div>
-            </div>
+                    <buttton type="submit" class="btn btn-primary" wz-next>Finish</buttton>
+                </wz-step>
+            </wizard>
         </div>
     </section>
 </div>
-
-<!--Good News, you won't have to add students! They will add themselves to your course,-->
-<!--after they download EasyGrade App in their phone!-->
-<!--data-ng-show="aboutYouSuccess"-->
