@@ -317,6 +317,7 @@ module.exports = (grunt) ->
         uglify:
             options:
                 mangle: false
+                beautify:true
                 compress:
                     drop_console: true
             dist:

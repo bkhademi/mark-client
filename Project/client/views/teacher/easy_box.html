@@ -93,61 +93,12 @@
                 <div class="panel-heading"><strong><span class="fa fa-pencil-square-o"></span> Grade Documents
                 </strong></div>
                 <div class="panel-body">
-                    <div class=" text-center">
-                        <label class="ui-radio"><input name="docType" type="radio" data-ng-model="docType"
-                                                       value="Homework" >
-                            <span>Homework</span></label>
-                        <label class="ui-radio"><input name="docType" type="radio" data-ng-model="docType"
-                                                       value="Test">
-                            <span>Test</span></label>
-                        <label class="ui-radio"><input name="docType" type="radio" data-ng-model="docType"
-                                                       value="Quiz">
-                            <span>Quiz</span></label>
-                    </div>
-                    <br>
-                    <div data-ng-show="docType == 'Homework'">
+                    <div>
                         <div class="text-center">
-                            <p class="text-center highlightHomework">Homework</p>
+                            <p  style="display: inline" class="text-center highlight">Drop Your Graded Docs Here!</p>
                         </div>
-                        <br>
                         <section class="panel-box">
-                            <div style="border-style: dashed; border-color: #333" class="panel-item">
-                                <div class="dropzone"
-                                     method="post"
-                                     enctype="multipart/form-data"
-                                     ng-dropzone
-                                     dropzone="dropzone"
-                                     dropzone-config="dropzoneConfig"
-                                     event-handlers="{ 'addedfile': dzAddedFile, 'error': dzError, 'removedfile': dz.removedfile }">
-                                </div>
-                            </div>
-                        </section>
-                    </div>
-                    <div data-ng-show="docType == 'Test'">
-                        <div class="text-center">
-                            <p class="text-center highlightTest">Test</p>
-                        </div>
-                        <br>
-                        <section class="panel-box">
-                            <div style="border-style: dashed; border-color: #ff7857" class="panel-item">
-                                <div class="dropzone"
-                                     method="post"
-                                     enctype="multipart/form-data"
-                                     ng-dropzone
-                                     dropzone="dropzone"
-                                     dropzone-config="dropzoneConfig"
-                                     event-handlers="{ 'addedfile': dzAddedFile, 'error': dzError, 'removedfile': dz.removedfile }">
-                                </div>
-                            </div>
-                        </section>
-                    </div>
-                    <div data-ng-show="docType == 'Quiz'">
-                        <div class="text-center">
-                            <p class="text-center highlightQuizzes">Quizzes</p>
-                        </div>
-                        <br>
-                        <section class="panel-box">
-                            <div style="border-style: dashed; border-color: #fdd761" class="panel-item">
+                            <div class="panel-item">
                                 <div class="dropzone"
                                      method="post"
                                      enctype="multipart/form-data"
@@ -177,6 +128,9 @@
                                            class="form-control"
                                            data-ng-model="searchDocs">
                                 </form>
+                            </div>
+                            <div class="col-sm-5">
+                                <input data-ng-click="showAllDocs()" type="button" class="btn btn-primary" value="Show All">
                             </div>
                         </div>
                     </div>
@@ -246,8 +200,8 @@
 </div>
 <style>
     .dropzone {
-        min-height: 100px;
-        min-width: 150px;
+        min-height: 150px;
+        min-width: 200px;
     }
 
     .highlightHomework {

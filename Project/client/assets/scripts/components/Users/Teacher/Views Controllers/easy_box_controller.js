@@ -24,6 +24,10 @@ ezApp.controller('easyBoxController', ['$scope', '$modal', '$log', '$location', 
             addRemoveLinks: true
         };
         //DropZone Functions Ends
+        $scope.showAllDocs = function(){
+
+        };
+
         $scope.fileTypes = ['Homework','Test','Quiz'];
         $scope.documents = [
             {

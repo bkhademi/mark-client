@@ -18,65 +18,93 @@ ezApp.controller('createClassesController', ['$scope', '$modalInstance', '$log',
             {value: 10}
         ];
         //Data From Form
-        function Adding(className, classPeriod, gradeBrakedown, gradeScale) {
+        function ClassInstance(className, classPeriod, gradeBreakDown, gradeScale) {
             this.className = className;
             this.classPeriod = classPeriod;
             this.gradeBreakdown = gradeBrakedown;
-            this.gradeScale = gradeScale
+            this.gradeScale = gradeScale;
 
         }
-        var x = 1;
+
+        //scope Arrays, Objects and Variables Starts
         $scope.newClass = {};
-        var classesInfo = [];
-
-        function rangeToInt() {
-            var x = $scope.newClass.gradeBreakdown.final[0] || 0;
-            parseInt(x);
-            $scope.newClass.gradeBreakdown.final = x;
-            $log.info($scope.newClass.gradeBreakdown.final);
-        }
-
-        $log.info(classesInfo);
+        $scope.potentialComponents = [];
+        $scope.defaultComponents = ['Test','Quiz','Homework','Final'];
         $scope.firstTime = false;
+        //scope Arrays Ends
+
+        //Data to be sent to DataBase Starts
+        var classesInfo = [];
+        //Data to be sent to DataBase Ends
+
+        
+
+        //addComponent function
+        $scope.addComponent = function (input){
+            debugger;
+            $scope.potentialComponents = $scope.potentialComponents || [];
+            $scope.potentialComponents.push(input.componentName);
+            input.componentName = "";
+        };
+
+        //resetBreakdown Function
+        $scope.resetBreakdown = function () {
+            $scope.newClass.gradeBreakdown = {};
+            $scope.defaultComponents = ['Test','Quiz','Homework','Final'];
+        };
+
+        //component Sum function with Watch
+        $scope.$watch('newClass.gradeBreakdown', function (newVal, OldVal) {
+            $scope.componentsSum = 0;
+            angular.forEach(newVal,function(component){
+                if(component) {
+                    $scope.componentsSum += component
+                }
+            });
+        },true);
+
 
         //addClass Function Starts
         var addClass = function () {
             var className = $scope.newClass.className;
             var classPeriod = $scope.newClass.period.value;
-            debugger;
             var gradeBreakDown = $scope.newClass.gradeBreakdown;
             var gradeScale = $scope.newClass.gradeScale;
-            var addClass1 = new Adding(className, classPeriod, gradeBreakDown, gradeScale);
+            var addClass1 = new ClassInstance(className, classPeriod, gradeBreakDown, gradeScale);
             classesInfo.push(addClass1);
             $scope.newClass.className = "";
             $scope.newClass.period = "";
-
             $scope.addedClasses = classesInfo;
-            if($scope.firstTime === false) {
-                alert('scroll up to add a new class');
+            if ($scope.firstTime === false) {
+                alert('You added a class as you can see in the table! Scroll to ' +
+                    'the top again to create a new class and don\'t forget to hit the "Add Class" button' );
                 $scope.firstTime = true;
             }
-            $log.info(classesInfo);
         };
 
         //addClassFunction Ends
 
         //checkValidity Functions Starts
         $scope.checkValidity = function () {
-            if(($scope.newClass.gradeBreakdown.exams + $scope.newClass.gradeBreakdown.quizzes +
-                $scope.newClass.gradeBreakdown.homework + $scope.newClass.gradeBreakdown.final)===100){
+            if ($scope.componentsSum === 100) {
                 addClass();
             }
-            else{
+            else {
                 alert('Ops, looks like your the sum of each of your grade components is not equal to 100!')
             }
         };
         //checkValidity Function Ends
 
-        //Remove Table Row Function
-        $scope.removeRow = function(index,period){
-            $scope.addedClasses.splice(index,1);
-            $log.info($scope.addedClasses)
+        //Remove Class Table Row Function
+        $scope.removeRow = function (index, period) {
+            $scope.addedClasses.splice(index, 1);
+            classesInfo = $scope.addedClasses;
+            $log.info(classesInfo);
+        };
+
+        //
+        $scope.removeComponent = function ($index, name) {
+            $scope.potentialComponents.splice($index, 1);
         };
 
         //Validate on Submit

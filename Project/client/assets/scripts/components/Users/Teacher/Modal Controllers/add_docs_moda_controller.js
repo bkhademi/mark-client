@@ -46,7 +46,6 @@ ezApp.controller('addedDocsController', ['$scope', '$modalInstance', '$log',
             newHWDoc.points = 'Not Yet Added';
             newHWDoc.type = 'Homework';
             $scope.hwDocuments.push(newHWDoc);
-            $log.info($scope.hwDocuments);
             $scope.firstTime = true;
             $scope.$apply();
         };

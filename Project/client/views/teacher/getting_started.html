@@ -24,7 +24,7 @@
                 </wz-step>
 
                 <wz-step class="text-right" title="Class Set-Up">
-                    <h2 class="text-center">Class Set-Up</h2>
+                    <h2 class="text-center"><span class="highlight">Class Set-Up</span></h2>
                     <hr>
                     <div class="text-center">
                         <div data-ng-hide="stepTwoCompleted">
@@ -66,10 +66,11 @@
                 </wz-step>
 
                 <wz-step class="text-right" title="Finish">
-                    <h2 class="text-center">Upload Documents</h2>
+                    <h2 data-ng-hide="readyToFinish" class="text-center"><span class="highlight">Upload Documents</span></h2>
+                    <h2 class="text-center" data-ng-show="readyToFinish"><span class="highlight">We are Done!</span></h2>
                     <hr>
                     <div>
-                        <div class="text-center">
+                        <div data-ng-hide="readyToFinish" class="text-center">
                             <p style="font-size:20px">
                                 Why uploading your documents? <br>
                                 All the documents you upload (tests, quizzes, homework) will be stamped with a unique
@@ -87,6 +88,14 @@
                             <button type="button" class="btn btn-success btn-lg"
                                     data-ng-click="awesome()">GREAT
                             </button>
+                        </div>
+                        <div class="text-center" data-ng-show="readyToFinish">
+                            <p style="font-size:20px">
+                                Simple Right? <br><br>
+                                Click the FINISH button in the right hand corner!
+                                This will redirect you to your EasyBox page where you can add more documents!<br><br>
+                                On behalf of the Newstein Systems Team, Welcome to EasyGrade!
+                            </p>
                         </div>
                     </div>
                     <buttton type="submit" class="btn btn-primary" wz-next>Finish</buttton>
