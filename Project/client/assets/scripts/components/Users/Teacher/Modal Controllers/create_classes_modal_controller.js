@@ -18,12 +18,12 @@ ezApp.controller('createClassesController', ['$scope', '$modalInstance', '$log',
             {value: 10}
         ];
         //Data From Form
-        function ClassInstance(className, classPeriod, gradeBreakDown, gradeScale) {
+        function ClassInstance(className, classPeriod, gradeBreakdown, gradeScale) {
             this.className = className;
             this.classPeriod = classPeriod;
-            this.gradeBreakdown = gradeBrakedown;
+            this.gradeBreakdown = gradeBreakdown;
             this.gradeScale = gradeScale;
-
+  
         }
 
         //scope Arrays, Objects and Variables Starts
@@ -68,9 +68,9 @@ ezApp.controller('createClassesController', ['$scope', '$modalInstance', '$log',
         var addClass = function () {
             var className = $scope.newClass.className;
             var classPeriod = $scope.newClass.period.value;
-            var gradeBreakDown = $scope.newClass.gradeBreakdown;
+            var gradeBreakdown = $scope.newClass.gradeBreakdown;
             var gradeScale = $scope.newClass.gradeScale;
-            var addClass1 = new ClassInstance(className, classPeriod, gradeBreakDown, gradeScale);
+            var addClass1 = new ClassInstance(className, classPeriod, gradeBreakdown, gradeScale);
             classesInfo.push(addClass1);
             $scope.newClass.className = "";
             $scope.newClass.period = "";
