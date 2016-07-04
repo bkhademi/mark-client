@@ -23,7 +23,7 @@ ezApp.controller('createClassesController', ['$scope', '$modalInstance', '$log',
             this.classPeriod = classPeriod;
             this.gradeBreakdown = gradeBreakdown;
             this.gradeScale = gradeScale;
-
+  
         }
 
         //scope Arrays, Objects and Variables Starts

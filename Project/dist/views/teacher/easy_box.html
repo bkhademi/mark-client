@@ -93,12 +93,61 @@
                 <div class="panel-heading"><strong><span class="fa fa-pencil-square-o"></span> Grade Documents
                 </strong></div>
                 <div class="panel-body">
-                    <div>
+                    <div class=" text-center">
+                        <label class="ui-radio"><input name="docType" type="radio" data-ng-model="docType"
+                                                       value="Homework" >
+                            <span>Homework</span></label>
+                        <label class="ui-radio"><input name="docType" type="radio" data-ng-model="docType"
+                                                       value="Test">
+                            <span>Test</span></label>
+                        <label class="ui-radio"><input name="docType" type="radio" data-ng-model="docType"
+                                                       value="Quiz">
+                            <span>Quiz</span></label>
+                    </div>
+                    <br>
+                    <div data-ng-show="docType == 'Homework'">
                         <div class="text-center">
-                            <p  style="display: inline" class="text-center highlight">Drop Your Graded Docs Here!</p>
+                            <p class="text-center highlightHomework">Homework</p>
                         </div>
+                        <br>
                         <section class="panel-box">
-                            <div class="panel-item">
+                            <div style="border-style: dashed; border-color: #333" class="panel-item">
+                                <div class="dropzone"
+                                     method="post"
+                                     enctype="multipart/form-data"
+                                     ng-dropzone
+                                     dropzone="dropzone"
+                                     dropzone-config="dropzoneConfig"
+                                     event-handlers="{ 'addedfile': dzAddedFile, 'error': dzError, 'removedfile': dz.removedfile }">
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                    <div data-ng-show="docType == 'Test'">
+                        <div class="text-center">
+                            <p class="text-center highlightTest">Test</p>
+                        </div>
+                        <br>
+                        <section class="panel-box">
+                            <div style="border-style: dashed; border-color: #ff7857" class="panel-item">
+                                <div class="dropzone"
+                                     method="post"
+                                     enctype="multipart/form-data"
+                                     ng-dropzone
+                                     dropzone="dropzone"
+                                     dropzone-config="dropzoneConfig"
+                                     event-handlers="{ 'addedfile': dzAddedFile, 'error': dzError, 'removedfile': dz.removedfile }">
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                    <div data-ng-show="docType == 'Quiz'">
+                        <div class="text-center">
+                            <p class="text-center highlightQuizzes">Quizzes</p>
+                        </div>
+                        <br>
+                        <section class="panel-box">
+                            <div style="border-style: dashed; border-color: #fdd761" class="panel-item">
                                 <div class="dropzone"
                                      method="post"
                                      enctype="multipart/form-data"
@@ -115,7 +164,6 @@
         </div>
         <div class="col-sm-6">
             <div>
-
                 <section class="panel panel-default table-dynamic">
                     <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span>  My Documents</strong>
                     </div>
@@ -129,9 +177,6 @@
                                            class="form-control"
                                            data-ng-model="searchDocs">
                                 </form>
-                            </div>
-                            <div class="col-sm-5">
-                                <input data-ng-click="showAllDocs()" type="button" class="btn btn-primary" value="Show All">
                             </div>
                         </div>
                     </div>
@@ -163,21 +208,21 @@
                                 <tr data-ng-repeat="docs in documents | filter: searchDocs | limitTo : 5 | orderBy: sortBy:reverse">
                                     <td>
                                        <span editable-text="docs.name" e-name="name" e-form="rowform">
-                                           {{docs.file_name}}</span>
+                                           {{docs.name}}</span>
                                     </td>
                                     <td>
                                         <span editable-select="docs.type" e-name="type" e-form="rowform"  e-ng-options="doc as doc for doc in fileTypes"
                                               data-ng-class="docs.type == 'Test'?'highlightTest' : docs.type =='Quiz'?'highlightQuizzes' : 'highlightHomework'">
-                                            {{docs.assignment_categories.name}}</span>
+                                            {{docs.type}}</span>
                                     </td>
                                     <td>
                                         <span editable-text="docs.points" e-name="points" e-form="rowform">
                                             {{docs.points}}</span>
                                     </td>
-                                    <td><a class="btn btn-primary" href="{{ api + '/files/'+ docs.file_name+'?stamped=true' }}" target="__blank" ><span class="fa fa-print"></span></a></td>
+                                    <td><button class="btn btn-primary"><span class="fa fa-print"></span></button></td>
                                     <td style="white-space: nowrap">
                                         <form editable-form name="rowform" onbeforesave="saveUser($data, user.id)" ng-show="rowform.$visible" class="form-buttons form-inline" shown="inserted == docs">
-                                            <button type="submit"  ng-disabled="rowform.$waiting" class="btn btn-primary">
+                                            <button type="submit" ng-disabled="rowform.$waiting" class="btn btn-primary">
                                                <span class="fa fa-check"></span>
                                             </button>
                                             <button type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()" class="btn btn-danger">
@@ -201,8 +246,8 @@
 </div>
 <style>
     .dropzone {
-        min-height: 150px;
-        min-width: 200px;
+        min-height: 100px;
+        min-width: 150px;
     }
 
     .highlightHomework {
