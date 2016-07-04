@@ -4,6 +4,8 @@ var ezApp = angular.module('ezgrade', ['ngRoute', 'ngSanitize', 'ngDropzone', 'l
     //extend template
     'app',
     // ezgrade specific dependencies
-    'satellizer'
+    'satellizer',
+    'ngResource'
+    
 ]);
 

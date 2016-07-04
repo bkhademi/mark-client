@@ -1,8 +1,12 @@
 /**
  * Created by Brandon on 6/28/2016.
  */
-ezApp.controller('easyBoxController', ['$scope', '$modal', '$log', '$location', '$http', '$filter', 'logger',
-    function ($scope, $modal, $log, $location, $http, $filter, logger) {
+ezApp.controller('easyBoxController', ['$scope', '$modal', '$log', '$location', '$filter', 'logger','AssignmentService',
+    function ($scope, $modal, $log, $location, $filter, logger, assignment) {
+    	
+    	$scope.documents =  assignment.query();
+    	$scope.api = api;
+    	
         //DropZone
         $scope.dzAddedFile = function (file) {
             $log.info(file);
@@ -29,27 +33,4 @@ ezApp.controller('easyBoxController', ['$scope', '$modal', '$log', '$location', 
         };
 
         $scope.fileTypes = ['Homework','Test','Quiz'];
-        $scope.documents = [
-            {
-                name: 'Nijiya Market',
-                type: 'Test',
-                points: 292
-            }, {
-                name: 'Eat On Monday Truck',
-                type: 'Homework',
-                points: 119
-            }, {
-                name: 'Tea Era',
-                type: 'Quiz',
-                points: 874
-            }, {
-                name: 'Rogers Deli',
-                type: 'Quiz',
-                points: 347
-            }, {
-                name: 'MoBowl',
-                type: 'Homework',
-                points: 24
-            }
-        ];
     }]);
