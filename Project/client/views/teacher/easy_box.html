@@ -1,10 +1,92 @@
 <div class="page">
-    <div class=" text-center row">
-        <h4>Hey there <span class="highlight">Mr. Arreola</span> what would you like to do Today.</h4>
-    </div>
-    <hr>
     <div class="row">
-        <div class="col-sm-6">
+        <div class="col-sm-12">
+            <div>
+                <section class="panel panel-default table-dynamic">
+                    <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span>  My Documents</strong>
+                    </div>
+                    <div>
+                        <br>
+                        <div class="row">
+                            <div class="col-sm-6 col-sm-offset-1">
+                                <form>
+                                    <input type="text"
+                                           placeholder="Search..."
+                                           class="form-control"
+                                           data-ng-model="searchDocs">
+                                </form>
+                            </div>
+                            <div class="col-sm-5">
+                                <input data-ng-click="showAllDocs()" type="button" class="btn btn-primary" value="Show All">
+                            </div>
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-sm-10 col-sm-offset-1">
+                            <table style="width: 100%" class="table  table-condensed table-bordered table-striped table-responsive table-hover">
+                                <thead>
+                                <tr>
+                                    <th style="width:35%">Document Name
+                                        <span class="fa fa-angle-up" data-ng-click="sortBy='name'; reverse =!reverse"></span>
+                                    </th>
+                                    <th style="width:20%">
+                                        Type
+                                        <span class="fa fa-angle-up" data-ng-click="sortBy='type'; reverse =!reverse"></span>
+                                    </th>
+                                    <th style="width:20%">
+                                        Points
+                                        <span class="fa fa-angle-up" data-ng-click="sortBy='points'; reverse =!reverse"></span>
+                                    </th>
+                                    <th style="width:10%">
+                                        Print
+                                    </th>
+                                    <th style="width:15%">
+                                        Edit
+                                    </th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr data-ng-repeat="docs in documents | filter: searchDocs | limitTo : 5 | orderBy: sortBy:reverse">
+                                    <td>
+                                       <span editable-text="docs.file_name" e-name="name" e-form="rowform">
+                                           {{docs.file_name}}</span>
+                                    </td>
+                                    <td>
+                                        <span editable-select="docs.assignment_categories.name" e-name="type" e-form="rowform"  e-ng-options="doc as doc for doc in fileTypes"
+                                              data-ng-class="docs.type == 'Test'?'highlightTest' : docs.type =='Quiz'?'highlightQuizzes' : 'highlightHomework'">
+                                            {{docs.assignment_categories.name}}</span>
+                                    </td>
+                                    <td>
+                                        <span editable-text="docs.points" e-name="points" e-form="rowform">
+                                            {{docs.points}}</span>
+                                    </td>
+                                    <td><a class="btn btn-primary" href="{{ api + '/files/'+ docs.file_name+'?stamped=true' }}" target="__blank" ><span class="fa fa-print"></span></a></td>
+                                    <td style="white-space: nowrap">
+                                        <form editable-form name="rowform" onbeforesave="saveUser($data, user.id)" ng-show="rowform.$visible" class="form-buttons form-inline" shown="inserted == docs">
+                                            <button type="submit"  ng-disabled="rowform.$waiting" class="btn btn-primary">
+                                                <span class="fa fa-check"></span>
+                                            </button>
+                                            <button type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()" class="btn btn-danger">
+                                                <span class="fa fa-times"></span>
+                                            </button>
+                                        </form>
+                                        <div class="buttons" data-ng-show="!rowform.$visible">
+                                            <button class="btn btn-primary" data-ng-click="rowform.$show()" ng-hide="rowform.$visible"><span class="fa fa-pencil"></span></button>
+                                            <button class="btn btn-danger" data-ng-click="removeUser($index)"><span class="fa fa-times-circle"></span></button>
+                                        </div>
+                                    </td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-4">
             <div class="panel panel-default">
                 <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span> Choose an
                     Action</strong></div>
@@ -17,6 +99,8 @@
                         <span>Grade Documents</span></label>
                 </div>
             </div>
+        </div>
+        <div class="col-sm-8">
             <div data-ng-show="action == 'Add'" class="panel panel-default">
                 <div class="panel-heading"><strong><span class="fa fa-folder-open"></span> Add Documents
                 </strong></div>
@@ -32,12 +116,7 @@
                                                        value="Quiz">
                             <span>Quiz</span></label>
                     </div>
-                    <br>
                     <div data-ng-show="selectType == 'Homework'">
-                        <div class="text-center">
-                            <p class="text-center highlightHomework">Homework</p>
-                        </div>
-                        <br>
                         <section class="panel-box">
                             <div style="border-style: dashed; border-color: #333" class="panel-item">
                                 <div class="dropzone"
@@ -52,10 +131,6 @@
                         </section>
                     </div>
                     <div data-ng-show="selectType == 'Test'">
-                        <div class="text-center">
-                            <p class="text-center highlightTest">Test</p>
-                        </div>
-                        <br>
                         <section class="panel-box">
                             <div style="border-style: dashed; border-color: #ff7857" class="panel-item">
                                 <div class="dropzone"
@@ -70,10 +145,6 @@
                         </section>
                     </div>
                     <div data-ng-show="selectType == 'Quiz'">
-                        <div class="text-center">
-                            <p class="text-center highlightQuizzes">Quizzes</p>
-                        </div>
-                        <br>
                         <section class="panel-box">
                             <div style="border-style: dashed; border-color: #fdd761" class="panel-item">
                                 <div class="dropzone"
@@ -97,8 +168,9 @@
                         <div class="text-center">
                             <p  style="display: inline" class="text-center highlight">Drop Your Graded Docs Here!</p>
                         </div>
+                        <br>
                         <section class="panel-box">
-                            <div class="panel-item">
+                            <div  style="border-style: dashed; border-color: #674E9E" class="panel-item">
                                 <div class="dropzone"
                                      method="post"
                                      enctype="multipart/form-data"
@@ -113,96 +185,12 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-6">
-            <div>
-
-                <section class="panel panel-default table-dynamic">
-                    <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span>  My Documents</strong>
-                    </div>
-                    <div class="table-filters">
-                        <br>
-                        <div class="row">
-                            <div class="col-sm-6 col-sm-offset-1">
-                                <form>
-                                    <input style="margin-left: -7px" type="text"
-                                           placeholder="Search..."
-                                           class="form-control"
-                                           data-ng-model="searchDocs">
-                                </form>
-                            </div>
-                            <div class="col-sm-5">
-                                <input data-ng-click="showAllDocs()" type="button" class="btn btn-primary" value="Show All">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-sm-10 col-sm-offset-1">
-                            <table style="width: 100%" class="table table-bordered table-striped table-responsive table-condensed table-hover">
-                                <thead>
-                                <tr>
-                                    <th style="width:35%">Document Name
-                                            <span class="fa fa-angle-up" data-ng-click="sortBy='name'; reverse =!reverse"></span>
-                                    </th>
-                                    <th style="width:20%">
-                                            Type
-                                            <span class="fa fa-angle-up" data-ng-click="sortBy='type'; reverse =!reverse"></span>
-                                    </th>
-                                    <th style="width:20%">
-                                            Points
-                                            <span class="fa fa-angle-up" data-ng-click="sortBy='points'; reverse =!reverse"></span>
-                                    </th>
-                                    <th style="width:10%">
-                                            Print
-                                    </th>
-                                    <th style="width:15%">
-                                            Edit
-                                    </th>
-                                </tr>
-                                </thead>
-                                <tbody>
-                                <tr data-ng-repeat="docs in documents | filter: searchDocs | limitTo : 5 | orderBy: sortBy:reverse">
-                                    <td>
-                                       <span editable-text="docs.name" e-name="name" e-form="rowform">
-                                           {{docs.file_name}}</span>
-                                    </td>
-                                    <td>
-                                        <span editable-select="docs.type" e-name="type" e-form="rowform"  e-ng-options="doc as doc for doc in fileTypes"
-                                              data-ng-class="docs.type == 'Test'?'highlightTest' : docs.type =='Quiz'?'highlightQuizzes' : 'highlightHomework'">
-                                            {{docs.assignment_categories.name}}</span>
-                                    </td>
-                                    <td>
-                                        <span editable-text="docs.points" e-name="points" e-form="rowform">
-                                            {{docs.points}}</span>
-                                    </td>
-                                    <td><a class="btn btn-primary" href="{{ api + '/files/'+ docs.file_name+'?stamped=true' }}" target="__blank" ><span class="fa fa-print"></span></a></td>
-                                    <td style="white-space: nowrap">
-                                        <form editable-form name="rowform" onbeforesave="saveUser($data, user.id)" ng-show="rowform.$visible" class="form-buttons form-inline" shown="inserted == docs">
-                                            <button type="submit"  ng-disabled="rowform.$waiting" class="btn btn-primary">
-                                               <span class="fa fa-check"></span>
-                                            </button>
-                                            <button type="button" ng-disabled="rowform.$waiting" ng-click="rowform.$cancel()" class="btn btn-danger">
-                                                <span class="fa fa-times"></span>
-                                            </button>
-                                        </form>
-                                        <div class="buttons" data-ng-show="!rowform.$visible">
-                                            <button class="btn btn-primary" data-ng-click="rowform.$show()" ng-hide="rowform.$visible"><span class="fa fa-pencil"></span></button>
-                                            <button class="btn btn-danger" data-ng-click="removeUser($index)"><span class="fa fa-times-circle"></span></button>
-                                        </div>
-                                    </td>
-                                </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </section>
-            </div>
-        </div>
     </div>
 </div>
 <style>
     .dropzone {
-        min-height: 150px;
-        min-width: 200px;
+        min-height: 127px;
+        min-width: 175px;
     }
 
     .highlightHomework {
@@ -236,5 +224,8 @@
         border-radius: 3px;
         padding: 2px 5px;
         margin-bottom: 0px;
+    }
+    .panel-box .panel-item {
+        padding: 5px;
     }
 </style>

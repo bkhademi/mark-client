@@ -1,5 +1,5 @@
 <div class="modal-header">
-    <h3 class="text-center"> Let's focus on uploading HOMEWORK documents for now!</h3>
+    <h3 class="text-center"> Let's focus on uploading HOMEWORK type documents for now!</h3>
 </div>
 <form name="userForm" data-ng-submit="submitForm(userForm.$valid)" novalidate>
     <div class="modal-body">
@@ -20,7 +20,7 @@
                      ng-dropzone
                      dropzone="dropzone"
                      dropzone-config="dropzoneConfig"
-                     event-handlers="{ 'addedfile': dzAddedFile, 'error': dzError, 'removedfile': dz.removedfile }">
+                     event-handlers="{ 'addedfile': dzAddedFile, 'error': dzError, 'removedFile': dz.removedFile }">
                 </div>
                 <style>
                     .dropzone {
@@ -29,15 +29,91 @@
                 </style>
             </div>
         </div>
-        <br><br><br>
+        <br>
         <!--Drop Zone Ends-->
+
+        <!--Select Stamp Starts-->
+        <div>
+            <!--Stamp Previews Starts-->
+            <div class="row ">
+                <div class="text-center col-sm-10 col-sm-offset-1">
+                    <p style="font-size:20px">
+                        Great! You added some files! <br>
+                        Now its time to assign them a unique stamp. This is what makes your life much easier.
+                        Hover each stamp BUTTON to preview each.
+                    </p>
+                    <br>
+                    <img-preview-popover preview-object="aToBStamp"></img-preview-popover>
+                    <br>
+                    <img-preview-popover preview-object="creditNoStamp"></img-preview-popover>
+                    <br>
+                    <img-preview-popover preview-object="numericalStamp"></img-preview-popover>
+                    <br>
+                    <p style="font-size:20px">
+                        One you have decided, you get two simple options:<br>
+                        You can apply the same stamp to all the documents at once.
+                        Or you can apply the stamp to specific documents of your choice!<br>
+                        Pick your style!
+                    </p>
+                </div>
+                <!--Stamp Previews Ends-->
+            </div>
+            <br>
+            <!--Stamp Adding Options-->
+            <div class="row">
+                <div class="text-center col-sm-10 col-sm-offset-1">
+                    <label class="ui-radio"><input name="stampAssign" type="radio" data-ng-model="stampMethod"
+                                                   value="ApplyToAllStamp" checked>
+                        <span>Apply to All</span></label>
+                    <label class="ui-radio"><input name="stampAssign" type="radio" data-ng-model="stampMethod"
+                                                   value="ApplyToSelectedStamp">
+                        <span>Apply to Selected</span></label>
+                </div>
+            </div>
+            <!--Stamp Adding Options Ends-->
+            <br>
+            <!--Apply to All Stamping-->
+            <div class="row" data-ng-show="stampMethod == 'ApplyToAllStamp'">
+                <div class="col-sm-10 col-sm-offset-1">
+                    <div class="col-sm-3 col-sm-offset-3">
+                        <select class="form-control" name="period"  data-ng-options="stamp as stamp for
+            stamp in stampOptions" data-ng-model="stampForAll">
+                        </select>
+                    </div>
+                    <div class="col-sm-3">
+                        <input type="button" class="btn btn-primary" value="Apply to All" data-ng-click="applyToAllStamp()">
+                    </div>
+                </div>
+            </div>
+            <!--Apply to All Stamping Ends-->
+
+            <!--Apply to Selected Stamping-->
+            <div class="row" data-ng-show="stampMethod == 'ApplyToSelectedStamp'">
+                <div class="col-sm-3 col-sm-offset-1">
+                    <select class="form-control" name="period"  data-ng-options="stamp as stamp for
+            stamp in stampOptions" data-ng-model="stampForSelected">
+                    </select>
+                </div>
+                <div class="col-sm-5">
+                    <select multiple chosen class="form-control" placeholder-text-multiple="'Select Documents'"
+                            data-ng-model="selectedDocsForStamp"
+                            data-ng-options="documentName as documentName.docName for documentName in hwDocuments"
+                            id="selectDoc1"></select>
+                </div>
+                <div class="col-sm-1">
+                    <input type="button" class="btn btn-primary" value="Apply to Selected" data-ng-click="applyToSelectedStamp()">
+                </div>
+            </div>
+            <!--Apply to Selected Stamping-->
+        </div>
+        <br><br>
+        <!--Select Stamp Ends-->
 
         <!--Add Points Begins-->
         <div data-ng-hide="!firstTime">
             <div class="row ">
                 <div class="text-center col-sm-10 col-sm-offset-1">
                     <p style="font-size:20px">
-                        Great! You added some files! <br>
                         Now its time to assign them points. You get two simple options: <br>
                         You can apply the same amount of points to all the documents at once. <br>
                         Or you can, assign points to specific assignments of your choice!<br>
@@ -77,7 +153,7 @@
                     <select multiple chosen class="form-control" placeholder-text-multiple="'Select Documents'"
                             data-ng-model="selectedDocs"
                             data-ng-options="documentName as documentName.docName for documentName in hwDocuments"
-                            id="selectDoc"></select>
+                            ></select>
                 </div>
                 <div class="col-sm-1">
                     <input type="button" class="btn btn-primary" value="Apply to Selected"
@@ -92,20 +168,22 @@
                         <tr>
                             <th>Assignment Name</th>
                             <th>Points</th>
+                            <th>Stamp Type</th>
                         </tr>
                         </thead>
                         <tbody>
                         <tr data-ng-repeat="hwDoc in hwDocuments track by $index">
                             <td>{{hwDoc.docName}}</td>
                             <td>{{hwDoc.points}}</td>
+                            <td>{{hwDoc.stampType}}</td>
                         </tr>
                         </tbody>
                     </table>
                 </div>
             </div>
         </div>
+        <!--Add Points Ends-->
     </div>
-    <!--Add Points Ends-->
     <div class="modal-footer">
         <button type="submit" class="btn btn-primary" data-ng-disabled="userForm.$invalid">Submit</button>
     </div>

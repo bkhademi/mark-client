@@ -334,6 +334,7 @@ module.exports = (grunt) ->
                     "<%= yeoman.app %>/scripts/ezgrade.min.js":[
                         "<%= yeoman.app %>/assets/scripts/ezgrade.js"
                         "<%= yeoman.app %>/assets/scripts/components/Services/**/*.js"
+                        "<%= yeoman.app %>/assets/scripts/components/Directives/**/*.js"
                         "<%= yeoman.app %>/assets/scripts/components/Users/Teacher/**/*.js"
                     ]
         aws_s3:

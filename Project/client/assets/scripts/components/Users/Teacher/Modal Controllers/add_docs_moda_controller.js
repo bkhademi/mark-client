@@ -3,17 +3,53 @@
  */
 ezApp.controller('addedDocsController', ['$scope', '$modalInstance', '$log',
     function ($scope, $modalInstance, $log) {
+
+        //scope Arrays, Objects and Variables Starts
+        $scope.stampOptions = ['A to B', 'Credit, No Credit', 'Numerical'];
         $scope.hwDocuments = [];
         $scope.selectedDocs = [];
+        $scope.selectedDocsForStamp= [];
+        
+        $scope.aToBStamp = {
+            name: 'A to B',
+            pdfLink: 'http://ezgrade-api.ddns.net/images/stamp_abc.png',
+            description: 'The A-B enables to quickly select the level of credit you want to give for a any document. ' +
+            'Giving an A means you give 100% percent of the credit, giving a B means 85% and so on and so forth. ' +
+            'EasyGrade will then determine its actual value, and give that score to the student.'
+        };
+        $scope.creditNoStamp = {
+            name: 'Credit No Credit',
+            pdfLink: 'http://ezgrade-api.ddns.net/images/stamp_credit.png',
+            description: 'The Credit No Credit stamp serves its name purpose, do you want to give full credit o no credit ' +
+            'at all. Giving credit means you give 100% of the points that assignment is worth, and giving no credit,' +
+            ' we think you know. EasyGrade determines the value, and give that score to the student'
+        };
+        
+        $scope.numericalStamp = {
+            name: 'Numerical',
+            pdfLink: 'http://ezgrade-api.ddns.net/images/stamp_numerical.png',
+            description: 'Very straight forward! You give determine your own numerical value you want to assign. ' +
+            'EasyGrade will assign such value to the student!'
+        };
 
-        //Apply to All function Starts
+
+        //Apply to All Points function Starts
         $scope.applyToAll = function () {
             angular.forEach($scope.hwDocuments, function (docs) {
                 docs.points = $scope.assignToAllPoints;
             });
             $scope.firstTime = true;
         };
-        //Apply to All function Ends
+        //Apply to All  Stamp function Ends
+        $scope.applyToAllStamp = function () {
+            angular.forEach($scope.hwDocuments, function (docs) {
+                docs.stampType = $scope.stampForAll
+            });
+            $scope.firstTime = true;
+        };
+        //Apply to All Stamps Function
+
+
 
         //arrayObject Index of
         function arrayObjectIndexOf(myArray, searchTerm, property) {
@@ -23,15 +59,21 @@ ezApp.controller('addedDocsController', ['$scope', '$modalInstance', '$log',
             return -1;
         }
 
-        //Apply to Selected Function Starts
+        //Apply to Selected Points Function Starts
         $scope.applyToSelected = function () {
             angular.forEach($scope.selectedDocs, function (docs) {
-                $log.info($scope.selectedDocs);
-                $log.info(docs);
                 var i = arrayObjectIndexOf($scope.hwDocuments, docs.docName, "docName");
-                $log.info(i);
                 $scope.hwDocuments[i].points = $scope.assignToSelected;
-                $log.info($scope.hwDocuments)
+            });
+            $scope.firstTime = true;
+        };
+        //Apply to Selected Function Ends
+
+        //Apply to Selected Stamp Function
+        $scope.applyToSelectedStamp = function () {
+            angular.forEach($scope.selectedDocsForStamp, function (docs) {
+                var i = arrayObjectIndexOf($scope.hwDocuments, docs.docName, "docName");
+                $scope.hwDocuments[i].stampType = $scope.stampForSelected;
             });
             $scope.firstTime = true;
         };
@@ -45,6 +87,7 @@ ezApp.controller('addedDocsController', ['$scope', '$modalInstance', '$log',
             newHWDoc.docName = file.name;
             newHWDoc.points = 'Not Yet Added';
             newHWDoc.type = 'Homework';
+            newHWDoc.stampType = 'Not Yet Added';
             $scope.hwDocuments.push(newHWDoc);
             $scope.firstTime = true;
             $scope.$apply();
@@ -53,10 +96,10 @@ ezApp.controller('addedDocsController', ['$scope', '$modalInstance', '$log',
         $scope.dzError = function (file, errorMessage) {
             $log.log(errorMessage);
         };
-        $scope.removedfile = function (file) {
+        $scope.removedFile = function (file) {
             // var _ref;
             var i = arrayObjectIndexOf($scope.hwDocuments, file.name, "docName");
-            $scope.hwDocuments.splice(i,1);
+            $scope.hwDocuments.splice(i, 1);
             // return (_ref = file.previewElement) != null ? _ref.parentNode.removeChild(file.previewElement) : void 0;
         };
         $scope.dropzoneConfig = {
@@ -71,6 +114,7 @@ ezApp.controller('addedDocsController', ['$scope', '$modalInstance', '$log',
         //Submit Form
         $scope.submitForm = function (isValid) {
             if (isValid) {
+                $log.info($scope.hwDocuments)
                 $modalInstance.close($scope.hwDocuments);
             }
         };

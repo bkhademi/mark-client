@@ -17,7 +17,7 @@ ezApp.controller('createClassesController', ['$scope', '$modalInstance', '$log',
             {value: 9},
             {value: 10}
         ];
-        //Data From Form
+        //ClassInstance Function Constructor
         function ClassInstance(className, classPeriod, gradeBreakdown, gradeScale) {
             this.className = className;
             this.classPeriod = classPeriod;

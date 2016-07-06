@@ -6,4 +6,4 @@ ezApp.factory('AssignmentService', ['$resource',function($resource){
 	
 	
 	return resource;
-}])
+}]);
