@@ -41,7 +41,7 @@
                             </div>
                             <br>
                             <div>
-                                <div data-ng-show="aboutYouSuccess">
+                                <div class="animated slideInRight" data-ng-show="aboutYouSuccess">
                                     <p class="text-center" style="font-size:20px">
                                         We are now ready to create your classes.<br>
                                         Hit the "Create Classes" button below this sentence.
@@ -54,7 +54,7 @@
                                 </div>
                             </div>
                         </div>
-                        <div data-ng-show="stepTwoCompleted">
+                        <div class="animated slideInLeft"  data-ng-show="stepTwoCompleted">
                             <br>
                             <p class="text-center" style="font-size:20px">Great,we are almost done!<br><br>
                                 The next step is to add some assignments to get you familiar as to how you uploading
@@ -62,7 +62,7 @@
                                 Hit the NEXT button on the left-lower corner to continue!</p>
                         </div>
                     </div>
-                    <buttton class="btn btn-primary" wz-next>Next</buttton>
+                    <buttton class="btn btn-primary" data-ng-disabled="!stepTwo" wz-next>Next</buttton>
                 </wz-step>
 
                 <wz-step class="text-right" title="Finish">
@@ -98,7 +98,7 @@
                             </p>
                         </div>
                     </div>
-                    <buttton type="submit" class="btn btn-primary" wz-next>Finish</buttton>
+                    <buttton type="submit"  data-ng-disabled="!readyToFinish" class="btn btn-primary" wz-next>Finish</buttton>
                 </wz-step>
             </wizard>
         </div>

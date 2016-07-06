@@ -25,7 +25,8 @@ ezApp.controller('getStartedController', ['$scope', '$modal', '$log', '$location
             modalInstance = $modal.open({
                 size: 'lg',
                 templateUrl: "views/teacher/modals/about_me_modal.html",
-                controller: "aboutMeController"
+                controller: "aboutMeController",
+                backdrop:'static'
             });
             modalInstance.result.then(function (aboutYouInfo) {
                 $scope.notify('success');
@@ -41,7 +42,8 @@ ezApp.controller('getStartedController', ['$scope', '$modal', '$log', '$location
             modalInstance = $modal.open({
                 size: 'lg',
                 templateUrl: "views/teacher/modals/create_classes_modal.html",
-                controller: "createClassesController"
+                controller: "createClassesController",
+                backdrop:'static'
             });
             modalInstance.result.then(function (classesInfo) {
                 $scope.notify('success');
@@ -49,7 +51,7 @@ ezApp.controller('getStartedController', ['$scope', '$modal', '$log', '$location
                 $scope.createClassHtml = '<del>Create Classes</del>'
                 wizardData.classesInfo = classesInfo;
                 $scope.stepTwoCompleted = true;
-                $log.info(wizardData);
+                $scope.stepTwo = true;
             });
         };
         $scope.awesome = function () {
@@ -57,7 +59,8 @@ ezApp.controller('getStartedController', ['$scope', '$modal', '$log', '$location
             modalInstance = $modal.open({
                 size: 'lg',
                 templateUrl: "views/teacher/modals/addedDocsModal.html",
-                controller: "addedDocsController"
+                controller: "addedDocsController",
+                backdrop:'static'
             });
             modalInstance.result.then(function (hwDocuments) {
                 $scope.notify('success');

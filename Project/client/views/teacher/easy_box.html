@@ -47,7 +47,7 @@
                                 </tr>
                                 </thead>
                                 <tbody>
-                                <tr data-ng-repeat="docs in documents | filter: searchDocs | limitTo : 5 | orderBy: sortBy:reverse">
+                                <tr data-ng-repeat="docs in documents | filter: searchDocs | limitTo : 3 | orderBy: sortBy:reverse">
                                     <td>
                                        <span editable-text="docs.file_name" e-name="name" e-form="rowform">
                                            {{docs.file_name}}</span>
@@ -61,7 +61,7 @@
                                         <span editable-text="docs.points" e-name="points" e-form="rowform">
                                             {{docs.points}}</span>
                                     </td>
-                                    <td><a class="btn btn-primary" href="{{ api + '/files/'+ docs.file_name+'?stamped=true' }}" target="__blank" ><span class="fa fa-print"></span></a></td>
+                                    <td><a class="btn btn-primary" href="{{ api + '/files/'+ docs.id+'?stamped=true' }}" target="__blank" ><span class="fa fa-print"></span></a></td>
                                     <td style="white-space: nowrap">
                                         <form editable-form name="rowform" onbeforesave="saveUser($data, user.id)" ng-show="rowform.$visible" class="form-buttons form-inline" shown="inserted == docs">
                                             <button type="submit"  ng-disabled="rowform.$waiting" class="btn btn-primary">

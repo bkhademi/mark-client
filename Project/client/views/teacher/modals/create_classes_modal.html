@@ -1,7 +1,7 @@
 <div class="modal-header">
     <h3 class="text-center">Lets Create Your Classes!</h3>
 </div>
-<form name="userForm" data-ng-submit="submitForm(userForm.$valid)" novalidate>
+<form name="userForm" data-ng-submit="submitForm(userForm.$valid)" novalidate onkeypress="return event.keyCode != 13">
     <div class="modal-body">
         <p data-ng-hide="firstTime" class="text-center" style="font-size: 18px">
             Good News, you won't have to add students! <br>
@@ -17,7 +17,7 @@
                     <input type="text" class="form-control" id="nameClass" data-ng-model="newClass.className">
                 </div>
                 <div class="form-group col-sm-3 col-md-offset-2"
-                     data-ng-class="newClass.className ||firstTime ? 'ng-show' :'ng-hide' ">
+                     data-ng-class="newClass.className ||firstTime ? 'ng-show animated slideInRight ' :'ng-hide' ">
                     <label for="period"> Class Period: </label>
                     <select class="form-control" name="period" id="period" data-ng-options="period as period.value for
             period in periods" data-ng-model="newClass.period">
@@ -30,7 +30,7 @@
 
 
         <!--Class Grade Breakdown Begins-->
-        <div data-ng-class="newClass.period || firstTime? 'ng-show' : 'ng-hide'">
+        <div data-ng-class="newClass.period || firstTime? 'ng-show animated slideInUp' : 'ng-hide'">
             <div>
                 <p data-ng-hide="firstTime" class="text-center" style="font-size: 18px">
                     Set your grade components and their respective weight!<br>
@@ -55,7 +55,7 @@
             <!--GradeBreakdown Options Ends-->
 
             <!--Default GradeBreakdown Starts-->
-            <div data-ng-if="breakdown =='default'">
+            <div data-ng-class="breakdown =='default'?'animated fadeIn' : 'animated fadeOut'" data-ng-if="breakdown =='default'">
                 <br>
                 <div class="row">
                     <div class="text-center col-sm-4 col-sm-offset-4">
@@ -96,7 +96,7 @@
             <!--Default GradeBreakdown Ends-->
 
             <!--Custom GradeBreakDown Starts-->
-            <div data-ng-if="breakdown =='custom'">
+            <div data-ng-class="breakdown =='custom'?'animated fadeIn' : 'animated fadeOut'" data-ng-if="breakdown =='custom'">
                 <br>
                 <div class="row">
                     <div class="col-sm-4 col-sm-offset-3">
@@ -174,7 +174,7 @@
         <!--Class Grade Breakdown Ends-->
 
         <!--Class Grade Scale Begins-->
-        <div data-ng-class="newClass.gradeBreakdown.Final > 0 || firstTime || potentialComponents.length >= 2? 'ng-show': 'ng-hide' ">
+        <div data-ng-class="newClass.gradeBreakdown.Final > 0 || firstTime || potentialComponents.length >= 2? 'ng-show animated slideInUp': 'ng-hide' ">
             <div>
                 <p data-ng-hide="firstTime" class="text-center" style="font-size: 18px">
                     Set your grade scale rules!
@@ -257,7 +257,7 @@
         <div class="row">
             <!--Added Classes Table- Begins-->
             <div class="text-center col-sm-10 col-sm-offset-1">
-                <table data-ng-hide="!firstTime" class="table table-hover table-responsive table-striped">
+                <table data-ng-hide="!firstTime" class="table table-hover table-responsive table-striped animated fadeIn">
                     <thead>
                     <tr>
                         <th class="text-center">Class Name</th>
@@ -268,7 +268,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr data-ng-repeat="classes in addedClasses track by $index">
+                    <tr  class="animated bounceIn" data-ng-repeat="classes in addedClasses track by $index">
                         <td>{{classes.className}}</td>
                         <td>{{classes.classPeriod}}</td>
                         <td><input type="button" class="btn btn-primary" value="G Breakdown"

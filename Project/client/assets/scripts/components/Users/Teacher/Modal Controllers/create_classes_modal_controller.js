@@ -109,7 +109,6 @@ ezApp.controller('createClassesController', ['$scope', '$modalInstance', '$log',
 
         //Validate on Submit
         $scope.submitForm = function (isValid) {
-
             if (isValid) {
                 $modalInstance.close(classesInfo);
             }

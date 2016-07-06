@@ -5,13 +5,13 @@ ezApp.controller('addedDocsController', ['$scope', '$modalInstance', '$log',
     function ($scope, $modalInstance, $log) {
 
         //scope Arrays, Objects and Variables Starts
-        $scope.stampOptions = ['A to B', 'Credit, No Credit', 'Numerical'];
+        $scope.stampOptions = ['A to D', 'Credit, No Credit', 'Numerical'];
         $scope.hwDocuments = [];
         $scope.selectedDocs = [];
         $scope.selectedDocsForStamp= [];
         
         $scope.aToBStamp = {
-            name: 'A to B',
+            name: 'A to D',
             pdfLink: 'http://ezgrade-api.ddns.net/images/stamp_abc.png',
             description: 'The A-B enables to quickly select the level of credit you want to give for a any document. ' +
             'Giving an A means you give 100% percent of the credit, giving a B means 85% and so on and so forth. ' +
@@ -114,7 +114,7 @@ ezApp.controller('addedDocsController', ['$scope', '$modalInstance', '$log',
         //Submit Form
         $scope.submitForm = function (isValid) {
             if (isValid) {
-                $log.info($scope.hwDocuments)
+                $log.info($scope.hwDocuments);
                 $modalInstance.close($scope.hwDocuments);
             }
         };
