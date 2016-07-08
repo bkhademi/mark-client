@@ -33,28 +33,49 @@
         <!--Drop Zone Ends-->
 
         <!--Select Stamp Starts-->
-        <div>
+        <div data-ng-class="docsAdded ? 'animated slideInRight ng-show': 'ng-hide'">
             <!--Stamp Previews Starts-->
-            <div class="row ">
+            <div class="row">
                 <div class="text-center col-sm-10 col-sm-offset-1">
-                    <p style="font-size:20px">
-                        Great! You added some files! <br>
-                        Now its time to assign them a unique stamp. This is what makes your life much easier.
-                        Hover each stamp BUTTON to preview each.
-                    </p>
-                    <br>
-                    <img-preview-popover preview-object="aToBStamp"></img-preview-popover>
-                    <br>
-                    <img-preview-popover preview-object="creditNoStamp"></img-preview-popover>
-                    <br>
-                    <img-preview-popover preview-object="numericalStamp"></img-preview-popover>
-                    <br>
-                    <p style="font-size:20px">
-                        One you have decided, you get two simple options:<br>
-                        You can apply the same stamp to all the documents at once.
-                        Or you can apply the stamp to specific documents of your choice!<br>
-                        Pick your style!
-                    </p>
+                    <div data-ng-hide="stampAdded">
+                        <p style="font-size:20px">
+                            Great! You added some files! <br>
+                            Now its time to assign them a unique stamp. This is what makes your life much easier.
+                            Hover each stamp BUTTON to preview each.
+                        </p>
+                        <br>
+                    </div>
+                    <table class="table table-bordered table-responsive table-hover">
+                        <thead>
+                        <tr>
+                            <th class="text-center">A to D</th>
+                            <th class="text-center">Credit No Credit</th>
+                            <th class="text-center">Numerical</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr>
+                            <td>
+                                <img-preview-popover preview-object="aToBStamp"></img-preview-popover>
+                            </td>
+                            <td>
+                                <img-preview-popover preview-object="creditNoStamp"></img-preview-popover>
+                            </td>
+                            <td>
+                                <img-preview-popover preview-object="numericalStamp"></img-preview-popover>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <br><br>
+                    <div data-ng-hide="stampAdded">
+                        <p style="font-size:20px">
+                            One you have decided, you get two simple options:<br>
+                            You can apply the same stamp to all the documents at once.
+                            Or you can apply the stamp to specific documents of your choice!<br>
+                            Pick your style!
+                        </p>
+                    </div>
                 </div>
                 <!--Stamp Previews Ends-->
             </div>
@@ -73,45 +94,50 @@
             <!--Stamp Adding Options Ends-->
             <br>
             <!--Apply to All Stamping-->
-            <div class="row" data-ng-show="stampMethod == 'ApplyToAllStamp'">
+            <div class="row animated fadeIn" data-ng-show="stampMethod == 'ApplyToAllStamp'">
                 <div class="col-sm-10 col-sm-offset-1">
                     <div class="col-sm-3 col-sm-offset-3">
-                        <select class="form-control" name="period"  data-ng-options="stamp as stamp for
+                        <select class="form-control" name="period" data-ng-options="stamp as stamp for
             stamp in stampOptions" data-ng-model="stampForAll">
                         </select>
                     </div>
                     <div class="col-sm-3">
-                        <input type="button" class="btn btn-primary" value="Apply to All" data-ng-click="applyToAllStamp()">
+                        <input type="button" class="btn btn-primary" value="Apply to All"
+                               data-ng-click="applyToAllStamp()">
                     </div>
                 </div>
             </div>
             <!--Apply to All Stamping Ends-->
 
             <!--Apply to Selected Stamping-->
-            <div class="row" data-ng-show="stampMethod == 'ApplyToSelectedStamp'">
+            <div class="row animated fadeIn" data-ng-show="stampMethod == 'ApplyToSelectedStamp'">
                 <div class="col-sm-3 col-sm-offset-1">
-                    <select class="form-control" name="period"  data-ng-options="stamp as stamp for
+                    <select class="form-control" name="period" data-ng-options="stamp as stamp for
             stamp in stampOptions" data-ng-model="stampForSelected">
                     </select>
                 </div>
                 <div class="col-sm-5">
-                    <select multiple chosen class="form-control" placeholder-text-multiple="'Select Documents'"
-                            data-ng-model="selectedDocsForStamp"
-                            data-ng-options="documentName as documentName.docName for documentName in hwDocuments"
-                            id="selectDoc1"></select>
+                    <select multiple chosen class="form-control"
+                            placeholder-text-multiple="'Search or Select Documents'"
+                            data-ng-model="stamp.selectedDocs"
+                            data-ng-options="documentName as documentName.docName for documentName in hwDocuments">
+                    </select>
                 </div>
                 <div class="col-sm-1">
-                    <input type="button" class="btn btn-primary" value="Apply to Selected" data-ng-click="applyToSelectedStamp()">
+                    <input type="button" class="btn btn-primary" value="Apply to Selected"
+                           data-ng-click="applyToSelectedStamp()">
                 </div>
             </div>
             <!--Apply to Selected Stamping-->
+            <br>
         </div>
         <br><br>
         <!--Select Stamp Ends-->
 
         <!--Add Points Begins-->
-        <div data-ng-hide="!firstTime">
-            <div class="row ">
+        <div data-ng-class="stampAdded? 'animated slideInLeft' : 'ng-hide'">
+            <br><br>
+            <div data-ng-hide="firstTime" class="row ">
                 <div class="text-center col-sm-10 col-sm-offset-1">
                     <p style="font-size:20px">
                         Now its time to assign them points. You get two simple options: <br>
@@ -122,6 +148,7 @@
                 </div>
             </div>
             <br>
+            <!--Point Adding Options-->
             <div class="row">
                 <div class="text-center col-sm-10 col-sm-offset-1">
                     <label class="ui-radio"><input name="pointAssign" type="radio" data-ng-model="pointsMethod"
@@ -132,8 +159,10 @@
                         <span>Apply to Selected</span></label>
                 </div>
             </div>
+            <!--Point Adding Options Ends-->
             <br>
-            <div class="row" data-ng-show="pointsMethod == 'ApplyToAll'">
+            <!--Apply to All Points-->
+            <div class="row animated fadeIn" data-ng-show="pointsMethod == 'ApplyToAll'">
                 <div class="col-sm-10 col-sm-offset-1">
                     <div class="col-sm-3 col-sm-offset-3">
                         <input type="number" class="form-control" data-ng-model="assignToAllPoints" id="totalPoints"
@@ -144,26 +173,37 @@
                     </div>
                 </div>
             </div>
-            <div data-ng-show="pointsMethod == 'ApplyToSelected'">
+            <!--Apply to All Points Ends-->
+
+            <!--Apply to Selected Points-->
+            <div class="animated fadeIn" data-ng-show="pointsMethod == 'ApplyToSelected'">
                 <div class="col-sm-2 col-sm-offset-1">
                     <input type="number" class="form-control" data-ng-model="assignToSelected" id="points"
                            placeholder="# Points">
                 </div>
                 <div class="col-sm-6">
                     <select multiple chosen class="form-control" placeholder-text-multiple="'Select Documents'"
-                            data-ng-model="selectedDocs"
+                            data-ng-model="points.selectedDocs"
                             data-ng-options="documentName as documentName.docName for documentName in hwDocuments"
-                            ></select>
+                    ></select>
                 </div>
                 <div class="col-sm-1">
                     <input type="button" class="btn btn-primary" value="Apply to Selected"
                            data-ng-click="applyToSelected()">
                 </div>
+                <br><br>
             </div>
+            <!--Apply to Selected Ends-->
+            <br><br><br>
+        </div>
+        <!--Add Points Ends-->
+
+        <!--Table of Added Documents-->
+        <div data-ng-class="docsAdded ? 'animated slideInLeft': 'ng-hide'">
             <br><br>
             <div class="row">
                 <div class="col-sm-offset-1 col-sm-10">
-                    <table class="table table-responsive table-hover table-striped">
+                    <table class="table table-responsive table-hover table-bordered table-striped">
                         <thead>
                         <tr>
                             <th>Assignment Name</th>
@@ -182,7 +222,7 @@
                 </div>
             </div>
         </div>
-        <!--Add Points Ends-->
+        <!--Table of Added Documents Ends-->
     </div>
     <div class="modal-footer">
         <button type="submit" class="btn btn-primary" data-ng-disabled="userForm.$invalid">Submit</button>

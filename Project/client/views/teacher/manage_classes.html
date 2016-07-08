@@ -1,0 +1,82 @@
+<div class="page">
+    <div class="row">
+        <div class="col-sm-6">
+            <section class="panel panel-default">
+                <div class="panel-heading"><strong><span class="fa fa-building"></span> My Classes</strong></div>
+                <div class="panel-body">
+                    <div class="col-sm-12">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <form>
+                                    <input type="text"
+                                           placeholder="Search..."
+                                           class="form-control"
+                                           data-ng-model="search.Class">
+                                </form>
+                            </div>
+                        </div>
+                        <br>
+                        <table class="table table-bordered table-hover table-striped table-responsive">
+                            <thead>
+                            <tr>
+                                <th>
+                                    <div class="th">
+                                        Period
+                                        <span class="fa fa-angle-down"
+                                              data-ng-click="sortBy='period'; reverse =!reverse"></span>
+                                    </div>
+                                </th>
+                                <th>
+                                    <div class="th">
+                                        Class Name
+                                        <span class="fa fa-angle-down"
+                                              data-ng-click="sortBy='name'; reverse =!reverse"></span>
+                                    </div>
+                                </th>
+                                <th>
+                                    <div class="th">
+                                        # Students
+                                        <span class="fa fa-angle-down"
+                                              data-ng-click="sortBy='classSize'; reverse =!reverse"></span>
+                                    </div>
+                                </th>
+                                <th>
+                                    <div class="th">
+                                        Avg Grade
+                                        <span class="fa fa-angle-down"
+                                              data-ng-click="sortBy='avgGrade'; reverse =!reverse"></span>
+                                    </div>
+                                </th>
+                                <th>
+                                    <div class="th">
+                                        View
+                                    </div>
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr class="animated bounceInRight"
+                                data-ng-repeat="classs in classesInfo | filter: search.Class | orderBy: sortBy:reverse">
+                                <td>{{classs.period}}</td>
+                                <td>{{classs.name}}</td>
+                                <td>{{classs.classSize}}
+                                <td>{{classs.avgGrade}}</td>
+                                <td>
+                                    <button data-ng-click="openClass(classs)" type="button" class="btn btn-primary"><span class="fa fa-eye"></span>
+                                    </button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+        </div>
+        <div class="col-sm-6">
+            <section class=" panel panel-default">
+                <div class="panel-heading"><strong><span class="fa fa-pencil-square"></span> Assign Points</strong>
+                </div>
+            </section>
+        </div>
+    </div>
+</div>

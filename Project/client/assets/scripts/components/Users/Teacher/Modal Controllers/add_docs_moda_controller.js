@@ -7,13 +7,17 @@ ezApp.controller('addedDocsController', ['$scope', '$modalInstance', '$log',
         //scope Arrays, Objects and Variables Starts
         $scope.stampOptions = ['A to D', 'Credit, No Credit', 'Numerical'];
         $scope.hwDocuments = [];
-        $scope.selectedDocs = [];
-        $scope.selectedDocsForStamp= [];
-        
+        $scope.ponts = {
+            selectedDocs: []
+        };
+        $scope.stamp = {
+            selectedDocs: []
+        };
+
         $scope.aToBStamp = {
             name: 'A to D',
             pdfLink: 'http://ezgrade-api.ddns.net/images/stamp_abc.png',
-            description: 'The A-B enables to quickly select the level of credit you want to give for a any document. ' +
+            description: 'The A-D enables to quickly select the level of credit you want to give for a any document. ' +
             'Giving an A means you give 100% percent of the credit, giving a B means 85% and so on and so forth. ' +
             'EasyGrade will then determine its actual value, and give that score to the student.'
         };
@@ -24,32 +28,13 @@ ezApp.controller('addedDocsController', ['$scope', '$modalInstance', '$log',
             'at all. Giving credit means you give 100% of the points that assignment is worth, and giving no credit,' +
             ' we think you know. EasyGrade determines the value, and give that score to the student'
         };
-        
+
         $scope.numericalStamp = {
             name: 'Numerical',
             pdfLink: 'http://ezgrade-api.ddns.net/images/stamp_numerical.png',
             description: 'Very straight forward! You give determine your own numerical value you want to assign. ' +
             'EasyGrade will assign such value to the student!'
         };
-
-
-        //Apply to All Points function Starts
-        $scope.applyToAll = function () {
-            angular.forEach($scope.hwDocuments, function (docs) {
-                docs.points = $scope.assignToAllPoints;
-            });
-            $scope.firstTime = true;
-        };
-        //Apply to All  Stamp function Ends
-        $scope.applyToAllStamp = function () {
-            angular.forEach($scope.hwDocuments, function (docs) {
-                docs.stampType = $scope.stampForAll
-            });
-            $scope.firstTime = true;
-        };
-        //Apply to All Stamps Function
-
-
 
         //arrayObject Index of
         function arrayObjectIndexOf(myArray, searchTerm, property) {
@@ -59,21 +44,40 @@ ezApp.controller('addedDocsController', ['$scope', '$modalInstance', '$log',
             return -1;
         }
 
-        //Apply to Selected Points Function Starts
-        $scope.applyToSelected = function () {
-            angular.forEach($scope.selectedDocs, function (docs) {
-                var i = arrayObjectIndexOf($scope.hwDocuments, docs.docName, "docName");
-                $scope.hwDocuments[i].points = $scope.assignToSelected;
+        //Apply to All  Stamp function Ends
+        $scope.applyToAllStamp = function () {
+            angular.forEach($scope.hwDocuments, function (docs) {
+                docs.stampType = $scope.stampForAll
             });
-            $scope.firstTime = true;
+            $scope.stampAdded = true;
         };
-        //Apply to Selected Function Ends
+        //Apply to All Stamps Function
+
 
         //Apply to Selected Stamp Function
         $scope.applyToSelectedStamp = function () {
-            angular.forEach($scope.selectedDocsForStamp, function (docs) {
+            angular.forEach($scope.stamp.selectedDocs, function (docs) {
                 var i = arrayObjectIndexOf($scope.hwDocuments, docs.docName, "docName");
                 $scope.hwDocuments[i].stampType = $scope.stampForSelected;
+            });
+            $scope.stampAdded = true;
+        };
+        //Apply to Selected Function Ends
+
+
+        //Apply to All Points function Starts
+        $scope.applyToAll = function () {
+            angular.forEach($scope.hwDocuments, function (docs) {
+                docs.points = $scope.assignToAllPoints;
+            });
+            $scope.firstTime = true;
+        };
+
+        //Apply to Selected Points Function Starts
+        $scope.applyToSelected = function () {
+            angular.forEach($scope.stamp.selectedDocs, function (docs) {
+                var i = arrayObjectIndexOf($scope.hwDocuments, docs.docName, "docName");
+                $scope.hwDocuments[i].points = $scope.assignToSelected;
             });
             $scope.firstTime = true;
         };
@@ -89,7 +93,7 @@ ezApp.controller('addedDocsController', ['$scope', '$modalInstance', '$log',
             newHWDoc.type = 'Homework';
             newHWDoc.stampType = 'Not Yet Added';
             $scope.hwDocuments.push(newHWDoc);
-            $scope.firstTime = true;
+            $scope.docsAdded = true;
             $scope.$apply();
         };
 

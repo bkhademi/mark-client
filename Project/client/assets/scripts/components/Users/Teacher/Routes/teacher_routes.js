@@ -12,4 +12,8 @@ ezApp.config(function ($routeProvider) {
             templateUrl: 'views/teacher/easy_box.html',
             controller: 'easyBoxController'
         })
+        .when('/manage_classes',{
+            templateUrl: 'views/teacher/manage_classes.html',
+            controller: 'manageClassesController'
+        })
 });
