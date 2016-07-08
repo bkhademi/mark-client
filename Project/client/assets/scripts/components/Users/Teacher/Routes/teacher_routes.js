@@ -25,8 +25,10 @@ function ($routeProvider,$authProvider) {
               loginRequired: loginRequired
             }
         })
-
-
+        .when('/manage_classes',{
+            templateUrl: 'views/teacher/manage_classes.html',
+            controller: 'manageClassesController'
+        })
     function skipIfLoggedIn($q, $auth) {
       var deferred = $q.defer();
       if ($auth.isAuthenticated()) {
@@ -48,3 +50,4 @@ function ($routeProvider,$authProvider) {
       return deferred.promise;
     }
 }]);
+});

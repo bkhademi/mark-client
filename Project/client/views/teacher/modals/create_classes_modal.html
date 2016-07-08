@@ -12,11 +12,11 @@
         <!--Class Basic Info Begins-->
         <div class="row">
             <div class="col-sm-10 col-sm-offset-1">
-                <div class="form-group col-sm-5 col-md-offset-1">
+                <div class="form-group col-sm-5 col-sm-offset-2">
                     <label for="nameClass"> Class Name: </label>
                     <input type="text" class="form-control" id="nameClass" data-ng-model="newClass.className">
                 </div>
-                <div class="form-group col-sm-3 col-md-offset-2"
+                <div class="form-group col-sm-3 "
                      data-ng-class="newClass.className ||firstTime ? 'ng-show animated slideInRight ' :'ng-hide' ">
                     <label for="period"> Class Period: </label>
                     <select class="form-control" name="period" id="period" data-ng-options="period as period.value for
@@ -257,7 +257,7 @@
         <div class="row">
             <!--Added Classes Table- Begins-->
             <div class="text-center col-sm-10 col-sm-offset-1">
-                <table data-ng-hide="!firstTime" class="table table-hover table-responsive table-striped animated fadeIn">
+                <table data-ng-class="firstTime? 'table table-hover table-responsive table-striped animated fadeIn':'ng-hide'">
                     <thead>
                     <tr>
                         <th class="text-center">Class Name</th>
@@ -271,20 +271,8 @@
                     <tr  class="animated bounceIn" data-ng-repeat="classes in addedClasses track by $index">
                         <td>{{classes.className}}</td>
                         <td>{{classes.classPeriod}}</td>
-                        <td><input type="button" class="btn btn-primary" value="G Breakdown"
-                                   popover="Exam: {{classes.gradeBreakdown.exams}}%{{'&nbsp;'}}
-                               Quizzes: {{classes.gradeBreakdown.quizzes}}%{{'&nbsp;'}}
-                               Homework: {{classes.gradeBreakdown.homework}}%{{'&nbsp;'}}
-                               Final: {{classes.gradeBreakdown.final}}%"
-                                   popover-append-to-body="false"
-                                   popover-trigger="mouseenter"></td>
-                        <td><input type="button" class="btn btn-primary" value="G Scale"
-                                   popover="A: {{classes.gradeScale.aScale}}%{{'&nbsp;'}}
-                               B: {{classes.gradeScale.bScale}}%{{'&nbsp;'}}
-                               C: {{classes.gradeScale.cScale}}%{{'&nbsp;'}}
-                               D: {{classes.gradeScale.dScale}}"
-                                   popover-append-to-body="false"
-                                   popover-trigger="mouseenter"></td>
+                        <td><custom-popover info-object="classes.gradeBreakdown"></custom-popover></td>
+                        <td><custom-popover info-object="classes.gradeScale"></custom-popover></td>
                         <td>
                             <button type="button" class="btn btn-danger" value="X"
                                     data-ng-click="removeRow($index, classes.period)">

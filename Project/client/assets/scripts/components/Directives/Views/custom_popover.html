@@ -1,0 +1,13 @@
+<div>
+    <input type="button" id="popoverPreview" class=" btn btn-primary" value="Preview">
+    <div class="webui-popover-content text-center" >
+        <table class="table table-bordered table-responsive">
+            <tr>
+                <th data-ng-repeat="(key, value) in infoObject">{{key}}</th>
+            </tr>
+            <tr>
+                <td data-ng-repeat="(key, value) in infoObject">{{value}}%</td>
+            </tr>
+        </table>
+    </div>
+</div>
