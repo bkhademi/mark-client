@@ -8,7 +8,7 @@ angular.module('app.controllers', [])
     ($scope, $location) ->
         $scope.isSpecificPage = ->
             path = $location.path()
-            return _.contains( ['/404', '/pages/500', '/pages/login', '/pages/signin', '/pages/signin1', '/pages/signin2', '/pages/signup', '/pages/signup1', '/pages/signup2'], path )
+            return _.contains( ['/404', '/pages/500', '/pages/login', '/pages/signin', '/pages/signin1', '/pages/signin2', '/pages/signup', '/pages/signup1', '/pages/signup2', '/login', '/signup', '/getting_started'], path )
 
         $scope.main =
             brand: 'iFlat'

@@ -1,9 +1,10 @@
-<header class="clearfix">
+<header class="clearfix" data-ng-controller="NavbarCtrl">
 
     <!-- Logo -->
     <div class="logo bg-primary">
         <a href="#/">
-            <span>EasyGrade</span>
+            <span>EasyGrade
+                </span>
         </a>
     </div>
 
@@ -16,7 +17,7 @@
 
     <div class="top-nav">
         <ul style="margin-bottom: -12px" class=" nav-right pull-right list-unstyled">
-            <li class="dropdown text-normal nav-profile" dropdown is-open="status.isopenProfile">
+            <li data-ng-if="isAuthenticated()" class="dropdown text-normal nav-profile" dropdown is-open="status.isopenProfile">
                 <a href="javascript:;" class="dropdown-toggle" dropdown-toggle ng-disabled="disabled">
                     <img src="images/g1.jpg" alt="" class="img-circle img30_30">
                     <span class="hidden-xs">
@@ -24,6 +25,7 @@
                     </span>
                 </a>
                 <ul class="dropdown-menu pull-right">
+<!--
                     <li>
                         <a href="#/pages/profile">
                             <i class="fa fa-user"></i>
@@ -31,19 +33,31 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#/tasks">
+                        <a href="#/logout">
                             <i class="fa fa-check"></i>
                             <span data-i18n="My Tasks"></span>
                         </a>
                     </li>
+-->
                     <li>
-                        <a href="#/pages/signin">
+                        <a href="#/logout">
                             <i class="fa fa-sign-out"></i>
                             <span data-i18n="Log Out"></span>
                         </a>
                     </li>
                 </ul>
             </li>
+            <li data-ng-if="!isAuthenticated()" class="dropdown text-normal nav-profile" dropdown is-open="status.isopenProfile">
+                <a href="#/login" dropdown-toggle ng-disabled="disabled">
+                    <img src="images/g1.jpg" alt="" class="img-circle img30_30">
+                    <span class="hidden-xs">
+                        <span data-i18n="Login"></span>
+                    </span>
+                </a>
+
+                </ul>
+            </li>
+
         </ul>
 
         <div>
