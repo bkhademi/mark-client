@@ -1,5 +1,5 @@
 angular.module('ezgrade')
-	.controller('LogoutCtrl', function($location, $auth, logger) {
+	.controller('LogoutCtrl', ['$location', '$auth', 'logger',function($location, $auth, logger) {
 	if (!$auth.isAuthenticated()) { $location.path('/'); return; }
 	$auth.logout()
 		.then(function() {
@@ -8,4 +8,4 @@ angular.module('ezgrade')
 		}, function(){
 			logger.logSuccess("error logging out");
 		});
-	});
+	}]);

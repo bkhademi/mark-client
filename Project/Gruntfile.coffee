@@ -15,20 +15,20 @@ mountFolder = (connect, dir) ->
 module.exports = (grunt) ->
     require("load-grunt-tasks") grunt
     require("time-grunt") grunt
-    
+
     # configurable paths
     yeomanConfig =
         app: "client"
         dist: "dist"
         docs: "documentation"
-    aws =  
+    aws =
         "AWSAccessKeyId": "AKIAJYVMQ27BI4VKDS2Q"
         "AWSSecretKey": "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"
-      
-    
+
+
     try
         yeomanConfig.app = require("./bower.json").appPath or yeomanConfig.app
-        
+
     grunt.initConfig
         yeoman: yeomanConfig
         aws:aws
@@ -69,7 +69,7 @@ module.exports = (grunt) ->
         connect:
             options:
                 port: 9000
-                
+
                 # Change this to '0.0.0.0' to access the server from outside.
                 hostname: "localhost"
 
@@ -118,9 +118,9 @@ module.exports = (grunt) ->
 
             all: ["Gruntfile.js", "<%= yeoman.app %>/scripts/**/*.js"]
 
-        jade: 
+        jade:
             docs:
-                options: 
+                options:
                     pretty: true
 
                 files:
@@ -170,7 +170,7 @@ module.exports = (grunt) ->
                     cwd: "<%= yeoman.app %>/styles-less"
                     src: "main.less"
                     dest: ".tmp/styles"
-                    ext: ".css"                    
+                    ext: ".css"
                 ]
             dist:
                 options:
@@ -181,7 +181,7 @@ module.exports = (grunt) ->
                     cwd: "<%= yeoman.app %>/styles-less"
                     src: "main.less"
                     dest: ".tmp/styles"
-                    ext: ".css"                    
+                    ext: ".css"
                 ]
 
 
@@ -220,7 +220,7 @@ module.exports = (grunt) ->
                         css: ["cssmin"]
                     post: []
 
-        
+
         # 'css': ['concat']
         usemin:
             html: ["<%= yeoman.dist %>/**/*.html", "!<%= yeoman.dist %>/bower_components/**"]
@@ -231,7 +231,7 @@ module.exports = (grunt) ->
         htmlmin:
             dist:
                 options: {}
-                
+
                 #removeCommentsFromCDATA: true,
                 #                    // https://github.com/yeoman/grunt-usemin/issues/44
                 #                    //collapseWhitespace: true,
@@ -248,7 +248,7 @@ module.exports = (grunt) ->
                     dest: "<%= yeoman.dist %>"
                 ]
 
-        
+
         # Put files not handled in other tasks here
         copy:
             dist:
@@ -316,10 +316,8 @@ module.exports = (grunt) ->
 
         uglify:
             options:
-                mangle: false
                 beautify:true
-                compress:
-                    drop_console: true
+                mangle:false
             dist:
                 files:
                     "<%= yeoman.dist %>/scripts/app.js": [
@@ -336,6 +334,8 @@ module.exports = (grunt) ->
                         "<%= yeoman.app %>/assets/scripts/components/Services/**/*.js"
                         "<%= yeoman.app %>/assets/scripts/components/Directives/**/*.js"
                         "<%= yeoman.app %>/assets/scripts/components/Users/Teacher/**/*.js"
+                        "<%= yeoman.app %>/assets/scripts/components/Users/Teacher/**/*.js"
+                        "<%= yeoman.app %>/assets/scripts/components/Auth/*.js"
                     ]
         aws_s3:
             options:
@@ -351,7 +351,7 @@ module.exports = (grunt) ->
                 files:[
                     {expand:true,cwd:'dist/', src:['**'], dest:'/'}
                 ]
-            
+
     grunt.registerTask "docs", ->
         grunt.task.run ["jade:docs", "connect:docs", "open", "watch"]
 
@@ -367,7 +367,7 @@ module.exports = (grunt) ->
     #     return grunt.task.run(["lessBuild", "open", "connect:dist:keepalive"])  if target is "dist"
     #     grunt.task.run ["clean:server", "concurrent:lessServer", "connect:livereload", "open", "watch"]
 
-    grunt.registerTask "build", ["clean:dist", "useminPrepare", "concurrent:dist", "copy:dist", "cssmin", "concat", "uglify", "usemin"]
+    grunt.registerTask "build", ["clean:dist", "useminPrepare", "concurrent:dist", "copy:dist", "cssmin", "concat", "uglify","copy:ezgrade", "usemin"]
     # grunt.registerTask "lessBuild", ["clean:dist", "useminPrepare", "concurrent:lessDist", "copy:dist", "cssmin", "concat", "uglify", "usemin"]
 
     grunt.registerTask "default", ["server"]

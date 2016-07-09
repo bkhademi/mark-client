@@ -4,6 +4,26 @@
 //ROUTES
 ezApp.config(['$routeProvider','$authProvider',
 function ($routeProvider,$authProvider) {
+    var skipIfLoggedIn = ['q', '$auth',function ($q, $auth) {
+      var deferred = $q.defer();
+      if ($auth.isAuthenticated()) {
+        deferred.reject();
+      } else {
+        deferred.resolve();
+      }
+      return deferred.promise;
+    }];
+
+    var loginRequired = ['$q', '$location', '$auth', '$log',function ($q, $location, $auth,$log) {
+       $log.info('required');
+      var deferred = $q.defer();
+      if ($auth.isAuthenticated()) {
+        deferred.resolve();
+      } else {
+        $location.path('/login');
+      }
+      return deferred.promise;
+    }];
     $routeProvider
     .when('/dashboard',{
         templateUrl: 'views/dashboard.html',
@@ -29,25 +49,6 @@ function ($routeProvider,$authProvider) {
             templateUrl: 'views/teacher/manage_classes.html',
             controller: 'manageClassesController'
         })
-    function skipIfLoggedIn($q, $auth) {
-      var deferred = $q.defer();
-      if ($auth.isAuthenticated()) {
-        deferred.reject();
-      } else {
-        deferred.resolve();
-      }
-      return deferred.promise;
-    }
+    ;
 
-    function loginRequired($q, $location, $auth,$log) {
-       $log.info('required');
-      var deferred = $q.defer();
-      if ($auth.isAuthenticated()) {
-        deferred.resolve();
-      } else {
-        $location.path('/login');
-      }
-      return deferred.promise;
-    }
 }]);
-});

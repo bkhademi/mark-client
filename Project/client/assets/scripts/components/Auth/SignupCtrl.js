@@ -1,5 +1,5 @@
 angular.module('ezgrade')
-.controller('SignupCtrl', function($scope,logger, $auth) {
+.controller('SignupCtrl', ['$scope','logger','$auth',function($scope,logger, $auth) {
 	$scope.signup = function() {
 	  $auth.signup({
 		user_name: $scope.user_name,
@@ -10,9 +10,9 @@ angular.module('ezgrade')
 		  angular.forEach(response.data.message, function(message) {
 		  	logger.log(message[0]);
 		  });
-		} else 
+		} else
 		  logger.log(response.data.message);
-		
+
 	  });
 	};
-})
+}]);

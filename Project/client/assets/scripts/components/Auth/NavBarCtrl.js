@@ -1,5 +1,5 @@
 angular.module('ezgrade')
-	.controller('NavbarCtrl', function($scope, $auth) {
+	.controller('NavbarCtrl', ['$scope','$auth',function($scope, $auth) {
 		$scope.isAuthenticated = function() {
 			return $auth.isAuthenticated();
 		};
@@ -11,5 +11,5 @@ angular.module('ezgrade')
 					logger.info('You have been logged out');
 					$location.path('/');
 				});
-		}
-	});
+		};
+	}]);

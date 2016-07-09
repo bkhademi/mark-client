@@ -3,7 +3,7 @@
  */
 ezApp.directive('imgPreviewPopover', function ($log) {
     return {
-        templateUrl: 'assets/scripts/components/Directives/Views/img_popover_preview.html',
+        templateUrl: 'views/popover/img_popover_preview.html',
         replace: true,
         scope: {
             previewObject: "="

@@ -3,7 +3,7 @@
  */
 ezApp.directive('customPopover', function ($log) {
     return {
-        templateUrl: 'assets/scripts/components/Directives/Views/custom_popover.html',
+        templateUrl: 'views/popover/custom_popover.html',
         replace: true,
         scope: {
             infoObject: "="

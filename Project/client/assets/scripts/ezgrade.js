@@ -10,6 +10,25 @@ var ezApp = angular.module('ezgrade', ['ngRoute', 'ngSanitize', 'ngDropzone', 'l
 
 ]).config(['$routeProvider', '$authProvider',
 	function($routeProvider,$authProvider){
+		var skipIfLoggedIn = ['$q', '$auth',function ($q, $auth) {
+			var deferred = $q.defer();
+			if ($auth.isAuthenticated()) {
+				deferred.reject();
+			} else {
+				deferred.resolve();
+			}
+			return deferred.promise;
+		}];
+
+		var loginRequired = ['$q','$location', '$auth',function ($q, $location, $auth) {
+			var deferred = $q.defer();
+			if ($auth.isAuthenticated()) {
+			deferred.resolve();
+			}else {
+				$location.path('/login');
+			}
+			return deferred.promise;
+		}]
 	$routeProvider
 		.when('/login', {
 			templateUrl: 'views/pages/signin.html',
@@ -46,25 +65,7 @@ var ezApp = angular.module('ezgrade', ['ngRoute', 'ngSanitize', 'ngDropzone', 'l
 		$authProvider.signupUrl = base+'/auth/signup';
 		$authProvider.unlinkUrl = base+'/auth/unlink/';
 
-		function skipIfLoggedIn($q, $auth) {
-			var deferred = $q.defer();
-			if ($auth.isAuthenticated()) {
-				deferred.reject();
-			} else {
-				deferred.resolve();
-			}
-			return deferred.promise;
-		}
 
-		function loginRequired($q, $location, $auth) {
-			var deferred = $q.defer();
-			if ($auth.isAuthenticated()) {
-			deferred.resolve();
-			}else {
-				$location.path('/login');
-			}
-			return deferred.promise;
-		}
 }])
 ;
 
