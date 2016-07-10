@@ -1,0 +1,101 @@
+<div class="modal-header">
+    <div class="row">
+        <div class=" text-center col-sm-6 col-sm-offset-3">
+            <h3>Period: {{classInfo.period}} | Class: {{classInfo.name}}</h3>
+        </div>
+    </div>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <h4 class="text-center">Breakdown Rules </h4>
+        <br>
+        <div class="col-sm-12">
+            <table class="table table-bordered table-responsive table-hover">
+                <thead>
+                <tr>
+                    <th class="text-center"> Component Name</th>
+                    <th class="text-center"> Weight</th>
+                    <th class="text-center"> Edit</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="text-center" data-ng-repeat="component in classInfo.gradeBreakdown">
+                    <th class="text-center">
+                        {{component.name}}
+                    </th>
+                    <td>
+                             <span editable-text="component.value" e-name="percentWeight" e-form="gradeBreakdown">
+                            {{component.value}}%</span>
+                    </td>
+                    <td style="white-space: nowrap" class="text-center">
+                        <form editable-form name="gradeBreakdown" data-ng-show="gradeBreakdown.$visible"
+                              class="form-buttons form-inline" shown="inserted == component">
+                            <button type="submit" ng-disabled="gradeBreakdown.$waiting" class="btn btn-primary">
+                                <span class="fa fa-check"></span>
+                            </button>
+                            <button type="button" ng-disabled="gradeBreakdown.$waiting"
+                                    ng-click="gradeBreakdown.$cancel()" class="btn btn-default">
+                                <span class="fa fa-times"></span>
+                            </button>
+                        </form>
+                        <div class="buttons" data-ng-show="!gradeBreakdown.$visible">
+                            <button class="btn btn-primary" ng-click="gradeBreakdown.$show()"><span
+                                    class="fa fa-pencil"></span></button>
+                            <button class="btn btn-danger" ng-click="removeComponent($index)"><span
+                                    class="fa fa-times-circle"></span></button>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <br><br>
+        </div>
+        <h4 class="text-center">Grade Scale</h4>
+        <br>
+        <div class="col-sm-12">
+            <table class="table table-bordered table-responsive table-hover">
+                <thead>
+                <tr>
+                    <th class="text-center">Letter Grade</th>
+                    <th class="text-center">Min</th>
+                    <th class="text-center">Max</th>
+                    <th class="text-center">Edit</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="text-center" data-ng-repeat="scale in classInfo.gradeScale">
+                    <th>{{scale.name}}</th>
+                    <td>
+                            <span editable-text="scale.min" e-name="min" e-form="gradeScale">
+                            {{scale.min}}</span>
+                    </td>
+                    <td>
+                            <span editable-text="scale.max" e-name="max" e-form="gradeScale">
+                            {{scale.max}}</span>
+                    </td>
+                    <td style="white-space: nowrap" class="text-center">
+                        <form editable-form name="gradeScale" data-ng-show="gradeScale.$visible"
+                              class="form-buttons form-inline" shown="inserted == scale">
+                            <button type="submit" ng-disabled="gradeScale.$waiting" class="btn btn-primary">
+                                <span class="fa fa-check"></span>
+                            </button>
+                            <button type="button" ng-disabled="gradeScale.$waiting" ng-click="gradeScale.$cancel()"
+                                    class="btn btn-default">
+                                <span class="fa fa-times"></span>
+                            </button>
+                        </form>
+                        <div class="buttons" data-ng-show="!gradeScale.$visible">
+                            <button class="btn btn-primary" ng-click="gradeScale.$show()"><span
+                                    class="fa fa-pencil"></span></button>
+                        </div>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="submit" class="btn btn-primary" data-ng-disabled="userForm.$invalid">Submit</button>
+    <button type="button" data-ng-click="closeModal()" class="btn btn-danger">Close</button>
+</div>

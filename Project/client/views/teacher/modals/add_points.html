@@ -1,0 +1,27 @@
+<div class="modal-header">
+    <div class="row">
+        <div class="text-center">
+            <h2>Assign Points</h2>
+        </div>
+        <div class=" text-center col-sm-6 col-sm-offset-3">
+            <h3>Period: {{classInfo.period}} | Class: {{classInfo.name}}</h3>
+        </div>
+    </div>
+</div>
+<div class="modal-body">
+    <div class="text-center">
+        <label class="ui-radio"><input name="assignOption" type="radio" data-ng-model="option.selection"
+                                       value="applyToAll">
+            <span>Apply to All</span></label>
+        <label class="ui-radio"><input name="assignOption" type="radio" data-ng-model="option.selection"
+                                        value="applyToSelected">
+            <span>Apply to Selected</span></label>
+    </div>
+    <div>
+
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="submit" class="btn btn-primary" data-ng-disabled="userForm.$invalid">Submit</button>
+    <button type="button" data-ng-click="closeModal()" class="btn btn-danger">Close</button>
+</div>

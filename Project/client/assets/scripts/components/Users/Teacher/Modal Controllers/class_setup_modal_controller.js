@@ -1,11 +1,13 @@
 /**
  * Created by Brandon on 7/7/2016.
  */
-ezApp.controller('classModalController',['$scope','$log','$modalInstance','classInfo',
+ezApp.controller('classSetUpModalController',['$scope','$log','$modalInstance','classInfo',
     function ($scope,$log,$modalInstance, classInfo) {
         $scope.classInfo = classInfo;
         //SaveChanges
+
         
+
         //Close Modal
         $scope.closeModal = function () {
             $modalInstance.close();
