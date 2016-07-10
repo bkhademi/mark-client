@@ -1,8 +1,8 @@
 /**
  * Created by Brandon on 6/25/2016.
  */
-ezApp.controller('addedDocsController', ['$scope', '$modalInstance', '$log',
-    function ($scope, $modalInstance, $log) {
+ezApp.controller('addedDocsController', ['$scope', '$modalInstance', '$log','$auth',
+    function ($scope, $modalInstance, $log, $auth) {
 
         //scope Arrays, Objects and Variables Starts
         $scope.stampOptions = ['A to D', 'Credit, No Credit', 'Numerical'];
@@ -111,7 +111,10 @@ ezApp.controller('addedDocsController', ['$scope', '$modalInstance', '$log',
             maxFileSize: 10,
             url: api + '/files',
             acceptedFiles: 'application/pdf',
-            addRemoveLinks: true
+            addRemoveLinks: true,
+            headers:{
+				Authorization: "Bearer " + $auth.getToken()
+				}
         };
         //DropZone Functions Ends
 

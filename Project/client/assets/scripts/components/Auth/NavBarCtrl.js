@@ -1,8 +1,12 @@
 angular.module('ezgrade')
-	.controller('NavbarCtrl', ['$scope','$auth',function($scope, $auth) {
+	.controller('NavbarCtrl', ['$scope','$auth','$localStorage','$log',
+	function($scope, $auth, $localStorage, $log) {
 		$scope.isAuthenticated = function() {
 			return $auth.isAuthenticated();
 		};
+		$scope.$storage = $localStorage
+		
+		$log.info($scope.user);
 		$scope.logout = function(){
 			debugger;
 			if (!$auth.isAuthenticated()) { return; }
@@ -12,4 +16,6 @@ angular.module('ezgrade')
 					$location.path('/');
 				});
 		};
+		
+		
 	}]);
