@@ -1,68 +1,69 @@
 <div class="page">
     <div class="row">
-        <div class="col-sm-6">
+        <!--Classes Table-->
+        <div class="col-sm-7">
             <section class="panel panel-default">
                 <div class="panel-heading"><strong><span class="fa fa-building"></span> My Classes</strong></div>
                 <div class="panel-body">
                     <div class="col-sm-12">
                         <div class="row">
+                            <!--Search for...-->
                             <div class="col-sm-6">
                                 <form>
                                     <input type="text"
-                                           placeholder="Search..."
+                                           placeholder="Search for Class..."
                                            class="form-control"
                                            data-ng-model="search.Class">
                                 </form>
                             </div>
+                            <!--Search for... Ends-->
                         </div>
                         <br>
-                        <table class="table table-bordered table-hover table-striped table-responsive">
+                        <table class="table table-bordered table-hover table-responsive">
                             <thead>
                             <tr>
                                 <th>
-                                    <div class="th">
-                                        Period
-                                        <span class="fa fa-angle-down"
-                                              data-ng-click="sortBy='period'; reverse =!reverse"></span>
-                                    </div>
+                                    Period
+                                    <span class="fa fa-angle-down"
+                                          data-ng-click="sortBy='period'; reverse =!reverse"></span>
                                 </th>
                                 <th>
-                                    <div class="th">
-                                        Class Name
-                                        <span class="fa fa-angle-down"
-                                              data-ng-click="sortBy='name'; reverse =!reverse"></span>
-                                    </div>
+                                    Name
+                                    <span class="fa fa-angle-down"
+                                          data-ng-click="sortBy='name'; reverse =!reverse"></span>
                                 </th>
                                 <th>
-                                    <div class="th">
-                                        # Students
-                                        <span class="fa fa-angle-down"
-                                              data-ng-click="sortBy='classSize'; reverse =!reverse"></span>
-                                    </div>
+                                    # Students
+                                    <span class="fa fa-angle-down"
+                                          data-ng-click="sortBy='classSize'; reverse =!reverse"></span>
+
                                 </th>
                                 <th>
-                                    <div class="th">
-                                        Avg Grade
-                                        <span class="fa fa-angle-down"
-                                              data-ng-click="sortBy='avgGrade'; reverse =!reverse"></span>
-                                    </div>
+                                    Avg Grade
+                                    <span class="fa fa-angle-down"
+                                          data-ng-click="sortBy='avgGrade'; reverse =!reverse"></span>
                                 </th>
-                                <th>
-                                    <div class="th">
-                                        View
-                                    </div>
-                                </th>
+                                <th>Students</th>
+                                <th>Set-Up</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr class="animated bounceInRight"
-                                data-ng-repeat="classs in classesInfo | filter: search.Class | orderBy: sortBy:reverse">
+                            <tr class="animated fadeInDown"
+                                data-ng-repeat="classs in classesInfo | filter: search.Class | orderBy: sortBy:reverse"
+                                data-ng-click="classSelected(classs)"
+                                data-ng-class="selected == classs ? 'activeRow': ''">
                                 <td>{{classs.period}}</td>
                                 <td>{{classs.name}}</td>
                                 <td>{{classs.classSize}}
                                 <td>{{classs.avgGrade}}</td>
-                                <td>
-                                    <button data-ng-click="openClass(classs)" type="button" class="btn btn-primary"><span class="fa fa-eye"></span>
+                                <td class="text-center">
+                                    <button data-ng-click="openClassStudents(classs)" type="button"
+                                            class="btn btn-primary"><span class="fa fa-users"></span>
+                                    </button>
+                                </td>
+                                <td class="text-center">
+                                    <button data-ng-click="openClassSetUp(classs)" type="button"
+                                            class="btn btn-primary"><span class="fa fa-cog"></span>
                                     </button>
                                 </td>
                             </tr>
@@ -72,11 +73,87 @@
                 </div>
             </section>
         </div>
-        <div class="col-sm-6">
+        <!--Classes Table Ends-->
+        <!--Assign Points-->
+        <div class="col-sm-5">
             <section class=" panel panel-default">
                 <div class="panel-heading"><strong><span class="fa fa-pencil-square"></span> Assign Points</strong>
                 </div>
+                <div data-ng-show="selected" class="animated fadeInLeft panel-body">
+                    <br>
+                    <!--Points Options-->
+                    <div class="text-center">
+                        <h4 style="display: inline" class="activeRow">{{selected.name}}</h4>
+                        <br><br>
+                        <label class="ui-radio"><input name="pointsOption" type="radio" data-ng-model="points.option"
+                                                       value="byDoc">
+                            <span>By Document</span></label>
+                        <label class="ui-radio"><input name="pointsOption" type="radio" data-ng-model="points.option"
+                                                       data-ng-click="setDirectly()" value="directly">
+                            <span>Directly to Student(s)</span></label>
+                        <br><br>
+                    </div>
+                    <!--Point Options-->
+
+                    <!--By Document-->
+                    <div data-ng-if="points.option == 'byDoc'" class="text-center">
+                        <div style="white-space: nowrap" class="row">
+                            <div style="white-space: nowrap" class="col-sm-3">
+                                <input type="number" class="form-control" placeholder="Points"
+                                       data-ng-model="pointAssign.points">
+                            </div>
+                            <div  style="white-space: nowrap" class="col-sm-7">
+                                <select multiple style="overflow-y: visible"
+                                        chosen
+                                        class="form-control"
+                                        data-ng-model="pointAssign.selectedDocs"
+                                        data-ng-options="doc as doc.name for doc in documents"
+                                        placeholder-text-multiple="'Search or Select'">
+                                </select>
+                            </div>
+                            <div style="white-space: nowrap; width:25px; height: 25px " class="col-sm-2">
+                                <button class="btn btn-primary btn-sm" type="button" data-ng-click="addPoints(selected)"><span class="fa fa-check"></span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <!--By Document Ends-->
+
+                    <!--Directly to Stu(s)-->
+                    <div data-ng-show="points.option == 'directly'" class="text-center">
+                        <h4>Points For:</h4>
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th data-ng-repeat="component in selectedClassComponents">
+                                    <label class="ui-radio"><input name="pointsFor" type="radio"
+                                                                   data-ng-model="points.choice"
+                                                                   value="{{component.name}}">
+                                        <span>{{component.name}}</span></label>
+                                </th>
+                            </tr>
+                            </thead>
+                        </table>
+                        <br>
+                        <div data-ng-show="points.choice" class="row">
+                            <div>
+                                <input class="form-control" type="number" placeholder="# Points"
+                                       data-ng-model="pointAssign.points">
+                            </div>
+                        </div>
+                    </div>
+                    <!--Directly to Stu(s) Ends-->
+                </div>
             </section>
         </div>
+        <!--Assign Points Ends-->
     </div>
 </div>
+<style>
+    tr.activeRow {
+        background-color: rgba(103, 78, 158, .3) !important;
+    }
+    h4.activeRow {
+        background-color: rgba(103, 78, 158, .3) !important;
+    }
+</style>

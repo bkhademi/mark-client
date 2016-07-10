@@ -113,8 +113,8 @@ ezApp.controller('addedDocsController', ['$scope', '$modalInstance', '$log','$au
             acceptedFiles: 'application/pdf',
             addRemoveLinks: true,
             headers:{
-				Authorization: "Bearer " + $auth.getToken()
-				}
+			Authorization: "Bearer " + $auth.getToken()
+		}
         };
         //DropZone Functions Ends
 
