@@ -1,6 +1,6 @@
-$nav_bg:                #34323A;
-$sub_nav_bg:            darken($nav_bg, 5%);
-$link_color:            #AEB2B7;
+$nav_bg:                #eeeeee;
+$sub_nav_bg:            #1CA19A;
+$link_color:            darken(#767686,20%);
 $link_active_bg:        $sub_nav_bg;
 
 .on-canvas #nav-container {
@@ -66,7 +66,7 @@ $link_active_bg:        $sub_nav_bg;
         &.open,
         &:hover {
             > a {
-                background-color: $link_active_bg;
+                background-color: #127770;
                 color: $reverse;
                 font-weight: bold;
             }

@@ -1,0 +1,40 @@
+<div class="modal-header">
+    <div class="row">
+        <div class=" text-center col-sm-6 col-sm-offset-3">
+            <h2><span class="highlight-danger">Missing/Ungraded Documents</span></h2>
+        </div>
+    </div>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div data-ng-repeat="doc in missingInfo track by $index">
+            <div data-ng-class="$last && $even ?'col-sm-6 col-sm-offset-3': $even ?'col-sm-5 col-sm-offset-1': 'col-sm-5'">
+                <table class="table table-bordered table-hover table-responsive">
+                    <thead>
+                    <tr>
+                        <th class="text-center ">Document Name</th>
+                        <th class="text-center">Type</th>
+                    </tr>
+                    <tr class="text-center">
+                        <td><span class="highlight">{{doc.docName}}</span></td>
+                        <td><span class="highlight">{{doc.type}}</span></td>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr class="text-center">
+                        <th class="text-center">Students</th>
+                        <th class="text-center"> Class</th>
+                    </tr>
+                    <tr class="text-center" data-ng-repeat="student in doc.stuList">
+                        <td>{{student.stuName}}</td>
+                        <td>{{student.className}}</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" data-ng-click="closeModal()" class="btn btn-danger">Close</button>
+</div>

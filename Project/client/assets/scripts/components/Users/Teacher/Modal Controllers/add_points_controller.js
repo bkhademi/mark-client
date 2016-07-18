@@ -5,7 +5,10 @@ ezApp.controller('addPointsController',['$scope','$log','$modalInstance', '$filt
     function ($scope,$log,$modalInstance, $filter, classInfo) {
         $scope.classInfo = classInfo;
         //SaveChanges
-
+        $scope.saveInfo = function () {
+            $modalInstance.close();
+        };
+        
         //Close Modal
         $scope.closeModal = function () {
             $modalInstance.close();

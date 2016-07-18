@@ -25,8 +25,9 @@ function ($routeProvider,$authProvider) {
       return deferred.promise;
     }];
     $routeProvider
-    .when('/dashboard',{
-        templateUrl: 'views/dashboard.html',
+    .when('/user_board',{
+        templateUrl: 'views/teacher/userboard.html',
+        controller:'userBoardController',
             resolve: {
               loginRequired: loginRequired
             }

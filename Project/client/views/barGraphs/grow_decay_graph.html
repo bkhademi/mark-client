@@ -1,0 +1,28 @@
+<div>
+    <div>
+        <script type="text/javascript">
+            window.onload = function () {
+                var chart = new CanvasJS.Chart("chartContainer", {
+                    title: {
+                        text: "Basic Column Chart"
+                    },
+                    animationEnabled: true,
+                    data: [{
+                        type: "column",
+                        dataPoints: [
+                            { y: 45, label: "Apple" },
+                            { y: 31, label: "Mango" },
+                            { y: 52, label: "Pineapple" },
+                            { y: 10, label: "Grapes" },
+                            { y: 46, label: "Lemon" }
+                        ]
+                    }]
+                });
+                chart.render();
+            }
+        </script>>
+    </div>
+    <div>
+    <div id="chartContainer" style="height: 400px; width: 100%;"></div>
+    </div>
+</div>

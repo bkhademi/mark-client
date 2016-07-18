@@ -256,7 +256,7 @@ ezApp.controller('manageClassesController', ['$scope', '$modal', '$log', '$filte
             classId: null,
             directly : false,
             allStudents : false,
-            selectedDocs: [],
+            selectedDoc: null,
             selectedStudents:[],
             component: null,
             points: null
@@ -264,6 +264,7 @@ ezApp.controller('manageClassesController', ['$scope', '$modal', '$log', '$filte
         $scope.setDirectly = function(){
             $scope.pointAssign.directly = true;
         };
+        
         $scope.addPoints = function(selected){
             selected.pointAssign = $scope.pointAssign;
             var modalInstance;

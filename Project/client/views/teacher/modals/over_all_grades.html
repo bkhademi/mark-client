@@ -1,0 +1,48 @@
+<div class="modal-header">
+    <div class="row">
+        <div class=" text-center col-sm-6 col-sm-offset-3">
+            <h2><span class="highlight">Class Averages</span></h2>
+        </div>
+    </div>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div data-ng-repeat="class in avgGradesData" class="col-sm-10 col-sm-offset-1">
+            <table class="table table-bordered table-hover table-responsive">
+                <thead>
+                <tr>
+                    <th class="text-center ">Period</th>
+                    <th class="text-center">Class Name</th>
+                    <th class="text-center">Avg Grade</th>
+                </tr>
+                <tr class="text-center">
+                    <td>{{class.period}}</td>
+                    <td>{{class.className}}</td>
+                    <td>
+                        <span data-ng-class="class.avgGrade === 'A' || class.avgGrade === 'B' ? 'highlight-success' : class.avgGrade === 'C' ? 'highlight-warning' : 'highlight-danger'">
+                            {{class.avgGrade}}
+                        </span>
+                    </td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="text-center">
+                    <th class="text-center" colspan="3">Averages</th>
+                </tr>
+                <tr class="text-center" data-ng-repeat="avg in class.averages">
+                    <td colspan="2">{{avg.name}}</td>
+                    <td>
+                        <span data-ng-class="avg.avgScore > 80? 'highlight-success': avg.avgScore < 70? 'highlight-danger': 'highlight-warning'">
+                            {{avg.avgScore}}%
+                        </span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <br><br>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" data-ng-click="closeModal()" class="btn btn-danger">Close</button>
+</div>

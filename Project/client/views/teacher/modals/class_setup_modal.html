@@ -7,7 +7,10 @@
 </div>
 <div class="modal-body">
     <div class="row">
-        <h4 class="text-center">Breakdown Rules </h4>
+        <div class="text-center">
+            <h4 class="highlight" style="display: inline">Breakdown Rules </h4>
+            <br>
+        </div>
         <br>
         <div class="col-sm-12">
             <table class="table table-bordered table-responsive table-hover">
@@ -30,19 +33,19 @@
                     <td style="white-space: nowrap" class="text-center">
                         <form editable-form name="gradeBreakdown" data-ng-show="gradeBreakdown.$visible"
                               class="form-buttons form-inline" shown="inserted == component">
-                            <button type="submit" ng-disabled="gradeBreakdown.$waiting" class="btn btn-primary">
+                            <button type="submit" ng-disabled="gradeBreakdown.$waiting" class="btn btn-warning">
                                 <span class="fa fa-check"></span>
                             </button>
                             <button type="button" ng-disabled="gradeBreakdown.$waiting"
-                                    ng-click="gradeBreakdown.$cancel()" class="btn btn-default">
+                                    ng-click="gradeBreakdown.$cancel()" class="btn btn-danger">
                                 <span class="fa fa-times"></span>
                             </button>
                         </form>
                         <div class="buttons" data-ng-show="!gradeBreakdown.$visible">
-                            <button class="btn btn-primary" ng-click="gradeBreakdown.$show()"><span
+                            <button class="btn btn-warning" ng-click="gradeBreakdown.$show()"><span
                                     class="fa fa-pencil"></span></button>
                             <button class="btn btn-danger" ng-click="removeComponent($index)"><span
-                                    class="fa fa-times-circle"></span></button>
+                                    class="fa fa-trash"></span></button>
                         </div>
                     </td>
                 </tr>
@@ -50,7 +53,10 @@
             </table>
             <br><br>
         </div>
-        <h4 class="text-center">Grade Scale</h4>
+        <div class="text-center">
+            <h4 class="highlight" style="display: inline">Grade Scale</h4>
+            <br>
+        </div>
         <br>
         <div class="col-sm-12">
             <table class="table table-bordered table-responsive table-hover">
@@ -76,16 +82,16 @@
                     <td style="white-space: nowrap" class="text-center">
                         <form editable-form name="gradeScale" data-ng-show="gradeScale.$visible"
                               class="form-buttons form-inline" shown="inserted == scale">
-                            <button type="submit" ng-disabled="gradeScale.$waiting" class="btn btn-primary">
+                            <button type="submit" ng-disabled="gradeScale.$waiting" class="btn btn-warning">
                                 <span class="fa fa-check"></span>
                             </button>
                             <button type="button" ng-disabled="gradeScale.$waiting" ng-click="gradeScale.$cancel()"
-                                    class="btn btn-default">
+                                    class="btn btn-danger">
                                 <span class="fa fa-times"></span>
                             </button>
                         </form>
                         <div class="buttons" data-ng-show="!gradeScale.$visible">
-                            <button class="btn btn-primary" ng-click="gradeScale.$show()"><span
+                            <button class="btn btn-warning" ng-click="gradeScale.$show()"><span
                                     class="fa fa-pencil"></span></button>
                         </div>
                     </td>
@@ -96,6 +102,6 @@
     </div>
 </div>
 <div class="modal-footer">
-    <button type="submit" class="btn btn-primary" data-ng-disabled="userForm.$invalid">Submit</button>
+    <button type="button" class="btn btn-success" data-ng-click="closeModal()">Save</button>
     <button type="button" data-ng-click="closeModal()" class="btn btn-danger">Close</button>
 </div>

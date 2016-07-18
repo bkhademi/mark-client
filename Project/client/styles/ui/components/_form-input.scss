@@ -8,8 +8,8 @@
 }
 
 .form-control:focus {
-    border-color: $skin;
-    @include box-shadow(none);
+    border-color: #1CA19A;
+    @include box-shadow(#1CA19A);
 }
 
 .form-group {

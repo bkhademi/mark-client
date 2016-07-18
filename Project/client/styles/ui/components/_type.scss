@@ -67,7 +67,7 @@
 }
 
 
-// Hightlight
+// Hightlights
 .highlight {
     background-color: $brand-primary;
     color: $reverse;
@@ -75,6 +75,26 @@
     padding: 2px 5px;
 }
 
+.highlight-success{
+    background-color: $brand-success;
+    color: $reverse;
+    @include border-radius(3px);
+    padding: 2px 5px;
+}
+
+.highlight-danger{
+    background-color: $brand-danger;
+    color: $reverse;
+    @include border-radius(3px);
+    padding: 2px 5px;
+}
+
+.highlight-warning{
+    background-color: $brand-warning;
+    color: $reverse;
+    @include border-radius(3px);
+    padding: 2px 5px;
+}
 
 
 // divider
@@ -105,4 +125,7 @@
     padding: 25px;
 }
 
-
+//clickable
+.clickable-cursor{
+    cursor: pointer;
+}

@@ -5,92 +5,97 @@
         </div>
     </div>
 </div>
-<form name="userForm" data-ng-submit="submitForm(userForm.$valid)" novalidate onkeypress="return event.keyCode != 13">
-    <div class="modal-body animated fadeIn">
-        <div class="row">
-            <h3 class="text-center"><span class="highlight">Quick Stats</span></h3>
-            <br>
-            <div class="col-sm-10 col-sm-offset-1">
-                <table class="table table-bordered table-hover table-responsive">
-                    <thead>
-                    <tr>
-                        <th class="text-center">Avg Grade</th>
-                        <th class="text-center">Avg Test</th>
-                        <th class="text-center">Avg Quiz</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr class="text-center">
-                        <td data-ng-class="classInfo.avgGrade === 'A' || classInfo.avgGrade == 'B' ? 'bg-success': classInfo.avgGrade === 'C' ? 'bg-warning' : 'bg-danger'">
+<div class="modal-body animated">
+    <div class="row">
+        <h3 class="text-center"><span class="highlight">Quick Stats</span></h3>
+        <br>
+        <div class="col-sm-10 col-sm-offset-1">
+            <table class="table table-bordered table-hover table-responsive">
+                <thead>
+                <tr>
+                    <th class="text-center ">Avg Grade</th>
+                    <th class="text-center">Avg Test</th>
+                    <th class="text-center">Avg Quiz</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="text-center">
+                    <td>
+                        <span data-ng-class="classInfo.avgGrade === 'A' || classInfo.avgGrade == 'B' ? 'highlight-success': classInfo.avgGrade === 'C' ? 'highlight-warning' : 'highlight-danger'">
                             {{classInfo.avgGrade}}
-                        </td>
-                        <td data-ng-class="classInfo.avgTestScore > 80? 'bg-success': classInfo.avgTestScore < 70? 'bg-danger': 'bg-warning' ">
+                        </span>
+                    </td>
+                    <td>
+                        <span data-ng-class="classInfo.avgTestScore > 80? 'highlight-success': classInfo.avgTestScore < 70? 'highlight-danger': 'highlight-warning'">
                             {{classInfo.avgTestScore}}%
-                        </td>
-                        <td data-ng-class="classInfo.avgQuizScore > 80? 'bg-success': classInfo.avgQuizScore < 70? 'bg-danger': 'bg-warning' ">
+                        </span>
+                    </td>
+                    <td>
+                        <span data-ng-class="classInfo.avgQuizScore > 80? 'highlight-success': classInfo.avgQuizScore < 70? 'highlight-danger': 'highlight-warning' ">
                             {{classInfo.avgQuizScore}}%
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-                <br><br>
-            </div>
+                        </span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+            <br><br>
         </div>
-        <div class="row">
-            <h3 class="text-center"><span class="highlight">Students</span></h3>
+    </div>
+    <div class="row">
+        <h3 class="text-center"><span class="highlight">Students</span></h3>
+        <br>
+        <div class="col-sm-6 col-sm-offset-3">
+            <form>
+                <input type="text"
+                       placeholder="Search Student..."
+                       class="form-control"
+                       data-ng-model="search.student"
+                       typeahead="student as student.name for student in classInfo.studentInfo | filter:$viewValue | limitTo:8">
+            </form>
             <br>
-            <div class="col-sm-6">
-                <form>
-                    <input type="text"
-                           placeholder="Search Student..."
-                           class="form-control"
-                           data-ng-model="search.student">
-                </form>
-                <br>
-            </div>
+        </div>
 
-            <div class="col-sm-12">
-                <table class="table table-bordered table-hover table-responsive">
-                    <thead>
-                    <tr>
-                        <th>
-                            ID
+        <div class="col-sm-12">
+            <table class="table table-bordered table-hover table-responsive">
+                <thead>
+                <tr>
+                    <th>
+                        ID
                             <span class="fa fa-angle-down"
                                   data-ng-click="sortBy='id'; reverse =!reverse"></span>
-                        </th>
-                        <th>
-                            Name
+                    </th>
+                    <th>
+                        Name
                             <span class="fa fa-angle-down"
                                   data-ng-click="sortBy='name'; reverse =!reverse"></span>
-                        </th>
-                        <th>
-                            Grade Level
+                    </th>
+                    <th>
+                        Grade Level
                             <span class="fa fa-angle-down"
                                   data-ng-click="sortBy='gradeLevel'; reverse =!reverse"></span>
-                        </th>
-                        <th>
-                            Class Grade
+                    </th>
+                    <th>
+                        Class Grade
                             <span class="fa fa-angle-down"
                                   data-ng-click="sortBy='classGrade'; reverse =!reverse"></span>
-                        </th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr data-ng-repeat="student in classInfo.studentInfo | limitTo : 10 | filter: search.student | orderBy: sortBy:reverse">
-                        <td>{{student.id}}</td>
-                        <td>{{student.name}}</td>
-                        <td>{{student.gradeLevel}}</td>
-                        <td data-ng-class="student.classGrade === 'A' || student.classGrade == 'B' ? 'bg-success': student.classGrade === 'C' ? 'bg-warning' : 'bg-danger'">
-                            {{student.classGrade}}
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
-            </div>
+                    </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr data-ng-repeat="student in classInfo.studentInfo | limitTo : 10 | filter: search.student | orderBy: sortBy:reverse">
+                    <td>{{student.id}}</td>
+                    <td>{{student.name}}</td>
+                    <td>{{student.gradeLevel}}</td>
+                    <td>
+                        <span data-ng-class="student.classGrade === 'A' || student.classGrade == 'B' ? 'highlight-success': student.classGrade === 'C' ? 'highlight-warning' : 'highlight-danger'">
+                            {{student.classGrade}}</span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
         </div>
     </div>
-    <div class="modal-footer">
-        <button type="submit" class="btn btn-primary" data-ng-disabled="userForm.$invalid">Submit</button>
-        <button type="button" data-ng-click="closeModal()" class="btn btn-danger">Close</button>
-    </div>
-</form>
+</div>
+<div class="modal-footer">
+    <button type="button" data-ng-click="closeModal()" class="btn btn-danger">Close</button>
+</div>

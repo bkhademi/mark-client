@@ -6,19 +6,20 @@
                 <div class="panel-heading"><strong><span class="fa fa-building"></span> My Classes</strong></div>
                 <div class="panel-body">
                     <div class="col-sm-12">
-                        <div class="row">
-                            <!--Search for...-->
-                            <div class="col-sm-6">
-                                <form>
-                                    <input type="text"
-                                           placeholder="Search for Class..."
-                                           class="form-control"
-                                           data-ng-model="search.Class">
-                                </form>
-                            </div>
-                            <!--Search for... Ends-->
-                        </div>
-                        <br>
+                        <!--<div class="row">-->
+                            <!--&lt;!&ndash;Search for...&ndash;&gt;-->
+                            <!--<div class="col-sm-6">-->
+                                <!--<form>-->
+                                    <!--<input type="text"-->
+                                           <!--placeholder="Search for Class..."-->
+                                           <!--class="form-control"-->
+                                           <!--data-ng-model="search.Class"-->
+                                           <!--typeahead="class as class.name for class in classesInfo | filter:$viewValue | limitTo:8">-->
+                                <!--</form>-->
+                            <!--</div>-->
+                            <!--&lt;!&ndash;Search for... Ends&ndash;&gt;-->
+                        <!--</div>-->
+                        <!--<br>-->
                         <table class="table table-bordered table-hover table-responsive">
                             <thead>
                             <tr>
@@ -48,7 +49,7 @@
                             </tr>
                             </thead>
                             <tbody>
-                            <tr class="animated fadeInDown"
+                            <tr class="animated fadeInUp"
                                 data-ng-repeat="classs in classesInfo | filter: search.Class | orderBy: sortBy:reverse"
                                 data-ng-click="classSelected(classs)"
                                 data-ng-class="selected == classs ? 'activeRow': ''">
@@ -63,7 +64,7 @@
                                 </td>
                                 <td class="text-center">
                                     <button data-ng-click="openClassSetUp(classs)" type="button"
-                                            class="btn btn-primary"><span class="fa fa-cog"></span>
+                                            class="btn btn-success"><span class="fa fa-cog"></span>
                                     </button>
                                 </td>
                             </tr>
@@ -77,18 +78,18 @@
         <!--Assign Points-->
         <div class="col-sm-5">
             <section class=" panel panel-default">
-                <div class="panel-heading"><strong><span class="fa fa-pencil-square"></span> Assign Points</strong>
+                <div class="panel-heading"><strong><span class="fa fa-pencil-square"></span> Add Points</strong>
                 </div>
                 <div data-ng-show="selected" class="animated fadeInLeft panel-body">
                     <br>
                     <!--Points Options-->
                     <div class="text-center">
                         <h4 style="display: inline" class="activeRow">{{selected.name}}</h4>
-                        <br><br>
-                        <label class="ui-radio"><input name="pointsOption" type="radio" data-ng-model="points.option"
+                        <hr>
+                        <label class="ui-radio"><input name="pointsOption" type="radio" data-ng-model="pointAssign.option"
                                                        value="byDoc">
                             <span>By Document</span></label>
-                        <label class="ui-radio"><input name="pointsOption" type="radio" data-ng-model="points.option"
+                        <label class="ui-radio"><input name="pointsOption" type="radio" data-ng-model="pointAssign.option"
                                                        data-ng-click="setDirectly()" value="directly">
                             <span>Directly to Student(s)</span></label>
                         <br><br>
@@ -96,38 +97,38 @@
                     <!--Point Options-->
 
                     <!--By Document-->
-                    <div data-ng-if="points.option == 'byDoc'" class="text-center">
+                    <div data-ng-if="pointAssign.option == 'byDoc'" class="text-center">
                         <div style="white-space: nowrap" class="row">
                             <div style="white-space: nowrap" class="col-sm-3">
                                 <input type="number" class="form-control" placeholder="Points"
                                        data-ng-model="pointAssign.points">
                             </div>
                             <div  style="white-space: nowrap" class="col-sm-7">
-                                <select multiple style="overflow-y: visible"
+                                <select style="overflow-y: visible"
                                         chosen
                                         class="form-control"
-                                        data-ng-model="pointAssign.selectedDocs"
+                                        data-ng-model="pointAssign.selectedDoc"
                                         data-ng-options="doc as doc.name for doc in documents"
-                                        placeholder-text-multiple="'Search or Select'">
+                                        placeholder-text-single="'Search or Select'">
                                 </select>
                             </div>
                             <div style="white-space: nowrap; width:25px; height: 25px " class="col-sm-2">
-                                <button class="btn btn-primary btn-sm" type="button" data-ng-click="addPoints(selected)"><span class="fa fa-check"></span>
-                                </button>
+                                <button class="btn btn-primary btn-sm" type="button" data-ng-click="addPoints(selected)"
+                                        data-ng-disabled="!pointAssign.selectedDoc && !pointAssign.points ">OK</button>
                             </div>
                         </div>
                     </div>
                     <!--By Document Ends-->
 
                     <!--Directly to Stu(s)-->
-                    <div data-ng-show="points.option == 'directly'" class="text-center">
+                    <div data-ng-show="pointAssign.option == 'directly'" class="text-center">
                         <h4>Points For:</h4>
                         <table class="table">
                             <thead>
                             <tr>
                                 <th data-ng-repeat="component in selectedClassComponents">
                                     <label class="ui-radio"><input name="pointsFor" type="radio"
-                                                                   data-ng-model="points.choice"
+                                                                   data-ng-model="pointAssign.component"
                                                                    value="{{component.name}}">
                                         <span>{{component.name}}</span></label>
                                 </th>
@@ -135,10 +136,14 @@
                             </thead>
                         </table>
                         <br>
-                        <div data-ng-show="points.choice" class="row">
-                            <div>
+                        <div data-ng-show="pointAssign.component" class="row">
+                            <div class="col-sm-3 col-sm-offset-3">
                                 <input class="form-control" type="number" placeholder="# Points"
                                        data-ng-model="pointAssign.points">
+                            </div>
+                            <div class="col-sm-3">
+                                <button class="btn btn-primary btn-sm" type="button" data-ng-click="addPoints(selected)"
+                                        data-ng-disabled="!pointAssign.selectedDoc && !pointAssign.points">OK</button>
                             </div>
                         </div>
                     </div>

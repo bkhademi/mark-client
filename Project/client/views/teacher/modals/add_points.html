@@ -9,19 +9,82 @@
     </div>
 </div>
 <div class="modal-body">
+    <div class="row">
+        <div class="col-sm-10 col-sm-offset-1">
+            <table class="table table-responsive table-bordered">
+                <thead>
+                <tr>
+                    <th class="text-center">{{classInfo.pointAssign.points}} Points For :</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="text-center" data-ng-if="classInfo.pointAssign.directly">
+                    <td>{{classInfo.pointAssign.component}}</td>
+                </tr>
+                <tr class="text-center" data-ng-if="!classInfo.pointAssign.directly">
+                    <td>{{classInfo.pointAssign.selectedDoc.name}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <br>
     <div class="text-center">
-        <label class="ui-radio"><input name="assignOption" type="radio" data-ng-model="option.selection"
+        <label class="ui-radio"><input name="assignOption" type="radio"
+                                       data-ng-model="classInfo.pointAssign.stuSelection"
                                        value="applyToAll">
             <span>Apply to All</span></label>
-        <label class="ui-radio"><input name="assignOption" type="radio" data-ng-model="option.selection"
-                                        value="applyToSelected">
+        <label class="ui-radio"><input name="assignOption" type="radio"
+                                       data-ng-model="classInfo.pointAssign.stuSelection"
+                                       value="applyToSelected">
             <span>Apply to Selected</span></label>
     </div>
-    <div>
-
+    <br><br>
+    <div data-ng-show="classInfo.pointAssign.stuSelection == 'applyToAll'">
+        <h4 class="text-center">This points will be applied to everyone in <span class="highlight">{{classInfo.name}}</span></h4>
+    </div>
+    <div data-ng-if="classInfo.pointAssign.stuSelection == 'applyToSelected'">
+        <div class="row">
+            <div class="col-sm-6 col-sm-offset-2">
+                <select multiple chosen
+                        class="form-control"
+                        data-ng-model="classInfo.pointAssign.selectedStudents"
+                        data-ng-options=" student as student.name for student in classInfo.studentInfo"
+                        placeholder-text-multiple="'Search or Select Students'">
+                </select>
+            </div>
+            <div data-ng-if="classInfo.pointAssign.directly" class="col-sm-2 text-center">
+                <button type="button" class="btn btn-primary" data-ng-click="addToPointsD()">Add To</button>
+            </div>
+            <div  data-ng-if="!classInfo.pointAssign.directly" class="col-sm-1 text-center">
+                <button type="button" class="btn btn-primary" data-ng-click="addToPoints()">Add To</button>
+            </div>
+            <div  data-ng-if="!classInfo.pointAssign.directly" class="col-sm-1 text-center">
+                <button type="button" class="btn btn-primary" data-ng-click="replace()">Replace</button>
+            </div>
+        </div>
+        <br>
+        <div>
+            <table class="table table-bordered table-responsive table-hover">
+                <thead>
+                <tr>
+                    <th>Student Name</th>
+                    <th>Old Score</th>
+                    <td>New Score</td>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="animated bounceIn" data-ng-repeat=" student in classInfo.pointAssign.selectedStudents">
+                    <td>{{student.name}}</td>
+                    <td class="bg-danger">2</td>
+                    <td class="bg-success">{{classInfo.pointAssign.points}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
 <div class="modal-footer">
-    <button type="submit" class="btn btn-primary" data-ng-disabled="userForm.$invalid">Submit</button>
+    <button type="button"  data-ng-click="saveInfo()" class="btn btn-primary" data-ng-disabled="userForm.$invalid">Save</button>
     <button type="button" data-ng-click="closeModal()" class="btn btn-danger">Close</button>
 </div>

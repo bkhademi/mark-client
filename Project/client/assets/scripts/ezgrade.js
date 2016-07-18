@@ -1,7 +1,7 @@
 'use strict';
 var base =   "http://ezgrade-api.ddns.net";
 var api = base+ "/api";
-var ezApp = angular.module('ezgrade', ['ngRoute', 'ngSanitize', 'ngDropzone', 'localytics.directives', 'mgo-angular-wizard','xeditable','ngAnimate',
+var ezApp = angular.module('ezgrade', ['ngRoute', 'ngSanitize', 'ngDropzone', 'localytics.directives', 'mgo-angular-wizard','xeditable','ngAnimate',"chart.js",
     //extend template
     'app',
     // ezgrade specific dependencies
@@ -28,7 +28,7 @@ var ezApp = angular.module('ezgrade', ['ngRoute', 'ngSanitize', 'ngDropzone', 'l
 				$location.path('/login');
 			}
 			return deferred.promise;
-		}]
+		}];
 	$routeProvider
 		.when('/login', {
 			templateUrl: 'views/pages/signin.html',

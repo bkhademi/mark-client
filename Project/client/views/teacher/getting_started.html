@@ -1,24 +1,25 @@
 <div class="page">
     <section class="panel panel-default">
-        <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span> Getting Started!</strong>
+        <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span> Getting Started</strong>
         </div>
         <div class="panel-body" data-ng-controller="wizardFormCtrl">
 
             <wizard on-finish="finalSubmit()" class="wizard-steps-container">
                 <wz-step class="text-right" title="Welcome">
-                    <h2 class="text-center">Hello <span class="highlight">Mr. Arreola</span></h2>
+                    <h2 class="text-center">Hello there, <span class="highlight">Mr. Arreola</span></h2>
                     <hr>
-                    <div class="text-center" style="font-size:20px">
-                        Welcome to EasyGrade. You are just few steps away from fully
-                        experiencing the power of this application developed just for you. <br><br>
+                    <div class="row">
+                        <div class=" col-sm-6 col-sm-offset-3 text-center" style="font-size:20px">
+                            Nice to meet you! Are you ready to get started?
+                            In just a few minutes, you will experience the new way of
+                            grading with Mark.<br><br>
 
-                        In 3 easy steps, we will walk you through creating your courses with its rules, and
-                        setting
-                        your document manager for your assignments, tests and quizzes. This where EasyGrade makes
-                        grading
-                        simple,fun and takes annoying steps off your plate.<br><br>
+                            In 3 simple steps you will create your courses, customize
+                            your rules and preferences and set up Mark's Box for all your document types.<br>
+                            Grading is now fun and effective with Mark.<br><br>
 
-                        Hit the NEXT button to get started!
+                            Click the "Next" button to continue.
+                        </div>
                     </div>
                     <buttton class="btn btn-primary" wz-next>Next</buttton>
                 </wz-step>
@@ -26,79 +27,88 @@
                 <wz-step class="text-right" title="Class Set-Up">
                     <h2 class="text-center"><span class="highlight">Class Set-Up</span></h2>
                     <hr>
-                    <div class="text-center">
-                        <div data-ng-hide="stepTwoCompleted">
-                            <p style="font-size:20px">Before anything! Let's get some info on you. Then we will create
-                                your
-                                classes. <br>
-                                Hit the "About Me" button right below this sentence!</p>
-                            <!-- Button trigger modal -->
-                            <div>
-                                <button type="button" class="btn btn-lg"
-                                        data-ng-class="aboutYouSuccess?'btn-success':'btn-primary'"
-                                        data-ng-click="openAboutYou()" data-ng-bind-html="aboutYouHtml">
-                                </button>
-                            </div>
-                            <br>
-                            <div>
-                                <div class="animated slideInRight" data-ng-show="aboutYouSuccess">
-                                    <p class="text-center" style="font-size:20px">
-                                        We are now ready to create your classes.<br>
-                                        Hit the "Create Classes" button below this sentence.
-                                    </p>
-                                    <button type="button" class="btn btn-primary btn-lg"
-                                            data-ng-class="createClassSuccess?'btn-success':'btn-primary'"
-                                            data-ng-click="openCreateClass()"
-                                            data-ng-bind-html="createClassHtml">
+                    <div class="row">
+                        <div class="text-center col-sm-6 col-sm-offset-3">
+                            <div data-ng-hide="stepTwoCompleted">
+                                <p style="font-size:20px">
+                                    Let's gather some information you, so that Mark can get to know
+                                    you a little better. <br><br>
+                                    Click the "About me" button to continue.
+                                </p>
+                                <!-- Button trigger modal -->
+                                <div>
+                                    <button type="button" class="btn btn-lg"
+                                            data-ng-class="aboutYouSuccess?'btn-success':'btn-primary'"
+                                            data-ng-click="openAboutYou()" data-ng-bind-html="aboutYouHtml">
                                     </button>
                                 </div>
+                                <br>
+                                <div>
+                                    <div class="animated slideInRight" data-ng-show="aboutYouSuccess">
+                                        <p class="text-center" style="font-size:20px">
+                                            Now let's create your classes. This is where Mark understands your
+                                            grading preferences by you choosing your own customizable grading scales,
+                                            adjustable rules, and unique features specific to your class. <br><br>
+
+                                            Go head and click "Create Classes" button below.
+                                        </p>
+                                        <button type="button" class="btn btn-primary btn-lg"
+                                                data-ng-class="createClassSuccess?'btn-success':'btn-primary'"
+                                                data-ng-click="openCreateClass()"
+                                                data-ng-bind-html="createClassHtml">
+                                        </button>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                        <div class="animated slideInLeft"  data-ng-show="stepTwoCompleted">
-                            <br>
-                            <p class="text-center" style="font-size:20px">Great,we are almost done!<br><br>
-                                The next step is to add some assignments to get you familiar as to how you uploading
-                                your assignments will make grading the EasyGrade Way! <br><br>
-                                Hit the NEXT button on the left-lower corner to continue!</p>
+                            <div class="animated slideInLeft" data-ng-show="stepTwoCompleted">
+                                <br>
+                                <p class="text-center" style="font-size:20px">Great, we are almost done!<br><br>
+                                    The final step is to add some documents to familiarize you with uploading documents
+                                    to Mark's Box.
+                                    This is where Mark does the grading and gradebook keeping for you.
+                                    <br><br>
+                                    CLick the "Next" button on the right-lower corner to continue.</p>
+                            </div>
                         </div>
                     </div>
                     <buttton class="btn btn-primary" data-ng-disabled="!stepTwo" wz-next>Next</buttton>
                 </wz-step>
 
                 <wz-step class="text-right" title="Finish">
-                    <h2 data-ng-hide="readyToFinish" class="text-center"><span class="highlight">Upload Documents</span></h2>
-                    <h2 class="text-center" data-ng-show="readyToFinish"><span class="highlight">We are Done!</span></h2>
+                    <h2 data-ng-hide="readyToFinish" class="text-center"><span class="highlight">Mark's Box</span>
+                    </h2>
+                    <h2 class="text-center" data-ng-show="readyToFinish"><span class="highlight">Success!</span>
+                    </h2>
                     <hr>
-                    <div>
-                        <div data-ng-hide="readyToFinish" class="text-center">
-                            <p style="font-size:20px">
-                                Why uploading your documents? <br>
-                                All the documents you upload (tests, quizzes, homework) will be stamped with a unique
-                                header above them. <br>
-                                This stamp will ask students to bubble in their id, and it will provide you with a space
-                                to grade the document.<br>
-                                Once you upload them again, now graded with the stamp, EasyGrade will automatically
-                                update
-                                the
-                                score
-                                of each student, and send a push notification to the student to their phone!<br>
-                                How GREAT is that?<br><br>
-                                Hit the "GREAT" button below this sentence, if you agree and to continue.
-                            </p>
-                            <button type="button" class="btn btn-success btn-lg"
-                                    data-ng-click="awesome()">GREAT
-                            </button>
-                        </div>
-                        <div class="text-center" data-ng-show="readyToFinish">
-                            <p style="font-size:20px">
-                                Simple Right? <br><br>
-                                Click the FINISH button in the right hand corner!
-                                This will redirect you to your EasyBox page where you can add more documents!<br><br>
-                                On behalf of the Newstein Systems Team, Welcome to EasyGrade!
-                            </p>
+                    <div class="row animated slideInRight">
+                        <div class="col-sm-6 col-sm-offset-3">
+                            <div data-ng-hide="readyToFinish" class="text-center">
+                                <p style="font-size:20px">
+                                    In this step you set-up Mark's Box. This is where Mark grades your documents
+                                    or interprets your hand written scores. Then Mark will update your gradebook and
+                                    notify each student of their score.<br><br>
+
+                                    How great is that!<br><br>
+
+                                    Click the "Great" button to continue.
+                                </p>
+                                <button type="button" class="btn btn-success btn-lg"
+                                        data-ng-click="awesome()">Great
+                                </button>
+                            </div>
+                            <div class="text-center animated bounceInUp" data-ng-show="readyToFinish">
+                                <p style="font-size:20px">
+                                    You have completed all the steps.
+                                    Simple Right? <br><br>
+                                    Click the "Finish" button in the right hand corner.
+                                    This will redirect you to  your Board.<br><br>
+                                    On behalf of the Newstein Systems Team, we introduce you to Mark!
+                                </p>
+                            </div>
                         </div>
                     </div>
-                    <buttton type="submit"  data-ng-disabled="!readyToFinish" class="btn btn-primary" wz-next>Finish</buttton>
+                    <buttton type="submit" data-ng-disabled="!readyToFinish" class="btn btn-primary" wz-next>Finish
+                    </buttton>
                 </wz-step>
             </wizard>
         </div>

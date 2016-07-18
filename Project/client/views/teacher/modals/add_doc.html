@@ -1,0 +1,181 @@
+<div class="modal-header">
+    <div class="text-center">
+        <h2>Add Documents</h2>
+    </div>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-sm-10 col-sm-offset-1">
+            <table class="table table-responsive table-bordered">
+                <thead>
+                <tr>
+                    <th>Doc Name</th>
+                    <th>Type</th>
+                    <th>Stamp</th>
+                    <th>Points</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr data-ng-repeat="doc in docsInfo">
+                    <td>{{doc.docName}}</td>
+                    <td>{{doc.type}}</td>
+                    <td>{{doc.stampType}}</td>
+                    <td>{{doc.points}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <br>
+    <div>
+        <div class="row">
+            <div class="col-sm-12 text-center">
+                <h4 style="display: inline" class="highlight">Add Stamp Type</h4>
+                <div>
+                    <br>
+                    <label class="ui-radio">
+                        <input type="radio" name="stampOption"
+                               data-ng-model="docs.stampOption"
+                               value="applyToAll">
+                        <span>Apply to All</span>
+                    </label>
+                    <label class="ui-radio">
+                        <input type="radio" name="stampOption"
+                               data-ng-model="docs.stampOption"
+                               value="applyToSelected">
+                        <span>Apply to Selected</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div data-ng-if="docs.stampOption == 'applyToAll'" class="row">
+            <div class="col-sm-4 col-sm-offset-3">
+                <select chosen
+                        class="form-control"
+                        data-ng-options="stamp as stamp for stamp in stamps"
+                        data-ng-model="docs.stampTypeAll"
+                        placeholder-text-single="'Select Stamp'">
+                    <option value=""></option>
+                </select>
+            </div>
+            <div class="col-sm-3">
+                <button type="button" class="btn btn-primary" data-ng-click="applyToAllStamp()" data-ng-disabled="!docs.stampTypeAll">Apply</button>
+            </div>
+            <br><br>
+        </div>
+        <div data-ng-if="docs.stampOption == 'applyToSelected'" class="row">
+            <div class="col-sm-3 col-sm-offset-1">
+                <select chosen
+                        class="form-control"
+                        data-ng-options="stamp as stamp for stamp in stamps"
+                        data-ng-model="docs.stampTypeSelected"
+                        placeholder-text-single="'Select Stamp'">
+                    <option value=""></option>
+                </select>
+            </div>
+            <div class="col-sm-5">
+                <select multiple chosen
+                        class="form-control"
+                        data-ng-options="document as document.docName for document in docsInfo"
+                        data-ng-model="docs.selectedDocsS"
+                        placeholder-text-multiple="'Search or Select Docs'">
+                    <option value=""></option>
+                </select>
+            </div>
+            <div class="col-sm-2">
+                <button type="button" class="btn btn-primary" data-ng-click="applyToSelectedStamp()"
+                        data-ng-disabled="!docs.selectedDocsS || !docs.stampTypeSelected">Apply</button>
+            </div>
+        </div>
+        <br><br>
+        <div class="row">
+            <div class="col-sm-12 text-center">
+                <h4 style="display: inline" class="highlight">Add Points</h4>
+                <div>
+                    <br>
+                    <label class="ui-radio">
+                        <input type="radio" name="pointsOption"
+                               data-ng-model="docs.pointsOption"
+                               value="applyToAll">
+                        <span>Apply to All</span>
+                    </label>
+                    <label class="ui-radio">
+                        <input type="radio" name="pointsOption"
+                               data-ng-model="docs.pointsOption"
+                               value="applyToSelected">
+                        <span>Apply to Selected</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <br>
+        <div data-ng-if="docs.pointsOption == 'applyToAll'">
+            <div class="col-sm-4 col-sm-offset-3">
+                <input class="form-control" type="number" data-ng-model="docs.points" placeholder="# Points">
+            </div>
+            <div class="col-sm-3">
+                <button type="button" class="btn btn-primary" data-ng-click="applyToAllPoints()" data-ng-disabled="!docs.points">Apply</button>
+            </div>
+            <br><br>
+        </div>
+        <div data-ng-if="docs.pointsOption == 'applyToSelected'">
+            <div class="col-sm-3 col-sm-offset-1">
+                <input class="form-control" type="number" data-ng-model="docs.points" placeholder="# Points">
+            </div>
+            <div class="col-sm-5">
+                <select multiple chosen
+                        class="form-control"
+                        data-ng-options="document as document.docName for document in docsInfo"
+                        data-ng-model="docs.selectedDocsP"
+                        placeholder-text-multiple="'Search or Select Docs'">
+                    <option value=""></option>
+                </select>
+            </div>
+            <div>
+                <button type="button" class="btn btn-primary" data-ng-click="applyToSelectedPoints()"
+                        data-ng-disabled="!docs.selectedDocsP || !docs.points">Apply</button>
+            </div>
+            <br><br>
+        </div>
+    </div>
+    <br><br>
+    <div data-ng-if="docs.multipleChoice" class="row">
+        <div class="text-center">
+            <h4 class="highlight" style="display: inline">Looks like you added Multiple Choice Docs...</h4>
+            <br>
+            <h4>Please upload the answer key for each document. If you don't have it now, you can always
+            go back to Mark's Box and added it later.</h4>
+        </div>
+        <br>
+        <div class="col-sm-10 col-sm-offset-1">
+            <table class="table table-bordered table-responsive">
+                <thead>
+                <tr>
+                    <th>Doc Name</th>
+                    <th>Stamp</th>
+                    <th>Answer Key</th>
+                    <th>Points</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr data-ng-repeat=" doc in docsInfo ">
+                    <td data-ng-if="doc.stampType == 'Multiple Choice'">{{doc.docName}}</td>
+                    <td data-ng-if="doc.stampType == 'Multiple Choice'">{{doc.stampType}}</td>
+                    <td class="text-center" data-ng-if="doc.stampType == 'Multiple Choice'">
+                        <input type="file" title="Add Key" data-ui-file-upload
+                               data-ng-model="fileUpload.key"
+                               class="btn btn-danger" data-ng-click="addAnswerKey($index)">
+                    </td>
+                    <td data-ng-if="doc.stampType == 'Multiple Choice'">{{doc.points}}</td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" data-ng-click="saveDocs()" class="btn btn-primary" data-ng-disabled="!dataValid">Save
+    </button>
+    <button type="button" data-ng-click="closeModal()" class="btn btn-danger">Close</button>
+</div>

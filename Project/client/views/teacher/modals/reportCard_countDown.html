@@ -1,0 +1,30 @@
+<div class="modal-header">
+    <div class="row">
+        <div class=" text-center col-sm-6 col-sm-offset-3">
+            <h3><span class="highlight">Set Countdown for Next Report Card</span></h3>
+        </div>
+    </div>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-sm-6 col-sm-offset-3" style="display:inline-block; min-height:290px;">
+            <div class="input-group ui-datepicker">
+                <input type="text"
+                       class="form-control"
+                       datepicker-popup="{{format}}"
+                       ng-model="dt"
+                       is-open="opened"
+                       min="minDate"
+                       max="'2015-06-22'"
+                       datepicker-options="dateOptions"
+                       date-disabled="disabled(date, mode)"
+                       ng-required="true"
+                       close-text="Close">
+                <span class="input-group-addon" ng-click="open($event)"><i class="fa fa-calendar"></i></span>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" data-ng-click="closeModal()" class="btn btn-danger">Close</button>
+</div>

@@ -1,15 +1,40 @@
 /**
  * Created by Brandon on 6/28/2016.
  */
-ezApp.controller('easyBoxController', ['$scope', '$modal', '$log', '$location', '$filter', 'logger','AssignmentService',
-    function ($scope, $modal, $log, $location, $filter, logger, assignment) {
+ezApp.controller('easyBoxController', ['$scope', '$modal', '$log', '$location', '$auth', '$filter', 'logger','AssignmentService',
+    function ($scope, $modal, $log, $location, $auth , $filter, logger, assignment) {
     	
     	$scope.documents =  assignment.query();
     	$scope.api = api;
-    	
+    	$scope.docsToSend = [];
         //DropZone
         $scope.dzAddedFile = function (file) {
-            $log.info(file);
+            var newDoc = {};
+            newDoc.docName = file.name;
+            newDoc.points = 'Not Yet Added';
+            newDoc.type = $scope.dropZone.docType;
+            newDoc.stampType = 'Not Yet Added';
+            $scope.docsToSend.push(newDoc);
+        };
+
+        $scope.dzCompleted = function(){
+            var modalInstance;
+            modalInstance = $modal.open({
+                size:'lg',
+                templateUrl:'views/teacher/modals/add_doc.html',
+                controller: 'addDocController',
+                resolve:{
+                    docsInfo: function () {
+                        return $scope.docsToSend
+                    }
+                }
+            })
+        };
+
+        //classInfo from DB
+       $scope.components = ['Test', 'Exam', 'Final', 'Essay', 'Homework'];
+        $scope.dropZone = {
+            docType : []
         };
 
         $scope.dzError = function (file, errorMessage) {
@@ -25,11 +50,29 @@ ezApp.controller('easyBoxController', ['$scope', '$modal', '$log', '$location', 
             maxFileSize: 10,
             url: api + '/files',
             acceptedFiles: 'application/pdf',
-            addRemoveLinks: true
+            addRemoveLinks: true,
+            headers:{
+                Authorization: "Bearer " + $auth.getToken()
+            }
         };
         //DropZone Functions Ends
-        $scope.showAllDocs = function(){
 
+        //showAll Docs
+        $scope.buttonName = 'Show All';
+        $scope.isCollapsed = false;
+        $scope.viewLimit = 3;
+        
+        $scope.showAllDocs = function(){
+            if(!$scope.isCollapsed){
+                $scope.buttonName = 'Hide';
+                $scope.isCollapsed = true;
+                $scope.viewLimit = '';
+            }
+            else{
+                $scope.buttonName = 'Show All';
+                $scope.isCollapsed = false;
+                $scope.viewLimit = 3;
+            }
         };
 
         $scope.fileTypes = ['Homework','Test','Quiz'];

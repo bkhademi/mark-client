@@ -3,12 +3,15 @@
 </div>
 <form name="userForm" data-ng-submit="submitForm(userForm.$valid)" novalidate onkeypress="return event.keyCode != 13">
     <div class="modal-body">
-        <p data-ng-hide="firstTime" class="text-center" style="font-size: 18px">
-            Good News, you won't have to add students! <br>
-            They will add themselves to your course, after they download EasyGrade App in their phone!
-        </p>
+        <div class="row">
+            <div class="col-sm-10 col-sm-offset-1">
+                <p data-ng-hide="firstTime" class="text-center" style="font-size: 18px">
+                    Good news, with Mark you will not have to add students. Students will add themselves
+                    to your course after they download the Mark App to their phone.
+                </p>
+            </div>
+        </div>
         <br><br>
-
         <!--Class Basic Info Begins-->
         <div class="row">
             <div class="col-sm-10 col-sm-offset-1">
@@ -31,14 +34,17 @@
 
         <!--Class Grade Breakdown Begins-->
         <div data-ng-class="newClass.period || firstTime? 'ng-show animated slideInUp' : 'ng-hide'">
-            <div>
-                <p data-ng-hide="firstTime" class="text-center" style="font-size: 18px">
-                    Set your grade components and their respective weight!<br>
-                    You can follow our default set-up of : <br>
-                    Tests, Quizzes, Homework and Final exam. <br>
-                    Or you can create your own components. <br>
-                    In both, use the range slider to set the percentage weight of each rule!
-                </p>
+            <div class="row">
+                <div class="col-sm-10 col-sm-offset-1">
+                    <p data-ng-hide="firstTime" class="text-center" style="font-size: 18px">
+                        Set your grade components and their respective weight by choosing Default or Custom.<br><br>
+
+                        The Default set-up contains Tests, Quizzes, Homework, and Final Exam. <br>
+
+                        The Custom set-up let’s you create your own components. <br><br>
+                        For either option, use the range slider to set the percentage weight of each rule.
+                    </p>
+                </div>
             </div>
             <br>
 
@@ -55,7 +61,8 @@
             <!--GradeBreakdown Options Ends-->
 
             <!--Default GradeBreakdown Starts-->
-            <div data-ng-class="breakdown =='default'?'animated fadeIn' : 'animated fadeOut'" data-ng-if="breakdown =='default'">
+            <div data-ng-class="breakdown =='default'?'animated fadeIn' : 'animated fadeOut'"
+                 data-ng-if="breakdown =='default'">
                 <br>
                 <div class="row">
                     <div class="text-center col-sm-4 col-sm-offset-4">
@@ -97,7 +104,8 @@
             <!--Default GradeBreakdown Ends-->
 
             <!--Custom GradeBreakDown Starts-->
-            <div data-ng-class="breakdown =='custom'?'animated fadeIn' : 'animated fadeOut'" data-ng-if="breakdown =='custom'">
+            <div data-ng-class="breakdown =='custom'?'animated fadeIn' : 'animated fadeOut'"
+                 data-ng-if="breakdown =='custom'">
                 <br>
                 <div class="row">
                     <div class="col-sm-4 col-sm-offset-3">
@@ -269,11 +277,15 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr  class="animated bounceIn" data-ng-repeat="classes in addedClasses track by $index">
+                    <tr class="animated bounceIn" data-ng-repeat="classes in addedClasses track by $index">
                         <td>{{classes.className}}</td>
                         <td>{{classes.classPeriod}}</td>
-                        <td><custom-popover info-object="classes.gradeBreakdown"></custom-popover></td>
-                        <td><custom-popover info-object="classes.gradeScale"></custom-popover></td>
+                        <td>
+                            <custom-popover info-object="classes.gradeBreakdown"></custom-popover>
+                        </td>
+                        <td>
+                            <custom-popover info-object="classes.gradeScale"></custom-popover>
+                        </td>
                         <td>
                             <button type="button" class="btn btn-danger" value="X"
                                     data-ng-click="removeRow($index, classes.period)">
