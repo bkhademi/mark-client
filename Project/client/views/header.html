@@ -24,9 +24,9 @@
             <li data-ng-if="isAuthenticated()" class="dropdown text-normal nav-profile" dropdown
                 is-open="status.isopenProfile">
                 <a href="javascript:;" class="dropdown-toggle" dropdown-toggle ng-disabled="disabled">
-                    <img src="images/g1.jpg" alt="" class="img-circle img30_30">
+                    <img ng-src="{{$storage.user.avatar_url}}" alt="" class="img-circle img30_30">
                     <span class="hidden-xs">
-                        <span data-i18n="Robert Arreola"></span>
+                        <span data-i18n="">{{ $storage.user.user_name}}</span>
                     </span>
                 </a>
                 <ul class="dropdown-menu pull-right">

@@ -1,9 +1,12 @@
 angular.module('ezgrade')
-.controller('LoginCtrl', ['$scope', 'logger', '$auth', '$location', function($scope, logger, $auth, $location) {
+.controller('LoginCtrl', ['$scope', 'logger', '$auth', '$location', '$localStorage','$log',
+function($scope, logger, $auth, $location,$localStorage, $log) {
 	$scope.login = function() {
 	  $auth.login({ email: $scope.email, password: $scope.password })
 		.then(function(response) {
 			var data = response.data;
+			$scope.$storage = $localStorage;
+			$scope.$storage.user = data.user;
 			logger.logSuccess('You have successfully logged in');
 	 		$location.path(data.route);
 		})
@@ -16,6 +19,8 @@ angular.module('ezgrade')
 	  $auth.authenticate(provider)
 		.then(function(response) {
 			var data = response.data;
+			$scope.$storage = $localStorage;
+			$scope.$storage.user = data.user;
 			logger.logSuccess('You have successfully logged in');
 			$location.path(data.route);
 		})

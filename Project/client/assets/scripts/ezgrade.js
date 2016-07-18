@@ -6,7 +6,8 @@ var ezApp = angular.module('ezgrade', ['ngRoute', 'ngSanitize', 'ngDropzone', 'l
     'app',
     // ezgrade specific dependencies
     'satellizer',
-    'ngResource'
+    'ngResource',
+    'ngStorage'  
 
 ]).config(['$routeProvider', '$authProvider',
 	function($routeProvider,$authProvider){

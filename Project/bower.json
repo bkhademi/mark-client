@@ -33,7 +33,8 @@
     "angular-xeditable": "^0.2.0",
     "webui-popover": "^1.2.12",
     "animate.css": "^3.5.2",
-    "angular-chart.js": "^1.0"
+    "angular-chart.js": "^1.0",
+    "ngstorage": "^0.3.10"
   },
   "devDependencies": {
     "bootstrap-sass-official": "~3.3.0"

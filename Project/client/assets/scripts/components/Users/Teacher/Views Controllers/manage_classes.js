@@ -1,8 +1,9 @@
 /**
  * Created by Brandon on 7/7/2016.
  */
-ezApp.controller('manageClassesController', ['$scope', '$modal', '$log', '$filter',
-    function ($scope, $modal, $log, $filter) {
+ezApp.controller('manageClassesController', ['$scope', '$modal', '$log', '$filter','ClassService',
+    function ($scope, $modal, $log, $filter, classs) {
+		$scope.classesInfo = classs.getForTeacher();
         //Data to pull from DB
         $scope.documents = [
             {
