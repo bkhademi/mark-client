@@ -55,6 +55,16 @@ ezApp.controller('easyBoxController', ['$scope', '$modal', '$log', '$location', 
                 Authorization: "Bearer " + $auth.getToken()
             }
         };
+        $scope.dropzoneConfigGrade = {
+            parallelUploads: 1,
+            maxFileSize: 10,
+            url: api + '/grading',
+            acceptedFiles: 'image/*',
+            addRemoveLinks: true,
+            headers:{
+                Authorization: "Bearer " + $auth.getToken()
+            }
+        };
         //DropZone Functions Ends
 
         //showAll Docs
@@ -76,4 +86,22 @@ ezApp.controller('easyBoxController', ['$scope', '$modal', '$log', '$location', 
         };
 
         $scope.fileTypes = ['Homework','Test','Quiz'];
+
+        $scope.openStampedDocument = function(doc){
+            var url = api+'/files/'+doc.teacher_assignments.id+'?stamped=true&';
+            url += "token="+$auth.getToken();
+
+            window.open(url);
+
+        };
+
+        $scope.deleteFile = function(doc){
+            assignment.delete({id:doc.teacher_assignments.id}, function(data){
+                logger.logSuccess('file successfully deleted');
+                var i = $scope.documents.indexOf(doc);
+                $scope.documents.splice(i, 1);
+            },function(err){
+                logger.logError('Error deleting file, please refresh page and try again');
+            });
+        }
     }]);

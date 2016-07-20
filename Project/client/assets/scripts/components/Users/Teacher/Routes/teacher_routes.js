@@ -50,6 +50,9 @@ function ($routeProvider,$authProvider) {
             templateUrl: 'views/teacher/manage_classes.html',
             controller: 'manageClassesController'
         })
+        .when('/',{
+            redirectTo:'user_board'
+        })
     ;
 
 }]);

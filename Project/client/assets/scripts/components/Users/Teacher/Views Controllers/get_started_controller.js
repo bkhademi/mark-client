@@ -2,9 +2,9 @@
  * Created by Brandon on 6/25/2016.
  */
 //GetStarted Controller Starts
-ezApp.controller('getStartedController', ['$scope', '$modal', '$log', '$location', '$http', 'logger',
-    function ($scope, $modal, $log, $location, $http, logger) {
-
+ezApp.controller('getStartedController', ['$scope', '$modal', '$log', '$location', '$http', 'logger','$localStorage',
+    function ($scope, $modal, $log, $location, $http, logger, $localStorage) {
+        $scope.user = $localStorage.user.user_name.split(' ')[1];
         $scope.notify = function (type) {
             switch (type) {
                 case "info":

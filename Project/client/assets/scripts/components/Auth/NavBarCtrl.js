@@ -5,7 +5,7 @@ angular.module('ezgrade')
 			return $auth.isAuthenticated();
 		};
 		$scope.$storage = $localStorage
-		
+		$scope.user = $scope.$storage.user.user_name.split(' ')[0];
 		$log.info($scope.user);
 		$scope.logout = function(){
 			debugger;

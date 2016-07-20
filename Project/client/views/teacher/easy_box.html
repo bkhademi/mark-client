@@ -69,8 +69,10 @@
                                         <span editable-text="docs.points" e-name="points" e-form="rowform">
                                             {{docs.points}}</span>
                                     </td>
-                                    <td><a class="btn btn-success btn-xs " href="{{ api + '/files/'+ docs.id+'?stamped=true' }}"
-                                           target="__blank"><span class="fa fa-print"></span></a></td>
+                                    <td>
+                                        <a class="btn btn-success btn-xs " data-ng-click="openStampedDocument(docs)"><i class="fa fa-print"></i>
+                                        </a>
+                                    </td>
                                     <td style="white-space: nowrap">
                                         <form editable-form name="rowform" onbeforesave="saveUser($data, user.id)"
                                               ng-show="rowform.$visible" class="form-buttons form-inline"
@@ -88,7 +90,7 @@
                                             <button class="btn btn-warning btn-xs" data-ng-click="rowform.$show()"
                                                     ng-hide="rowform.$visible"><span class="fa fa-pencil"></span>
                                             </button>
-                                            <button class="btn btn-danger btn-xs" data-ng-click="removeUser($index)"><span
+                                            <button class="btn btn-danger btn-xs" data-ng-click="deleteFile(docs)"><span
                                                     class="fa fa-trash"></span></button>
                                         </div>
                                     </td>
@@ -168,7 +170,7 @@
                                      enctype="multipart/form-data"
                                      ng-dropzone
                                      dropzone="dropzone"
-                                     dropzone-config="dropzoneConfig"
+                                     dropzone-config="dropzoneConfigGrade"
                                      event-handlers="{ 'addedfile': dzAddedFile, 'error': dzError, 'removedfile': dz.removedfile }">
                                 </div>
                             </div>

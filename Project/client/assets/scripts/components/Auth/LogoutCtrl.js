@@ -7,7 +7,7 @@ angular.module('ezgrade')
 			$scope.$storage = $localStorage;
 			$scope.$storage.user  = null;
 			logger.logSuccess('You have successfully logged Out');
-			$location.path('/');
+			$location.path('/login');
 		}, function(){
 			logger.logSuccess("error logging out");
 		});

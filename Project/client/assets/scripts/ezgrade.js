@@ -52,6 +52,7 @@ var ezApp = angular.module('ezgrade', ['ngRoute', 'ngSanitize', 'ngDropzone', 'l
 		.when('/404',{
 			templateUrl: 'views/pages/404.html'
         })
+		
 		.otherwise({
                 redirectTo: '/404'
          })
