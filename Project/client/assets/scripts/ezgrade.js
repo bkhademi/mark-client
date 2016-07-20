@@ -11,9 +11,10 @@ var ezApp = angular.module('ezgrade', ['ngRoute', 'ngSanitize', 'ngDropzone', 'l
 
 ]).config(['$routeProvider', '$authProvider',
 	function($routeProvider,$authProvider){
-		var skipIfLoggedIn = ['$q', '$auth',function ($q, $auth) {
+		var skipIfLoggedIn = ['$q', '$location', '$auth',function ($q, $location, $auth) {
 			var deferred = $q.defer();
 			if ($auth.isAuthenticated()) {
+				$location.path('/');
 				deferred.reject();
 			} else {
 				deferred.resolve();
@@ -24,7 +25,7 @@ var ezApp = angular.module('ezgrade', ['ngRoute', 'ngSanitize', 'ngDropzone', 'l
 		var loginRequired = ['$q','$location', '$auth',function ($q, $location, $auth) {
 			var deferred = $q.defer();
 			if ($auth.isAuthenticated()) {
-			deferred.resolve();
+				deferred.resolve();
 			}else {
 				$location.path('/login');
 			}

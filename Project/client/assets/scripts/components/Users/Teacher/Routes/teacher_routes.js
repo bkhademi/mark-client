@@ -15,7 +15,6 @@ function ($routeProvider,$authProvider) {
     }];
 
     var loginRequired = ['$q', '$location', '$auth', '$log',function ($q, $location, $auth,$log) {
-       $log.info('required');
       var deferred = $q.defer();
       if ($auth.isAuthenticated()) {
         deferred.resolve();
@@ -25,33 +24,33 @@ function ($routeProvider,$authProvider) {
       return deferred.promise;
     }];
     $routeProvider
-    .when('/user_board',{
+    .when('/teacher-dashboard',{
         templateUrl: 'views/teacher/userboard.html',
         controller:'userBoardController',
             resolve: {
               loginRequired: loginRequired
             }
     })
-    .when('/getting_started', {
+    .when('/getting-started', {
             templateUrl: 'views/teacher/getting_started.html',
             controller: 'getStartedController',
             resolve: {
               loginRequired: loginRequired
             }
         })
-        .when('/easy_box', {
+        .when('/marks-box', {
             templateUrl: 'views/teacher/easy_box.html',
             controller: 'easyBoxController',
             resolve: {
               loginRequired: loginRequired
             }
         })
-        .when('/manage_classes',{
+        .when('/manage-classes',{
             templateUrl: 'views/teacher/manage_classes.html',
             controller: 'manageClassesController'
         })
         .when('/',{
-            redirectTo:'user_board'
+            redirectTo:'teacher-dashboard'
         })
     ;
 
