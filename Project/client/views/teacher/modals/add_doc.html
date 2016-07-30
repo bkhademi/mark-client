@@ -17,9 +17,9 @@
                 </thead>
                 <tbody>
                 <tr data-ng-repeat="doc in docsInfo">
-                    <td>{{doc.docName}}</td>
-                    <td>{{doc.type}}</td>
-                    <td>{{doc.stampType}}</td>
+                    <td>{{doc.name}}</td>
+                    <td>{{doc.type.name}}</td>
+                    <td>{{doc.stampType.name}}</td>
                     <td>{{doc.points}}</td>
                 </tr>
                 </tbody>
@@ -28,6 +28,7 @@
     </div>
     <br>
     <div>
+        <!--Chose Stamp Apply To All Or Selected -->
         <div class="row">
             <div class="col-sm-12 text-center">
                 <h4 style="display: inline" class="highlight">Add Stamp Type</h4>
@@ -49,11 +50,12 @@
             </div>
         </div>
         <br>
+        <!--Select Stamp Apply To All -->
         <div data-ng-if="docs.stampOption == 'applyToAll'" class="row">
             <div class="col-sm-4 col-sm-offset-3">
                 <select chosen
                         class="form-control"
-                        data-ng-options="stamp as stamp for stamp in stamps"
+                        data-ng-options="stamp.name for stamp in stamps track by stamp.id"
                         data-ng-model="docs.stampTypeAll"
                         placeholder-text-single="'Select Stamp'">
                     <option value=""></option>
@@ -64,11 +66,12 @@
             </div>
             <br><br>
         </div>
+        <!--Select Stamp and Document Apply to selected-->
         <div data-ng-if="docs.stampOption == 'applyToSelected'" class="row">
             <div class="col-sm-3 col-sm-offset-1">
                 <select chosen
                         class="form-control"
-                        data-ng-options="stamp as stamp for stamp in stamps"
+                        data-ng-options="stamp.name for stamp in stamps track by stamp.id"
                         data-ng-model="docs.stampTypeSelected"
                         placeholder-text-single="'Select Stamp'">
                     <option value=""></option>
@@ -89,6 +92,7 @@
             </div>
         </div>
         <br><br>
+        <!--Chose If Apply To All Or Selected -->
         <div class="row">
             <div class="col-sm-12 text-center">
                 <h4 style="display: inline" class="highlight">Add Points</h4>
@@ -110,6 +114,7 @@
             </div>
         </div>
         <br>
+        <!--Select Points Apply to All-->
         <div data-ng-if="docs.pointsOption == 'applyToAll'">
             <div class="col-sm-4 col-sm-offset-3">
                 <input class="form-control" type="number" data-ng-model="docs.points" placeholder="# Points">
@@ -119,6 +124,7 @@
             </div>
             <br><br>
         </div>
+        <!--Select Points Apply to Selected-->
         <div data-ng-if="docs.pointsOption == 'applyToSelected'">
             <div class="col-sm-3 col-sm-offset-1">
                 <input class="form-control" type="number" data-ng-model="docs.points" placeholder="# Points">
@@ -148,34 +154,33 @@
             go back to Mark's Box and added it later.</h4>
         </div>
         <br>
-        <div class="col-sm-10 col-sm-offset-1">
-            <table class="table table-bordered table-responsive">
+        <div class="col-sm-10 col-sm-offset-1 table-responsive">
+            <table class="table table-bordered ">
                 <thead>
-                <tr>
-                    <th>Doc Name</th>
-                    <th>Stamp</th>
-                    <th>Answer Key</th>
-                    <th>Points</th>
-                </tr>
+                    <tr>
+                        <th>Doc Name</th>
+                        <th>Stamp</th>
+                        <th>Answer Key</th>
+                        <th>Points</th>
+                    </tr>
                 </thead>
                 <tbody>
-                <tr data-ng-repeat=" doc in docsInfo ">
-                    <td data-ng-if="doc.stampType == 'Multiple Choice'">{{doc.docName}}</td>
-                    <td data-ng-if="doc.stampType == 'Multiple Choice'">{{doc.stampType}}</td>
-                    <td class="text-center" data-ng-if="doc.stampType == 'Multiple Choice'">
-                        <input type="file" title="Add Key" data-ui-file-upload
-                               data-ng-model="fileUpload.key"
-                               class="btn btn-danger" data-ng-click="addAnswerKey($index)">
-                    </td>
-                    <td data-ng-if="doc.stampType == 'Multiple Choice'">{{doc.points}}</td>
-                </tr>
+                    <tr data-ng-repeat=" doc in docsInfo " data-ng-if="doc.stampType.name == 'Multiple Choice'">
+                        <td >{{doc.name}}</td>
+                        <td >{{doc.stampType.name}}</td>
+                        <td class="text-center" >
+                            <input type="file" name="file,{{$index}}"  title="Add Key" data-ui-file-upload
+                                   class="btn btn-danger" onchange="angular.element(this).scope().uploadFile(this.files,this.name)" >
+                        </td>
+                        <td >{{doc.points}}</td>
+                    </tr>
                 </tbody>
             </table>
         </div>
     </div>
 </div>
 <div class="modal-footer">
-    <button type="button" data-ng-click="saveDocs()" class="btn btn-primary" data-ng-disabled="!dataValid">Save
+    <button type="button" data-ng-click="$close()" class="btn btn-primary" data-ng-disabled="!dataValid">Save
     </button>
-    <button type="button" data-ng-click="closeModal()" class="btn btn-danger">Close</button>
+    <button type="button" data-ng-click="$dismiss()" class="btn btn-danger">Close</button>
 </div>

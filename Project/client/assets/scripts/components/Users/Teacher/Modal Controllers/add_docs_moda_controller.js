@@ -5,7 +5,7 @@ ezApp.controller('addedDocsController', ['$scope', '$modalInstance', '$log','$au
     function ($scope, $modalInstance, $log, $auth) {
 
         //scope Arrays, Objects and Variables Starts
-        $scope.stampOptions = ['A to D', 'Credit, No Credit', 'Numerical'];
+        $scope.stampOptions = ['Credit, No Credit', 'Free Response'];
         $scope.hwDocuments = [];
         $scope.ponts = {
             selectedDocs: []
@@ -97,7 +97,19 @@ ezApp.controller('addedDocsController', ['$scope', '$modalInstance', '$log','$au
             $scope.$apply();
         };
 
+        $scope.dzSuccess = function(file, response){
+            $log.info('success');
+            $log.info('file',file);
+            $log.info('response', response);
+            for(var  i = 0; i < $scope.hwDocuments.length; i++){
+                if (response.assignment.file_name == $scope.hwDocuments[i].docName)
+                    $scope.hwDocuments[i].id = response.teacher_assignment.id;
+            }
+        };
+
+
         $scope.dzError = function (file, errorMessage) {
+
             $log.log(errorMessage);
         };
         $scope.removedFile = function (file) {

@@ -3,26 +3,30 @@
         <!--Classes Table-->
         <div class="col-sm-7">
             <section class="panel panel-default">
-                <div class="panel-heading"><strong><span class="fa fa-building"></span> My Classes</strong></div>
+                <div class="panel-heading">
+                    <strong><span class="fa fa-building"></span> My Classes</strong>
+                    <span class="pull-right btn btn-default btn-sm fa fa-refresh" data-ng-click="getClasses()"></span>
+                </div>
                 <div class="panel-body">
                     <div class="col-sm-12">
                         <!--<div class="row">-->
-                            <!--&lt;!&ndash;Search for...&ndash;&gt;-->
-                            <!--<div class="col-sm-6">-->
-                                <!--<form>-->
-                                    <!--<input type="text"-->
-                                           <!--placeholder="Search for Class..."-->
-                                           <!--class="form-control"-->
-                                           <!--data-ng-model="search.Class"-->
-                                           <!--typeahead="class as class.name for class in classesInfo | filter:$viewValue | limitTo:8">-->
-                                <!--</form>-->
-                            <!--</div>-->
-                            <!--&lt;!&ndash;Search for... Ends&ndash;&gt;-->
+                        <!--&lt;!&ndash;Search for...&ndash;&gt;-->
+                        <!--<div class="col-sm-6">-->
+                        <!--<form>-->
+                        <!--<input type="text"-->
+                        <!--placeholder="Search for Class..."-->
+                        <!--class="form-control"-->
+                        <!--data-ng-model="search.Class"-->
+                        <!--typeahead="class as class.name for class in classesInfo | filter:$viewValue | limitTo:8">-->
+                        <!--</form>-->
+                        <!--</div>-->
+                        <!--&lt;!&ndash;Search for... Ends&ndash;&gt;-->
                         <!--</div>-->
                         <!--<br>-->
                         <table class="table table-bordered table-hover table-responsive">
                             <thead>
                             <tr>
+
                                 <th>
                                     Period
                                     <span class="fa fa-angle-down"
@@ -53,17 +57,18 @@
                                 data-ng-repeat="classs in classesInfo | filter: search.Class | orderBy: sortBy:reverse"
                                 data-ng-click="classSelected(classs)"
                                 data-ng-class="selected == classs ? 'activeRow': ''">
+
                                 <td>{{classs.period}}</td>
                                 <td>{{classs.name}}</td>
-                                <td>{{classs.classSize}}
-                                <td>{{classs.avgGrade}}</td>
+                                <td>{{classs.students.length}}
+                                <td>{{classesGrades[classs.id].avg_grade | number : 2}}</td>
                                 <td class="text-center">
-                                    <button data-ng-click="openClassStudents(classs)" type="button"
+                                    <button data-ng-click="openClassStudents(classs,$event)" type="button"
                                             class="btn btn-primary"><span class="fa fa-users"></span>
                                     </button>
                                 </td>
                                 <td class="text-center">
-                                    <button data-ng-click="openClassSetUp(classs)" type="button"
+                                    <button data-ng-click="openClassSetUp(classs, $event)" type="button"
                                             class="btn btn-success"><span class="fa fa-cog"></span>
                                     </button>
                                 </td>
@@ -77,8 +82,9 @@
         <!--Classes Table Ends-->
         <!--Assign Points-->
         <div class="col-sm-5">
-            <section class=" panel panel-default">
-                <div class="panel-heading"><strong><span class="fa fa-pencil-square"></span> Add Points</strong>
+            <section class=" panel panel-secondary">
+                <div class="panel-heading">
+                    <strong><span class="fa fa-pencil-square"></span> Add Points</strong>
                 </div>
                 <div data-ng-show="selected" class="animated fadeInLeft panel-body">
                     <br>
@@ -86,12 +92,15 @@
                     <div class="text-center">
                         <h4 style="display: inline" class="activeRow">{{selected.name}}</h4>
                         <hr>
-                        <label class="ui-radio"><input name="pointsOption" type="radio" data-ng-model="pointAssign.option"
-                                                       value="byDoc">
-                            <span>By Document</span></label>
-                        <label class="ui-radio"><input name="pointsOption" type="radio" data-ng-model="pointAssign.option"
-                                                       data-ng-click="setDirectly()" value="directly">
-                            <span>Directly to Student(s)</span></label>
+                        <label class="ui-radio">
+                            <input name="pointsOption" type="radio" data-ng-model="pointAssign.option" value="byDoc">
+                            <span>By Document</span>
+                        </label>
+                        <label class="ui-radio">
+                            <input name="pointsOption" type="radio" data-ng-model="pointAssign.option"
+                                   data-ng-click="setDirectly()" value="directly">
+                            <span>Directly to Student(s)</span>
+                        </label>
                         <br><br>
                     </div>
                     <!--Point Options-->
@@ -103,7 +112,7 @@
                                 <input type="number" class="form-control" placeholder="Points"
                                        data-ng-model="pointAssign.points">
                             </div>
-                            <div  style="white-space: nowrap" class="col-sm-7">
+                            <div style="white-space: nowrap" class="col-sm-7">
                                 <select style="overflow-y: visible"
                                         chosen
                                         class="form-control"
@@ -114,7 +123,8 @@
                             </div>
                             <div style="white-space: nowrap; width:25px; height: 25px " class="col-sm-2">
                                 <button class="btn btn-primary btn-sm" type="button" data-ng-click="addPoints(selected)"
-                                        data-ng-disabled="!pointAssign.selectedDoc && !pointAssign.points ">OK</button>
+                                        data-ng-disabled="!pointAssign.selectedDoc && !pointAssign.points ">OK
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -143,7 +153,8 @@
                             </div>
                             <div class="col-sm-3">
                                 <button class="btn btn-primary btn-sm" type="button" data-ng-click="addPoints(selected)"
-                                        data-ng-disabled="!pointAssign.selectedDoc && !pointAssign.points">OK</button>
+                                        data-ng-disabled="!pointAssign.selectedDoc && !pointAssign.points">OK
+                                </button>
                             </div>
                         </div>
                     </div>
@@ -158,6 +169,7 @@
     tr.activeRow {
         background-color: rgba(103, 78, 158, .3) !important;
     }
+
     h4.activeRow {
         background-color: rgba(103, 78, 158, .3) !important;
     }

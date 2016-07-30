@@ -1,6 +1,6 @@
 angular.module('ezgrade')
-.controller('LoginCtrl', ['$scope', 'logger', '$auth', '$location', '$localStorage','$log',
-function($scope, logger, $auth, $location,$localStorage, $log) {
+.controller('LoginCtrl', ['$scope', 'logger', '$auth', '$location', '$localStorage',
+function($scope, logger, $auth, $location,$localStorage) {
 	$scope.login = function() {
 	  $auth.login({ email: $scope.email, password: $scope.password })
 		.then(function(response) {

@@ -3,10 +3,11 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv='X-UA-Compatible' content='IE=edge'>
-        <title>Web Application</title>
+        <title>Mark</title>
         <meta name="description" content="">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+        <link rel="icon" href="favicon.ico" type="image/x-icon" />
         <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700,300italic,400italic' rel='stylesheet' type='text/css'>
         <!-- needs images, font... therefore can not be part of ui.css -->
         <link rel="stylesheet" href="bower_components/font-awesome/css/font-awesome.min.css">
@@ -20,7 +21,6 @@
             <link rel="stylesheet" type="text/css" href="bower_components/angular-xeditable/dist/css/xeditable.css">
             <link rel="stylesheet" href="bower_components/webui-popover/dist/jquery.webui-popover.css">
             <link rel="stylesheet" type="text/css" href="bower_components/animate.css/animate.min.css">
-            <link rel="stylesheet" href="bower_components/angular-chart.js/dist/angular-chart.css" />
             <!-- endbuild -->
             <link rel="stylesheet" href="styles/main.css">
 
@@ -88,10 +88,10 @@
         <script src="bower_components/chosen/chosen.jquery.js"></script>
         <script src="bower_components/angular-chosen-localytics/dist/angular-chosen.min.js"></script>
         <script src="bower_components/angular-xeditable/dist/js/xeditable.js"></script>
+        <script src='bower_components/angular-file-model/angular-file-model.js'></script>
         <!-- endbuild -->
 
         <!-- build:js({.tmp,app}) scripts/app.js -->
-        <script src="scripts/ezgrade.min.js"></script>
         <script src="scripts/app.js"></script>
         <script src="scripts/shared/main.js"></script>
         <script src="scripts/shared/directives.js"></script>
@@ -105,12 +105,40 @@
         <script src="scripts/Task/Task.js"></script>
         <script src="scripts/Chart/ChartCtrl.js"></script>
         <script src="scripts/Chart/ChartDirective.js"></script>
-<!--
+        <!-- endbuild -->
+
+        <!-- build:js({.tmp,app}) scripts/ezgrade.js -->
+        <script src="assets/scripts/ezgrade.js"></script>
+        <script src="assets/scripts/components/Auth/NavBarCtrl.js"></script>
         <script src="assets/scripts/components/Auth/LoginCtrl.js"></script>
         <script src="assets/scripts/components/Auth/LogoutCtrl.js"></script>
-        <script src="assets/scripts/components/Auth/NavBarCtrl.js"></script>
         <script src="assets/scripts/components/Auth/SignupCtrl.js"></script>
--->
+        <script src="assets/scripts/components/Services/Classes.js"></script>
+        <script src="assets/scripts/components/Services/GradeScale.js"></script>
+        <script src="assets/scripts/components/Services/Component.js"></script>
+        <script src="assets/scripts/components/Services/AssignmentCategory.js"></script>
+        <script src="assets/scripts/components/Services/Assignments.js"></script>
+        <script src="assets/scripts/components/Services/StudentAssignment.js"></script>
+        <script src="assets/scripts/components/Directives/grow_decay_graph.js"></script>
+        <script src="assets/scripts/components/Directives/preview_popover.js"></script>
+        <script src="assets/scripts/components/Directives/custom_popover.js"></script>
+        <script src="assets/scripts/components/Users/Teacher/Views%20Controllers/manage_classes.js"></script>
+        <script src="assets/scripts/components/Users/Teacher/Views%20Controllers/easy_box_controller.js"></script>
+        <script src="assets/scripts/components/Users/Teacher/Views%20Controllers/get_started_controller.js"></script>
+        <script src="assets/scripts/components/Users/Teacher/Views%20Controllers/user_board.js"></script>
+        <script src="assets/scripts/components/Users/Teacher/Modal%20Controllers/class_students_modal.js"></script>
+        <script src="assets/scripts/components/Users/Teacher/Modal%20Controllers/class_setup_modal_controller.js"></script>
+        <script src="assets/scripts/components/Users/Teacher/Modal%20Controllers/add_doc_modal_controller.js"></script>
+        <script src="assets/scripts/components/Users/Teacher/Modal%20Controllers/add_docs_moda_controller.js"></script>
+        <script src="assets/scripts/components/Users/Teacher/Modal%20Controllers/reportCard_countDown_modal_controller.js"></script>
+        <script src="assets/scripts/components/Users/Teacher/Modal%20Controllers/over_all_grades_modal_controller.js"></script>
+        <script src="assets/scripts/components/Users/Teacher/Modal%20Controllers/missing_assignments_modal_controller.js"></script>
+        <script src="assets/scripts/components/Users/Teacher/Modal%20Controllers/add_points_controller.js"></script>
+        <script src="assets/scripts/components/Users/Teacher/Modal%20Controllers/create_classes_modal_controller.js"></script>
+        <script src="assets/scripts/components/Users/Teacher/Modal%20Controllers/about_me_moda_controller.js"></script>
+        <script src="assets/scripts/components/Users/Teacher/Modal%20Controllers/ReviewMasterSheetModalCtrl.js"></script>
+        <script src="assets/scripts/components/Users/Teacher/Routes/teacher_routes.js"></script>
         <!-- endbuild -->
+
     </body>
 </html>

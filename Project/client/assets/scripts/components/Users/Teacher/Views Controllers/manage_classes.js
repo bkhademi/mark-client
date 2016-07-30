@@ -1,9 +1,16 @@
 /**
  * Created by Brandon on 7/7/2016.
  */
-ezApp.controller('manageClassesController', ['$scope', '$modal', '$log', '$filter','ClassService',
-    function ($scope, $modal, $log, $filter, classs) {
-		$scope.classesInfo = classs.getForTeacher();
+ezApp.controller('manageClassesController', ['$scope', '$modal',  '$filter','ClassService',
+    function ($scope, $modal, $filter, classs) {
+        $scope.getClasses = function(){
+            classs.getForTeacher().$promise.then(function(data){
+                $scope.classesInfo = data.classes;
+                $scope.classesGrades = data.classes_breakdowns;
+            });
+        };
+		$scope.getClasses();
+
         //Data to pull from DB
         $scope.documents = [
             {
@@ -42,217 +49,7 @@ ezApp.controller('manageClassesController', ['$scope', '$modal', '$log', '$filte
                 id: '5566'
             }
         ];
-        $scope.classesInfo = [
-            {
-                period: 1,
-                name: 'AP Calculus A',
-                classSize: 27,
-                avgGrade: 'B',
-                avgTestScore: '82',
-                avgQuizScore: '93',
-                gradeBreakdown: [
-                    {name: 'Test', value: 25},
-                    {name: 'Quiz', value: 25},
-                    {name: 'Essay', value: 25},
-                    {name: 'Final', value: 25}
-                ],
-                gradeScale: [
-                    {name: 'aScale', min: 90, max: 100},
-                    {name: 'bScale', min: 80, max: 89},
-                    {name: 'cScale', min: 70, max: 79},
-                    {name: 'aScale', min: 60, max: 69}
-                ],
-                studentInfo: [
-                    {
-                        name: 'Brandon Hernandez',
-                        gradeLevel: '10th',
-                        id: '350036',
-                        classGrade: 'A'
-                    },
-                    {
-                        name: 'Adrian Galicia',
-                        gradeLevel: '10th',
-                        id: '0721579',
-                        classGrade: 'B'
-                    },
-                    {
-                        name: 'David Winter',
-                        gradeLevel: '10th',
-                        id: '100478',
-                        classGrade: 'B'
-                    },
-                    {
-                        name: 'Jose Mireles',
-                        gradeLevel: '11th',
-                        id: '458973',
-                        classGrade: 'C'
-                    },
-                    {
-                        name: 'Zlatan Ibrahomovich',
-                        gradeLevel: '11th',
-                        id: '582411',
-                        classGrade: 'A'
-                    }
-                ]
-            },
-            {
-                period: 2,
-                name: 'AP Calculus B',
-                classSize: 35,
-                avgGrade: 'C',
-                avgTestScore: '72',
-                avgQuizScore: '75',
-                gradeBreakdown: [
-                    {name: 'Test', value: 25},
-                    {name: 'Quiz', value: 25},
-                    {name: 'Homework', value: 25},
-                    {name: 'Final', value: 25}
-                ],
-                gradeScale: [
-                    {name: 'aScale', min: 90, max: 100},
-                    {name: 'bScale', min: 80, max: 89},
-                    {name: 'cScale', min: 70, max: 79},
-                    {name: 'aScale', min: 60, max: 69}
-                ],
-                studentInfo: [
-                    {
-                        name: 'Brandon Hernandez',
-                        gradeLevel: '10th',
-                        id: '350036',
-                        classGrade: 'A'
-                    },
-                    {
-                        name: 'Adrian Galicia',
-                        gradeLevel: '10th',
-                        id: '0721579',
-                        classGrade: 'B'
-                    },
-                    {
-                        name: 'David Winter',
-                        gradeLevel: '10th',
-                        id: '100478',
-                        classGrade: 'B'
-                    },
-                    {
-                        name: 'Jose Mireles',
-                        gradeLevel: '11th',
-                        id: '458973',
-                        classGrade: 'C'
-                    },
-                    {
-                        name: 'Zlatan Ibrahomovich',
-                        gradeLevel: '11th',
-                        id: '582411',
-                        classGrade: 'A'
-                    }
-                ]
 
-            },
-            {
-                period: 3,
-                name: 'AP Statistics 01',
-                classSize: 35,
-                avgGrade: 'A',
-                avgTestScore: '95',
-                avgQuizScore: '95',
-                gradeBreakdown: [
-                    {name: 'Test', value: 25},
-                    {name: 'Quiz', value: 25},
-                    {name: 'Homework', value: 25},
-                    {name: 'Final', value: 25}
-                ],
-                gradeScale: [
-                    {name: 'aScale', min: 90, max: 100},
-                    {name: 'bScale', min: 80, max: 89},
-                    {name: 'cScale', min: 70, max: 79},
-                    {name: 'aScale', min: 60, max: 69}
-                ],
-                studentInfo: [
-                    {
-                        name: 'Brandon Hernandez',
-                        gradeLevel: '10th',
-                        id: '350036',
-                        classGrade: 'A'
-                    },
-                    {
-                        name: 'Adrian Galicia',
-                        gradeLevel: '10th',
-                        id: '0721579',
-                        classGrade: 'B'
-                    },
-                    {
-                        name: 'David Winter',
-                        gradeLevel: '10th',
-                        id: '100478',
-                        classGrade: 'B'
-                    },
-                    {
-                        name: 'Jose Mireles',
-                        gradeLevel: '11th',
-                        id: '458973',
-                        classGrade: 'C'
-                    },
-                    {
-                        name: 'Zlatan Ibrahomovich',
-                        gradeLevel: '11th',
-                        id: '582411',
-                        classGrade: 'A'
-                    }
-                ]
-            },
-            {
-                period: 4,
-                name: 'AP Statistics 02',
-                classSize: 35,
-                avgGrade: 'B',
-                avgTestScore: '78',
-                avgQuizScore: '66',
-                gradeBreakdown: [
-                    {name: 'Test', value: 25},
-                    {name: 'Quiz', value: 25},
-                    {name: 'Homework', value: 25},
-                    {name: 'Final', value: 25}
-                ],
-                gradeScale: [
-                    {name: 'aScale', min: 90, max: 100},
-                    {name: 'bScale', min: 80, max: 89},
-                    {name: 'cScale', min: 70, max: 79},
-                    {name: 'aScale', min: 60, max: 69}
-                ],
-                studentInfo: [
-                    {
-                        name: 'Brandon Hernandez',
-                        gradeLevel: '10th',
-                        id: '350036',
-                        classGrade: 'A'
-                    },
-                    {
-                        name: 'Adrian Galicia',
-                        gradeLevel: '10th',
-                        id: '0721579',
-                        classGrade: 'B'
-                    },
-                    {
-                        name: 'David Winter',
-                        gradeLevel: '10th',
-                        id: '100478',
-                        classGrade: 'B'
-                    },
-                    {
-                        name: 'Jose Mireles',
-                        gradeLevel: '11th',
-                        id: '458973',
-                        classGrade: 'C'
-                    },
-                    {
-                        name: 'Zlatan Ibrahomovich',
-                        gradeLevel: '11th',
-                        id: '582411',
-                        classGrade: 'A'
-                    }
-                ]
-            }
-        ];
         $scope.pointAssign = {
             classId: null,
             directly : false,
@@ -283,15 +80,11 @@ ezApp.controller('manageClassesController', ['$scope', '$modal', '$log', '$filte
         
         $scope.classSelected = function (classs) {
             $scope.selectedClassComponents = classs.gradeBreakdown;
-            if ($scope.selected == classs) {
-                $scope.selected = null;
-            }
-            else {
-                $scope.selected = classs;
-            }
+            $scope.selected = $scope.selected== classs?null:classs;
         };
 
-        $scope.openClassSetUp = function (classs) {
+        $scope.openClassSetUp = function (classs,$event) {
+            cancelEventPropagation($event);
             var modalInstance;
             modalInstance = $modal.open({
                 size: 'lg',
@@ -303,16 +96,10 @@ ezApp.controller('manageClassesController', ['$scope', '$modal', '$log', '$filte
                     }
                 }
             });
-            // modalInstance.result.then(function (classesInfo) {
-            //     $scope.notify('success');
-            //     $scope.createClassSuccess = true;
-            //     $scope.createClassHtml = '<del>Create Classes</del>';
-            //     wizardData.classesInfo = classesInfo;
-            //     $scope.stepTwoCompleted = true;
-            //     $scope.stepTwo = true;
-            // });
         };
-        $scope.openClassStudents = function (classs) {
+
+        $scope.openClassStudents = function (classs,$event) {
+            cancelEventPropagation($event);
             var modalInstance;
             modalInstance = $modal.open({
                 size: 'lg',
@@ -321,6 +108,9 @@ ezApp.controller('manageClassesController', ['$scope', '$modal', '$log', '$filte
                 resolve: {
                     classInfo: function () {
                         return classs;
+                    },
+                    gradeInfo: function(){
+                        return $scope.classesGrades[classs.id];
                     }
                 }
             });
@@ -333,6 +123,13 @@ ezApp.controller('manageClassesController', ['$scope', '$modal', '$log', '$filte
             //     $scope.stepTwo = true;
             // });
         };
+
+        function cancelEventPropagation($event){
+            $event.stopPropagation && $event.stopPropagation();
+            $event.preventDefault && $event.preventDefault();
+            $event.cancelBubble = true;
+            $event.returnValue = false;
+        }
 
     }]);
 

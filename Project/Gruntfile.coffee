@@ -60,12 +60,10 @@ module.exports = (grunt) ->
                     "<%= yeoman.app %>/styles-less/**/*.less"
                     ".tmp/styles/**/*.css"
                     "{.tmp,<%= yeoman.app %>}/scripts/**/*.js"
+                    "{.tmp,<%= yeoman.app %>}/assets/**/*.js"
                     "<%= yeoman.app %>/images/**/*.{png,jpg,jpeg,gif,webp,svg}"
                     "<%= yeoman.docs %>/jade/*.jade"
                 ]
-            ezgrade:
-                files: ["<%= yeoman.app %>/assets/**/*.js"]
-                tasks: ['uglify:ezgrade','copy:ezgrade']
         connect:
             options:
                 port: 9000
@@ -292,11 +290,6 @@ module.exports = (grunt) ->
                 cwd: "<%= yeoman.app %>/styles"
                 dest: ".tmp/styles/"
                 src: "**/*.css"
-            ezgrade:
-                expand:true
-                cwd: "<%= yeoman.app %>/scripts"
-                dest: ".tmp/scripts/"
-                src: ["ezgrade.min.js", "ezgrade.min.js.map"]
 
         concurrent:
             server: ["coffee:server", "compass:server", "copy:styles"]
@@ -325,18 +318,12 @@ module.exports = (grunt) ->
                         "<%= yeoman.app %>/scripts/**/*.js"
                         "!<%= yeoman.app %>/scripts/vendors/**"
                     ]
-            ezgrade:
-                options:
-                        sourceMap:true
-                files:
-                    "<%= yeoman.app %>/scripts/ezgrade.min.js":[
+                    "<%= yeoman.dist %>/scripts/ezgrade.js": [
                         "<%= yeoman.app %>/assets/scripts/ezgrade.js"
-                        "<%= yeoman.app %>/assets/scripts/components/Services/**/*.js"
-                        "<%= yeoman.app %>/assets/scripts/components/Directives/**/*.js"
-                        "<%= yeoman.app %>/assets/scripts/components/Users/Teacher/**/*.js"
-                        "<%= yeoman.app %>/assets/scripts/components/Users/Teacher/**/*.js"
-                        "<%= yeoman.app %>/assets/scripts/components/Auth/*.js"
+                        "<%= yeoman.app %>/assets/scripts/components/**/*.js"
+
                     ]
+
         aws_s3:
             options:
                 accessKeyId: '<%= aws.AWSAccessKeyId %>'# Use the variables
@@ -361,13 +348,13 @@ module.exports = (grunt) ->
 
     grunt.registerTask "serve", (target) ->
         return grunt.task.run(["build", "open", "connect:dist:keepalive"])  if target is "dist"
-        grunt.task.run ["clean:server","uglify:ezgrade","copy:ezgrade" ,"concurrent:server", "connect:livereload", "open", "watch"]
+        grunt.task.run ["clean:server" ,"concurrent:server", "connect:livereload", "open", "watch"]
 
     # grunt.registerTask "lessServer", (target) ->
     #     return grunt.task.run(["lessBuild", "open", "connect:dist:keepalive"])  if target is "dist"
     #     grunt.task.run ["clean:server", "concurrent:lessServer", "connect:livereload", "open", "watch"]
 
-    grunt.registerTask "build", ["clean:dist", "useminPrepare", "concurrent:dist", "copy:dist", "cssmin", "concat", "uglify","copy:ezgrade", "usemin"]
+    grunt.registerTask "build", ["clean:dist", "useminPrepare", "concurrent:dist", "copy:dist", "cssmin", "concat", "uglify", "usemin"]
     # grunt.registerTask "lessBuild", ["clean:dist", "useminPrepare", "concurrent:lessDist", "copy:dist", "cssmin", "concat", "uglify", "usemin"]
 
     grunt.registerTask "default", ["server"]

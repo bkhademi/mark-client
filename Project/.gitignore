@@ -2,5 +2,4 @@ node_modules/
 .idea/
 .sass-cache/
 .tmp
-
-dist
+dist/

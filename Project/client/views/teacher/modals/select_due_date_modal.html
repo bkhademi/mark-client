@@ -1,0 +1,35 @@
+<div class="modal-header">
+    <div class="row">
+        <div class="text-center">
+            <h2>Assignment: {{teacher_assignment.assignment.name}} </h2>
+        </div>
+
+    </div>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-sm-12 text-center">
+            <h4>Please Select Due Date</h4>
+        </div>
+        <div class="col-sm-4 col-sm-offset-4">
+            <div class="input-group ui-datepicker">
+                <input type="text"
+                       class="form-control"
+                       datepicker-popup="{{format}}"
+                       ng-model="dt"
+                       is-open="opened"
+                       min="minDate"
+                       max="'2016-06-22'"
+                       datepicker-options="dateOptions"
+                       date-disabled="disabled(date, mode)"
+                       ng-required="true"
+                       close-text="Close">
+                <span class="input-group-addon" ng-click="open($event)"><i class="fa fa-calendar"></i></span>
+            </div>
+            <span data-ng-hide="true"> {{dt | date:'dd-MMMM-yyyy' }}</span>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button"  data-ng-click="$close(dt)" class="btn btn-primary" data-ng-disabled="userForm.$invalid">Print</button>
+    <button type="button" data-ng-click="$dismiss()" class="btn btn-danger">Close</button>
+</div>

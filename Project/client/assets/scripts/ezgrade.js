@@ -1,5 +1,5 @@
 'use strict';
-var base =   "http://ezgrade-api.ddns.net";
+var base =   "http://52.87.172.119";
 var api = base+ "/api";
 var ezApp = angular.module('ezgrade', ['ngRoute', 'ngSanitize', 'ngDropzone', 'localytics.directives', 'mgo-angular-wizard','xeditable','ngAnimate',"chart.js",
     //extend template
@@ -7,7 +7,8 @@ var ezApp = angular.module('ezgrade', ['ngRoute', 'ngSanitize', 'ngDropzone', 'l
     // ezgrade specific dependencies
     'satellizer',
     'ngResource',
-    'ngStorage'  
+    'ngStorage' ,
+	'file-model'
 
 ]).config(['$routeProvider', '$authProvider',
 	function($routeProvider,$authProvider){
@@ -63,6 +64,13 @@ var ezApp = angular.module('ezgrade', ['ngRoute', 'ngSanitize', 'ngDropzone', 'l
 			clientId: '819967938136120',
 			//redirectUri: "http://ezgrade-api.ddns.net"
 		});
+		$authProvider.google({
+			clientId: "619323911129-po6s6o0ohrm25pbd4ttrkeluoa6l8c0l.apps.googleusercontent.com"
+		});
+		$authProvider.twitter({
+			clientId: 'kBls1IDCAm8F9HVPNJEqIbhxH'
+		});
+
 		$authProvider.baseUrl = base;
 		$authProvider.loginUrl = base+'/auth/login';
 		$authProvider.signupUrl = base+'/auth/signup';

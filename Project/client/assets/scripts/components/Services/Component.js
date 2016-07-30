@@ -1,5 +1,7 @@
 ezApp.factory('Component', ['$resource',function($resource){
-	var resource = $resource(api+'/grade_breakdowns/:id');
+	var resource = $resource(api+'/grade_breakdowns/:id',null,{
+		'update': { method:'PUT' }
+	});
 	
 	resource.remove = function(grade_breakdown){
 		return resource.delete({id:grade_breakdown.id});

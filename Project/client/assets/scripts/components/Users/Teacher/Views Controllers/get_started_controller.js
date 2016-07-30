@@ -74,7 +74,7 @@ ezApp.controller('getStartedController', ['$scope', '$modal', '$log', '$location
             var promise = $http.post(api + "/initial_info", wizardData);
             promise.then(function (response) {
                     $scope.notify('success');
-                    $location.path('/user_board');
+                    $location.path('/teacher-dashboard');
                 }, function (response) {
                     $scope.notify('error');
                 }

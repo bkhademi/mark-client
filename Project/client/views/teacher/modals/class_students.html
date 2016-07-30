@@ -13,26 +13,22 @@
             <table class="table table-bordered table-hover table-responsive">
                 <thead>
                 <tr>
-                    <th class="text-center ">Avg Grade</th>
-                    <th class="text-center">Avg Test</th>
-                    <th class="text-center">Avg Quiz</th>
+                    <th class="text-center ">Avg Grade </th>
+                    <th data-ng-repeat="breakdown in classInfo.grade_breakdown">
+                        {{breakdown.name}}
+                    </th>
                 </tr>
                 </thead>
                 <tbody>
                 <tr class="text-center">
                     <td>
                         <span data-ng-class="classInfo.avgGrade === 'A' || classInfo.avgGrade == 'B' ? 'highlight-success': classInfo.avgGrade === 'C' ? 'highlight-warning' : 'highlight-danger'">
-                            {{classInfo.avgGrade}}
+                            {{gradeInfo.avg_grade | number : 2 }}
                         </span>
                     </td>
-                    <td>
-                        <span data-ng-class="classInfo.avgTestScore > 80? 'highlight-success': classInfo.avgTestScore < 70? 'highlight-danger': 'highlight-warning'">
-                            {{classInfo.avgTestScore}}%
-                        </span>
-                    </td>
-                    <td>
-                        <span data-ng-class="classInfo.avgQuizScore > 80? 'highlight-success': classInfo.avgQuizScore < 70? 'highlight-danger': 'highlight-warning' ">
-                            {{classInfo.avgQuizScore}}%
+                    <td data-ng-repeat="breakdown in classInfo.grade_breakdown">
+                        <span data-ng-class="breakdown.avgScore > 80? 'highlight-success': breakdown.avgScore < 70? 'highlight-danger': 'highlight-warning'">
+                            {{breakdown.avg | number : 2}}%
                         </span>
                     </td>
                 </tr>
@@ -50,7 +46,7 @@
                        placeholder="Search Student..."
                        class="form-control"
                        data-ng-model="search.student"
-                       typeahead="student as student.name for student in classInfo.studentInfo | filter:$viewValue | limitTo:8">
+                       typeahead="studentInfo.student.user.first_name +' ' + studentInfo.student.user.last_name for studentInfo in classInfo.students | filter:$viewValue | limitTo:8">
             </form>
             <br>
         </div>
@@ -59,6 +55,9 @@
             <table class="table table-bordered table-hover table-responsive">
                 <thead>
                 <tr>
+                    <th>
+                        Picture
+                    </th>
                     <th>
                         ID
                             <span class="fa fa-angle-down"
@@ -82,13 +81,16 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr data-ng-repeat="student in classInfo.studentInfo | limitTo : 10 | filter: search.student | orderBy: sortBy:reverse">
-                    <td>{{student.id}}</td>
-                    <td>{{student.name}}</td>
-                    <td>{{student.gradeLevel}}</td>
+                <tr data-ng-repeat="studentInfo in classInfo.students | limitTo : 10 | filter: search.student | orderBy: sortBy:reverse">
+                    <td>
+                        <img class="img-circle" ng-src="{{studentInfo.student.user.avatar_url}}" width=46" height="46"   />
+                    </td>
+                    <td>{{studentInfo.student.student_id}}</td>
+                    <td>{{studentInfo.student.user.first_name + ' '+studentInfo.student.user.last_name}}</td>
+                    <td>{{studentInfo.student.grade_level}}</td>
                     <td>
                         <span data-ng-class="student.classGrade === 'A' || student.classGrade == 'B' ? 'highlight-success': student.classGrade === 'C' ? 'highlight-warning' : 'highlight-danger'">
-                            {{student.classGrade}}</span>
+                            {{studentInfo.grade_in_class}}</span>
                     </td>
                 </tr>
                 </tbody>

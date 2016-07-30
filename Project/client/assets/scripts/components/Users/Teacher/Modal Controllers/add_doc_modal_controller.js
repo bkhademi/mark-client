@@ -1,8 +1,8 @@
 /**
  * Created by Brandon on 7/16/2016.
  */
-ezApp.controller('addDocController', ['$scope', '$modalInstance', '$log', '$auth', 'docsInfo',
-    function ($scope, $modalInstance, $log, $auth, docsInfo) {
+ezApp.controller('addDocController', ['$scope', '$modalInstance', '$log', '$auth', 'docsInfo','stamps','$http',
+    function ($scope, $modalInstance, $log, $auth, docsInfo,stamps,$http) {
 
         function arrayObjectIndexOf(myArray, searchTerm, property) {
 
@@ -26,24 +26,17 @@ ezApp.controller('addDocController', ['$scope', '$modalInstance', '$log', '$auth
 
         $scope.docsInfo = docsInfo;
         $log.info($scope.docsInfo);
-        $scope.stamps = ['Free Response', 'Credit No Credit', 'Multiple Choice'];
+        $scope.stamps = stamps;
 
         //Apply to All Stamp
         $scope.applyToAllStamp = function () {
             angular.forEach($scope.docsInfo, function (doc) {
                 doc.stampType = $scope.docs.stampTypeAll;
-                if(doc.stampType === 'Multiple Choice'){
-                    $scope.docs.multipleChoice = true;
-                }
-                else if(doc.stampType !== 'Multiple Choice'){
-                    $scope.docs.multipleChoice = false;
-                }
-                if(doc.stampType !== 'Not Yet Added' && doc.points !=='Not Yet Added'){
-                    $scope.dataValid = true;
-                }
-                else{
-                    $scope.dataValid = false;
-                }
+
+                $scope.docs.multipleChoice = doc.stampType.name === 'Multiple Choice';
+
+                $scope.dataValid = (doc.stampType.name !== 'Not Yet Added' && doc.points !=='Not Yet Added');
+
             });
             $scope.docs.stampTypeAll = null;
         };
@@ -54,18 +47,10 @@ ezApp.controller('addDocController', ['$scope', '$modalInstance', '$log', '$auth
             angular.forEach($scope.docs.selectedDocsS, function (docs) {
                 var i = arrayObjectIndexOf($scope.docsInfo, docs.docName, "docName");
                 $scope.docsInfo[i].stampType = $scope.docs.stampTypeSelected;
-                if(docs.stampType === 'Multiple Choice'){
-                    $scope.docs.multipleChoice = true;
-                }
-                else if(docs.stampType !== 'Multiple Choice'){
-                    $scope.docs.multipleChoice = false;
-                }
-                if(docs.stampType !== 'Not Yet Added' && docs.points !=='Not Yet Added'){
-                    $scope.dataValid = true;
-                }
-                else{
-                    $scope.dataValid = false;
-                }
+
+                $scope.docs.multipleChoice = docs.stampType === 'Multiple Choice';
+
+                $scope.dataValid = (docs.stampType !== 'Not Yet Added' && docs.points !=='Not Yet Added');
             });
             $scope.docs.selectedDocsS = [];
             $scope.docs.stampTypeSelected = null;
@@ -77,12 +62,8 @@ ezApp.controller('addDocController', ['$scope', '$modalInstance', '$log', '$auth
         $scope.applyToAllPoints = function () {
             angular.forEach($scope.docsInfo, function (doc) {
                 doc.points = $scope.docs.points;
-                if(doc.points !== 'Not Yet Added' && doc.stampType !=='Not Yet Added'){
-                    $scope.dataValid = true;
-                }
-                else{
-                    $scope.dataValid = false;
-                }
+                $scope.dataValid = (doc.points !== 'Not Yet Added' && doc.stampType !=='Not Yet Added');
+
             });
             $scope.docs.points = null;
         };
@@ -93,17 +74,28 @@ ezApp.controller('addDocController', ['$scope', '$modalInstance', '$log', '$auth
             angular.forEach($scope.docs.selectedDocsP, function (docs) {
                 var i = arrayObjectIndexOf($scope.docsInfo, docs.docName, "docName");
                 $scope.docsInfo[i].points = $scope.docs.points;
-                if(docs.points !== '' && docs.stampType !== ''){
-                    $scope.dataValid = true;
-                }
-                else{
-                    $scope.dataValid = false;
-                }
+                $scope.dataValid = (docs.points !== '' && docs.stampType !== '');
             });
             $scope.docs.selectedDocsP = [];
             $scope.docs.points = null;
         };
-        $scope.closeModal = function () {
-            $modalInstance.close();
-        }
+
+        $scope.uploadFile = function(files, name){
+            $log.info('name ',name);
+            var $index =  parseInt(name.split(',')[1]);
+            $log.info('index ', $index);
+            var doc = $scope.docsInfo[$index];
+            $log.info(doc);
+            var fd = new FormData();
+            //Take the first selected file
+            fd.append("file", files[0]);
+
+            $http.post(api+'/assignment-keys?id='+doc.id, fd , {
+                withCredentials: true,
+                headers: {'Content-Type': undefined },
+                transformRequest: angular.identity
+            });
+
+
+        };
     }]);
