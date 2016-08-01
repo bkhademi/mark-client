@@ -23,7 +23,7 @@ ezApp.controller('createClassesController', ['$scope', '$modalInstance', '$log',
             this.classPeriod = classPeriod;
             this.gradeBreakdown = gradeBreakdown;
             this.gradeScale = gradeScale;
-  
+
         }
 
         //scope Arrays, Objects and Variables Starts
@@ -37,7 +37,7 @@ ezApp.controller('createClassesController', ['$scope', '$modalInstance', '$log',
         var classesInfo = [];
         //Data to be sent to DataBase Ends
 
-        
+
 
         //addComponent function
         $scope.addComponent = function (input){
@@ -105,6 +105,7 @@ ezApp.controller('createClassesController', ['$scope', '$modalInstance', '$log',
         //
         $scope.removeComponent = function ($index, name) {
             $scope.potentialComponents.splice($index, 1);
+            delete $scope.newClass.gradeBreakdown[name];
         };
 
         //Validate on Submit
