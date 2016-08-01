@@ -8,14 +8,17 @@ ezApp.factory('ClassService', ['$resource', 'logger',  function ($resource, logg
         var promise = resource.get(
             function (data) {// data is data received from the blackend
                 processTeacherClasses(data.classes); // remove unused data, prettify
-                processTeacherGrades(data.classes_breakdowns);// remove unused data, prettify
-                computeStudentsGrades(data.classes, data.classes_breakdowns); // computes grades, averages, etc..
+                //processTeacherGrades(data.classes_breakdowns);// remove unused data, prettify
+                //computeStudentsGrades(data.classes, data.classes_breakdowns); // computes grades, averages, etc..
             },
             cannot_get_classes_error);
 
         return promise;
     }
 
+    resource.getForTeacherLight = function(){
+            return resource.query({light:true});
+    }
 
     resource.getForStudent = function (student_id) {
         var promise = resource.query(

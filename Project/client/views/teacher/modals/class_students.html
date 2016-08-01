@@ -22,13 +22,16 @@
                 <tbody>
                 <tr class="text-center">
                     <td>
-                        <span data-ng-class="classInfo.avgGrade === 'A' || classInfo.avgGrade == 'B' ? 'highlight-success': classInfo.avgGrade === 'C' ? 'highlight-warning' : 'highlight-danger'">
-                            {{gradeInfo.avg_grade | number : 2 }}
+                        <span class="pull-left" data-ng-class="toLetter(gradeInfo.avgs.grade)  === 'A' || toLetter(gradeInfo.avgs.grade)  == 'B' ? 'highlight-success': toLetter(gradeInfo.avgs.grade)  === 'C' ? 'highlight-warning' : 'highlight-danger'">
+                            {{toLetter(gradeInfo.avgs.grade)  }}
+                        </span>
+                        <span class="pull-right" data-ng-class="toLetter(gradeInfo.avgs.grade)  === 'A' || toLetter(gradeInfo.avgs.grade)  == 'B' ? 'highlight-success': toLetter(gradeInfo.avgs.grade)   === 'C' ? 'highlight-warning' : 'highlight-danger'">
+                            {{gradeInfo.avgs.grade | number : 2 }}
                         </span>
                     </td>
                     <td data-ng-repeat="breakdown in classInfo.grade_breakdown">
-                        <span data-ng-class="breakdown.avgScore > 80? 'highlight-success': breakdown.avgScore < 70? 'highlight-danger': 'highlight-warning'">
-                            {{breakdown.avg | number : 2}}%
+                        <span data-ng-class="gradeInfo.avgs[breakdown.id] > 80? 'highlight-success': gradeInfo.avgs[breakdown.id] < 70? 'highlight-danger': 'highlight-warning'">
+                            {{gradeInfo.avgs[breakdown.id] | number : 2}}%
                         </span>
                     </td>
                 </tr>
@@ -81,7 +84,8 @@
                 </tr>
                 </thead>
                 <tbody>
-                <tr data-ng-repeat="studentInfo in classInfo.students | limitTo : 10 | filter: search.student | orderBy: sortBy:reverse">
+                <tr data-ng-repeat="studentInfo in classInfo.students | filter: search.student | orderBy: sortBy:reverse">
+                    <td>{{$index+1}} </td>
                     <td>
                         <img class="img-circle" ng-src="{{studentInfo.student.user.avatar_url}}" width=46" height="46"   />
                     </td>
@@ -89,8 +93,12 @@
                     <td>{{studentInfo.student.user.first_name + ' '+studentInfo.student.user.last_name}}</td>
                     <td>{{studentInfo.student.grade_level}}</td>
                     <td>
-                        <span data-ng-class="student.classGrade === 'A' || student.classGrade == 'B' ? 'highlight-success': student.classGrade === 'C' ? 'highlight-warning' : 'highlight-danger'">
-                            {{studentInfo.grade_in_class}}</span>
+                        <span class="pull-left"data-ng-class="toLetter(studentInfo.grade_in_class) === 'A' || toLetter(studentInfo.grade_in_class)== 'B' ? 'highlight-success': toLetter(studentInfo.grade_in_class) === 'C' ? 'highlight-warning' : 'highlight-danger'">
+                            {{toLetter(studentInfo.grade_in_class)}}
+                        </span>
+                        <span class="pull-right"data-ng-class="toLetter(studentInfo.grade_in_class) === 'A' || toLetter(studentInfo.grade_in_class)== 'B' ? 'highlight-success': toLetter(studentInfo.grade_in_class) === 'C' ? 'highlight-warning' : 'highlight-danger'">
+                            {{studentInfo.grade_in_class | number:2}}
+                        </span>
                     </td>
                 </tr>
                 </tbody>

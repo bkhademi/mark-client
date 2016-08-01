@@ -60,10 +60,14 @@
 
                                 <td>{{classs.period}}</td>
                                 <td>{{classs.name}}</td>
-                                <td>{{classs.students.length}}
-                                <td>{{classesGrades[classs.id].avg_grade | number : 2}}</td>
+                                <td>{{classs.students.length}}</td>
+                                <td>
+                                    <span data-ng-class="toLetter(classesGrades[$index].avgs.grade,classs)  === 'A' || toLetter(gradeInfo.avgs.grade)  == 'B' ? 'highlight-success': toLetter(gradeInfo.avgs.grade)  === 'C' ? 'highlight-warning' : 'highlight-danger'">
+                                        {{toLetter(classesGrades[$index].avgs.grade,classs) }}
+                                    </span>
+                                </td>
                                 <td class="text-center">
-                                    <button data-ng-click="openClassStudents(classs,$event)" type="button"
+                                    <button data-ng-click="openClassStudents(classs,$index, $event)" type="button"
                                             class="btn btn-primary"><span class="fa fa-users"></span>
                                     </button>
                                 </td>

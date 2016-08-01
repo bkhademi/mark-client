@@ -98,7 +98,7 @@ ezApp.controller('manageClassesController', ['$scope', '$modal',  '$filter','Cla
             });
         };
 
-        $scope.openClassStudents = function (classs,$event) {
+        $scope.openClassStudents = function (classs,$index,$event) {
             cancelEventPropagation($event);
             var modalInstance;
             modalInstance = $modal.open({
@@ -110,7 +110,7 @@ ezApp.controller('manageClassesController', ['$scope', '$modal',  '$filter','Cla
                         return classs;
                     },
                     gradeInfo: function(){
-                        return $scope.classesGrades[classs.id];
+                        return $scope.classesGrades[$index];
                     }
                 }
             });
@@ -123,6 +123,22 @@ ezApp.controller('manageClassesController', ['$scope', '$modal',  '$filter','Cla
             //     $scope.stepTwo = true;
             // });
         };
+
+        $scope.toLetter = function(score,classs){
+            debugger;
+            score = Math.ceil(score);
+            var letter_ranges = classs.grade_scale;
+            var letter = false;
+            angular.forEach(letter_ranges, function(range){
+                var lo  = parseInt(range.lower_bound);
+                var hi  = parseInt(range.upper_bound);
+                if(score <= hi && score >= lo)
+                    letter = range.letter;
+            });
+            if(!letter)
+                letter = 'F';
+            return letter;
+        }
 
         function cancelEventPropagation($event){
             $event.stopPropagation && $event.stopPropagation();

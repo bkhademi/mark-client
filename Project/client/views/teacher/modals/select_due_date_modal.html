@@ -8,10 +8,15 @@
 </div>
 <div class="modal-body">
     <div class="row">
-        <div class="col-sm-12 text-center">
+        <div class="col-sm-6 text-center">
             <h4>Please Select Due Date</h4>
         </div>
-        <div class="col-sm-4 col-sm-offset-4">
+        <div class="col-sm-6 text-center">
+            <h4> Please select Class for this assignment</h4>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-6 ">
             <div class="input-group ui-datepicker">
                 <input type="text"
                        class="form-control"
@@ -27,9 +32,22 @@
                 <span class="input-group-addon" ng-click="open($event)"><i class="fa fa-calendar"></i></span>
             </div>
             <span data-ng-hide="true"> {{dt | date:'dd-MMMM-yyyy' }}</span>
+        </div>
+        <div class="col-sm-6">
+            <select chosen
+                    class="form-control"
+                    width="'100%'"
+                    data-ng-options="'Period:'+ class.period + ', Class: '+ class.name  for class in classes"
+                    data-ng-model="teacher_assignment.class"
+                    placeholder-text="'Search or Select class'">
+                <option value=""></option>
+            </select>
+        </div>
     </div>
 </div>
 <div class="modal-footer">
-    <button type="button"  data-ng-click="$close(dt)" class="btn btn-primary" data-ng-disabled="userForm.$invalid">Print</button>
+    <button type="button" data-ng-click="$close(dt,class)" class="btn btn-primary" data-ng-disabled="userForm.$invalid">
+        Print
+    </button>
     <button type="button" data-ng-click="$dismiss()" class="btn btn-danger">Close</button>
 </div>
