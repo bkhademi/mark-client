@@ -14,18 +14,18 @@ ezApp.factory('ClassService', ['$resource', 'logger',  function ($resource, logg
             cannot_get_classes_error);
 
         return promise;
-    }
+    };
 
     resource.getForTeacherLight = function(){
             return resource.query({light:true});
-    }
+    };
 
     resource.getForStudent = function (student_id) {
         var promise = resource.query(
             process_student_classes,
             cannot_get_classes_error)
         return promise;
-    }
+    };
 
 
     function processTeacherClasses(classes) {
@@ -39,7 +39,7 @@ ezApp.factory('ClassService', ['$resource', 'logger',  function ($resource, logg
                 angular.extend(gb, gb.assignment_category);
                 delete gb.assignment_category;
             })
-        })
+        });
         console.info(classes);
     }
 
@@ -57,7 +57,7 @@ ezApp.factory('ClassService', ['$resource', 'logger',  function ($resource, logg
                     components[category_id] += item;
                 });
                 count++;
-            })
+            });
             var avg_grade = total/count;
             class_breakdowns.avg_grade = avg_grade;
             angular.forEach(components, function(val,key){
@@ -85,7 +85,7 @@ ezApp.factory('ClassService', ['$resource', 'logger',  function ($resource, logg
                 angular.forEach(student_breakdown.breakdown, function(value, category_id ){
                     student_breakdown_grade[category_id] = (student_breakdown.breakdown[category_id]/componentsMax[category_id]) * 100;
                     componentsMax['avg'+category_id] += student_breakdown.breakdown[category_id];
-                })
+                });
                 if(classesGrades && classesGrades[classs.id] && classesGrades[classs.id][student_id])
                     if(typeof classesGrades[classs.id][student_id] === 'object' )
                         classesGrades[classs.id][student_id].breakdown_score = student_breakdown_grade;

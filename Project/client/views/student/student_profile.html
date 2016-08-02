@@ -1,0 +1,91 @@
+<div class="page page-profile">
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="panel panel-profile">
+                <div class="panel-heading text-center bg-info">
+                    <img alt="" src="images/profile.jpg" class="img-circle img80_80">
+                    <h3>Brandon Hernandez</h3>
+                    <p>Grade: 11th</p>
+                    <p>Class of 2012</p>
+                </div>
+                <div class="list-justified-container">
+                    <ul class="list-justified text-center">
+                        <li>
+                            <h4>Avg Grade</h4>
+                            <hr>
+                            <p> A | 92% </p>
+                        </li>
+                        <li>
+                            <h4>GPA</h4>
+                            <hr>
+                            <p>Coming Soon</p>
+                        </li>
+                        <li>
+                            <h4>SAT/ACT</h4>
+                            <hr>
+                            <p>Coming Soon</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <section class="panel panel-default">
+                <div class="panel-heading"><strong><span class="glyphicon glyphicon-th"></span>Classes</strong></div>
+                <div class="panel-body">
+                    <div ng-repeat="classs in myClassesInfo"
+                         ng-click="openClass(classs)">
+                        <p style="cursor: pointer">{{classs.name}}</p>
+                        <progressbar class="progressbar-xs " value="classs.gradeP" type="{{classs.gradeP > 79 ? 'success': classs.gradeP > 69 ? 'warning' : 'danger'}}">
+                            <b>{{classs.gradeP}}%</b></progressbar>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-sm-12">
+            <section class="panel panel-defualt">
+                <div class="panel-heading"><strong><span class="fa fa-calendar"></span> Coming-Up</strong></div>
+                <div class="panel-body">
+                    <div>
+                        <table class="table table-responsive table-bordered">
+                            <thead>
+                            <tr>
+                                <th class="text-center">Class</th>
+                                <th class="text-center">Assignment Name</th>
+                                <th class="text-center">Type</th>
+                                <th class="text-center">Points</th>
+                                <th class="text-center">Date</th>
+                                <th class="text-center">What if...</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr ng-repeat="doc in comingUp" class="text-center">
+                                <td>{{doc.className}}</td>
+                                <td>{{doc.name}}</td>
+                                <td>{{doc.type}}</td>
+                                <td>{{doc.totalPoints}}</td>
+                                <td>{{doc.date}}</td>
+                                <td>
+                                    <button type="button"
+                                            class="btn btn-primary"
+                                            ng-click="whatIf(doc)">
+                                        <span class="fa fa-calculator"></span>
+                                    </button>
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
+
+</div>
+<style>
+    .progress-bar {
+        line-height: 10px;
+    }
+</style>

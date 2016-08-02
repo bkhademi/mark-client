@@ -9,7 +9,7 @@ ezApp.controller('classStudentsModalController',['$scope','$modalInstance', '$fi
         //Close Modal
         $scope.closeModal = function () {
             $modalInstance.close();
-        }
+        };
 
         $scope.toLetter = function(score){
             score = Math.floor(score);
@@ -20,7 +20,7 @@ ezApp.controller('classStudentsModalController',['$scope','$modalInstance', '$fi
                 var hi  = parseInt(range.upper_bound);
                 if(score <= hi && score >= lo)
                     letter = range.letter;
-            })
+            });
             if(!letter)
                 letter = 'F';
             return letter;

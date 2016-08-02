@@ -1,0 +1,48 @@
+<div class="modal-header">
+    <div class="row">
+        <div class=" text-center col-sm-6 col-sm-offset-3">
+            <h2>Class: {{docInfo.className}}</h2>
+        </div>
+    </div>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-sm-8 col-sm-offset-2 text-center">
+        <p style="font-size: 18px">
+            What if you get an A ? or a D in this document? <br><br>
+            Determine the impact the score you receive on this document will have on your current grade.<br>
+            Simply move the slider to the score you want or think you will receive and I will tell you how it will affect your grade.<br><br>
+        </p>
+        </div>
+    </div>
+    <br>
+    <div class="row">
+        <div class="col-sm-10 col-sm-offset-1">
+            <table class="table table-bordered table-responsive">
+                <thead>
+                <tr>
+                    <th class="text-center">Percentage Grade</th>
+                    <th class="text-center">Letter Grade</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr class="text-center">
+                    <td>
+                        <span ng-class="myGrade > 79 ? 'highlight-succes': myGrade > 69 ? 'highlight-warning' : 'highlight-danger'">
+                            {{myGrade}}%
+                        </span>
+                    </td>
+                    <td>
+                        <span ng-class="myGrade > 79 ? 'highlight-succes': myGrade > 69 ? 'highlight-warning' : 'highlight-danger'">
+                            {{myGrade > 89 ? 'A': myGrade > 79 ? 'B' : myGrade > 69 ? 'C' : 'F'}}
+                        </span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" data-ng-click="closeModal()" class="btn btn-danger">Close</button>
+</div>

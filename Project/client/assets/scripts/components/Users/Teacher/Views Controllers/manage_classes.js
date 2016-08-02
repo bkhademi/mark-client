@@ -138,7 +138,7 @@ ezApp.controller('manageClassesController', ['$scope', '$modal',  '$filter','Cla
             if(!letter)
                 letter = 'F';
             return letter;
-        }
+        };
 
         function cancelEventPropagation($event){
             $event.stopPropagation && $event.stopPropagation();

@@ -13,8 +13,8 @@
             <table class="table table-bordered table-hover table-responsive">
                 <thead>
                 <tr>
-                    <th class="text-center ">Avg Grade </th>
-                    <th data-ng-repeat="breakdown in classInfo.grade_breakdown">
+                    <th class="text-center">Avg Grade </th>
+                    <th class="text-center" data-ng-repeat="breakdown in classInfo.grade_breakdown">
                         {{breakdown.name}}
                     </th>
                 </tr>
@@ -26,12 +26,12 @@
                             {{toLetter(gradeInfo.avgs.grade)  }}
                         </span>
                         <span class="pull-right" data-ng-class="toLetter(gradeInfo.avgs.grade)  === 'A' || toLetter(gradeInfo.avgs.grade)  == 'B' ? 'highlight-success': toLetter(gradeInfo.avgs.grade)   === 'C' ? 'highlight-warning' : 'highlight-danger'">
-                            {{gradeInfo.avgs.grade | number : 2 }}
+                            {{gradeInfo.avgs.grade | number : 2 }}%
                         </span>
                     </td>
-                    <td data-ng-repeat="breakdown in classInfo.grade_breakdown">
-                        <span data-ng-class="gradeInfo.avgs[breakdown.id] > 80? 'highlight-success': gradeInfo.avgs[breakdown.id] < 70? 'highlight-danger': 'highlight-warning'">
-                            {{gradeInfo.avgs[breakdown.id] | number : 2}}%
+                    <td ng-if="key !== 'grade'" data-ng-repeat="(key,value) in gradeInfo.avgs">
+                        <span data-ng-class="value > 80? 'highlight-success': value < 70? 'highlight-danger': 'highlight-warning'">
+                            {{value | number : 2}}%
                         </span>
                     </td>
                 </tr>
@@ -85,7 +85,6 @@
                 </thead>
                 <tbody>
                 <tr data-ng-repeat="studentInfo in classInfo.students | filter: search.student | orderBy: sortBy:reverse">
-                    <td>{{$index+1}} </td>
                     <td>
                         <img class="img-circle" ng-src="{{studentInfo.student.user.avatar_url}}" width=46" height="46"   />
                     </td>

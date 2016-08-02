@@ -1,7 +1,7 @@
 <div class="page">
     <div class="row">
         <!--Classes Table-->
-        <div class="col-sm-7">
+        <div class="col-sm-12">
             <section class="panel panel-default">
                 <div class="panel-heading">
                     <strong><span class="fa fa-building"></span> My Classes</strong>
@@ -9,51 +9,38 @@
                 </div>
                 <div class="panel-body">
                     <div class="col-sm-12">
-                        <!--<div class="row">-->
-                        <!--&lt;!&ndash;Search for...&ndash;&gt;-->
-                        <!--<div class="col-sm-6">-->
-                        <!--<form>-->
-                        <!--<input type="text"-->
-                        <!--placeholder="Search for Class..."-->
-                        <!--class="form-control"-->
-                        <!--data-ng-model="search.Class"-->
-                        <!--typeahead="class as class.name for class in classesInfo | filter:$viewValue | limitTo:8">-->
-                        <!--</form>-->
-                        <!--</div>-->
-                        <!--&lt;!&ndash;Search for... Ends&ndash;&gt;-->
-                        <!--</div>-->
-                        <!--<br>-->
                         <table class="table table-bordered table-hover table-responsive">
                             <thead>
                             <tr>
 
-                                <th>
+                                <th class="text-center">
                                     Period
                                     <span class="fa fa-angle-down"
                                           data-ng-click="sortBy='period'; reverse =!reverse"></span>
                                 </th>
-                                <th>
+                                <th class="text-center">
                                     Name
                                     <span class="fa fa-angle-down"
                                           data-ng-click="sortBy='name'; reverse =!reverse"></span>
                                 </th>
-                                <th>
+                                <th class="text-center">
                                     # Students
                                     <span class="fa fa-angle-down"
                                           data-ng-click="sortBy='classSize'; reverse =!reverse"></span>
 
                                 </th>
-                                <th>
+                                <th class="text-center">
                                     Avg Grade
                                     <span class="fa fa-angle-down"
                                           data-ng-click="sortBy='avgGrade'; reverse =!reverse"></span>
                                 </th>
-                                <th>Students</th>
-                                <th>Set-Up</th>
+                                <th class="text-center">Student Grades</th>
+                                <th class="text-center">Spread-Sheet</th>
+                                <th class="text-center">Set-Up</th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr class="animated fadeInUp"
+                            <tr class="animated fadeInUp text-center"
                                 data-ng-repeat="classs in classesInfo | filter: search.Class | orderBy: sortBy:reverse"
                                 data-ng-click="classSelected(classs)"
                                 data-ng-class="selected == classs ? 'activeRow': ''">
@@ -62,18 +49,21 @@
                                 <td>{{classs.name}}</td>
                                 <td>{{classs.students.length}}</td>
                                 <td>
-                                    <span data-ng-class="toLetter(classesGrades[$index].avgs.grade,classs)  === 'A' || toLetter(gradeInfo.avgs.grade)  == 'B' ? 'highlight-success': toLetter(gradeInfo.avgs.grade)  === 'C' ? 'highlight-warning' : 'highlight-danger'">
+                                    <span data-ng-class="toLetter(classesGrades[$index].avgs.grade,classs)  === 'A' || toLetter(gradeInfo.avgs.grade,classs)  == 'B' ? 'highlight-success': toLetter(gradeInfo.avgs.grade, classs)  === 'C' ? 'highlight-warning' : 'highlight-danger'">
                                         {{toLetter(classesGrades[$index].avgs.grade,classs) }}
                                     </span>
                                 </td>
                                 <td class="text-center">
                                     <button data-ng-click="openClassStudents(classs,$index, $event)" type="button"
-                                            class="btn btn-primary"><span class="fa fa-users"></span>
+                                            class="btn btn-primary btn-xs"><span class="fa fa-users"></span>
                                     </button>
+                                </td>
+                                <td>
+                                    <button class="btn btn-success btn-xs" type="button"><span class="fa fa-file-excel-o"></span></button>
                                 </td>
                                 <td class="text-center">
                                     <button data-ng-click="openClassSetUp(classs, $event)" type="button"
-                                            class="btn btn-success"><span class="fa fa-cog"></span>
+                                            class="btn btn-warning btn-xs"><span class="fa fa-cog"></span>
                                     </button>
                                 </td>
                             </tr>
@@ -84,17 +74,18 @@
             </section>
         </div>
         <!--Classes Table Ends-->
+    </div>
+    <div class="row">
         <!--Assign Points-->
-        <div class="col-sm-5">
+        <div class="col-sm-8 col-sm-offset-2">
             <section class=" panel panel-secondary">
                 <div class="panel-heading">
                     <strong><span class="fa fa-pencil-square"></span> Add Points</strong>
                 </div>
                 <div data-ng-show="selected" class="animated fadeInLeft panel-body">
-                    <br>
                     <!--Points Options-->
                     <div class="text-center">
-                        <h4 style="display: inline" class="activeRow">{{selected.name}}</h4>
+                        <h3 style="display: inline" class="activeRow">{{selected.name}}</h3>
                         <hr>
                         <label class="ui-radio">
                             <input name="pointsOption" type="radio" data-ng-model="pointAssign.option" value="byDoc">
@@ -174,7 +165,7 @@
         background-color: rgba(103, 78, 158, .3) !important;
     }
 
-    h4.activeRow {
+    h3.activeRow {
         background-color: rgba(103, 78, 158, .3) !important;
     }
 </style>
