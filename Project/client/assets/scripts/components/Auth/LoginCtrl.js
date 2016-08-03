@@ -11,7 +11,7 @@ function($scope, logger, $auth, $location,$localStorage) {
 	 		$location.path(data.route);
 		})
 		.catch(function(response) {
-		  logger.log(response.data.message);
+		  logger.logError(response.data.message);
 
 		});
 	};
@@ -25,7 +25,7 @@ function($scope, logger, $auth, $location,$localStorage) {
 			$location.path(data.route);
 		})
 		.catch(function(response) {
-			logger.log(response.data ? response.data.message : response);
+			logger.logError(response.data ? response.data.message : response);
 
 		});
 	};

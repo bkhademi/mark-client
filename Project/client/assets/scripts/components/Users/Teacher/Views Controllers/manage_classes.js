@@ -125,7 +125,6 @@ ezApp.controller('manageClassesController', ['$scope', '$modal',  '$filter','Cla
         };
 
         $scope.toLetter = function(score,classs){
-            debugger;
             score = Math.ceil(score);
             var letter_ranges = classs.grade_scale;
             var letter = false;

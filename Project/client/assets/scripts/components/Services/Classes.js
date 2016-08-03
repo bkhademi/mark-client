@@ -16,17 +16,22 @@ ezApp.factory('ClassService', ['$resource', 'logger',  function ($resource, logg
         return promise;
     };
 
+    resource.getForStudent = function(){
+        return resource.query(processStudentClasses);
+    };
+
     resource.getForTeacherLight = function(){
             return resource.query({light:true});
     };
 
-    resource.getForStudent = function (student_id) {
-        var promise = resource.query(
-            process_student_classes,
-            cannot_get_classes_error)
-        return promise;
-    };
 
+    function processStudentClasses(classes){
+
+        angular.forEach(classes, function(classs){
+            classs.name = classs.teacher_class.classs.name;
+            classs.gradeP = classs.grade_in_class;
+        });
+    }
 
     function processTeacherClasses(classes) {
         angular.forEach(classes, function (cs) {
@@ -101,6 +106,33 @@ ezApp.factory('ClassService', ['$resource', 'logger',  function ($resource, logg
 
     function cannot_get_classes_error() {
         logger.logError('Error getting classes, please try again');
+    }
+
+    resource.scoreToLetter = function(score,classs){
+        score = Math.ceil(score);
+        var letter_ranges = classs.grade_scale;
+        var letter = false;
+        angular.forEach(letter_ranges, function(range){
+            var lo  = parseInt(range.lower_bound);
+            var hi  = parseInt(range.upper_bound);
+            if(score <= hi && score >= lo)
+                letter = range.letter;
+        });
+        if(!letter)
+            letter = 'F';
+        return letter;
+    };
+
+    resource.scoreToLetterStd = function(score){
+        var classStd = {
+            grade_scale: [
+                {lower_bound: 90, upper_bound: 100, letter: 'A'},
+                {lower_bound: 80, upper_bound: 89, letter: 'B'},
+                {lower_bound: 70, upper_bound: 79, letter: 'C'},
+                {lower_bound: 60, upper_bound: 69, letter: 'D'}
+            ]
+        }
+        return resource.scoreToLetter(score, classStd)
     }
 
     return resource;
