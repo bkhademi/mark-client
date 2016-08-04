@@ -8,4 +8,8 @@ ezApp.config(['$routeProvider','$authProvider',
             templateUrl: 'views/student/student_profile.html',
             controller: 'StudentProfileCtrl'
         })
+        .when('/getting-started-student', {
+            templateUrl:'views/student/getting_started.html',
+            controller: "gettingStartedStudentCtrl"
+        })
 }]);

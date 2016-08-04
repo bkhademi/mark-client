@@ -1,0 +1,21 @@
+<div class="modal-header">
+    <div class="row">
+        <div class=" text-center col-sm-6 col-sm-offset-3">
+            <h3>Please Select User Type</h3>
+        </div>
+    </div>
+</div>
+<div class="modal-body">
+    <div class="row">
+        <div class="col-sm-8 col-sm-offset-2">
+            <select style="width:100%" name="singleSelect" id="singleSelect" ng-model="data.option">
+                <option value="">---Select User Type---</option>
+                <option value="/getting-started-student">Student</option>
+                <option value="/getting-started">Teacher</option>
+            </select>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" data-ng-click="$close(data.option)" class="btn btn-danger">submit</button>
+</div>

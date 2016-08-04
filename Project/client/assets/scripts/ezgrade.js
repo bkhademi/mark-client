@@ -54,7 +54,7 @@ var ezApp = angular.module('ezgrade', ['ngRoute', 'ngSanitize', 'ngDropzone', 'l
 		.when('/404',{
 			templateUrl: 'views/pages/404.html'
         })
-		
+
 		.otherwise({
                 redirectTo: '/404'
          })
@@ -77,7 +77,21 @@ var ezApp = angular.module('ezgrade', ['ngRoute', 'ngSanitize', 'ngDropzone', 'l
 		$authProvider.unlinkUrl = base+'/auth/unlink/';
 
 
-}])
+}]).controller('AppCtrl',
+	['$scope','$localStorage','$location',
+		function($scope, $localStorage, $location){
+			$scope.isSpecificPage = function(){
+			    var path = $location.path();
+			    return _.contains([
+                    '/login', '/signup', '/getting-started'
+                ], path );
+            }
+            $scope.isStudent = function(){
+                if($localStorage.user.role_id ==3)
+                    return true;
+                return false;
+            }
+	}])
 ;
 
 

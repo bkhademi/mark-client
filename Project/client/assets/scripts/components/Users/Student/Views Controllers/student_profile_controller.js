@@ -247,4 +247,28 @@ ezApp.controller('StudentProfileCtrl', ['$scope', '$log', '$modal','ClassService
         //         date: 'Tuesday August 10'
         //     }
         // ];
-    }]);
+
+        $scope.openAddClass = function(){
+          $modal.open({
+              templateUrl:'views/modals/addClassStudentModal.html',
+              controller: ['$scope','StudentClass','logger',
+                  function($scope, StudentClass, logger){
+                      $scope.addClasss = function(){
+                          StudentClass.save($scope.data,function(data){
+                              if(data.repeated)
+                                  logger.logWarning(data.msg);
+                              else
+                                logger.logSuccess(data.msg + ' ' + data.student_class.teacher_class.classs.name);
+                              console.log('data', data)
+                              $scope.data.teacher_class_id = null;
+                          }, function (data) {
+                              logger.logError("Error. Please try again");
+                              console.log(data);
+                          })
+                      }
+              }]
+          }).result.then({},
+              $scope.getClasses
+          );
+        };
+}]);

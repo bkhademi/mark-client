@@ -33,10 +33,11 @@ function ($routeProvider,$authProvider) {
     })
     .when('/getting-started', {
             templateUrl: 'views/teacher/getting_started.html',
-            controller: 'getStartedController',
-            resolve: {
-              loginRequired: loginRequired
-            }
+            controller: 'getStartedController'
+        //,
+            // resolve: {
+            //   loginRequired: loginRequired
+            // }
         })
         .when('/marks-box', {
             templateUrl: 'views/teacher/easy_box.html',

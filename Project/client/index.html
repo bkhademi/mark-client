@@ -36,12 +36,15 @@
                 <section data-ng-include=" 'views/header.html' "
                      id="header" class="top-header"></section>
 
+                <div data-ng-if="!isStudent()">
                 <aside data-ng-include=" 'views/nav.html' "
                      id="nav-container"></aside>
+                 </div>
             </div>
 
-            <div class="view-container">
-                <section data-ng-view id="content" class="animate-fade-up"></section>
+
+            <div class="view-container" >
+                <section data-ng-view id="content" style="{{isStudent()?'top: 80px;':''}}" class="animate-fade-up"></section>
             </div>
         </div>
 
@@ -119,6 +122,7 @@
         <script src="assets/scripts/components/Services/AssignmentCategory.js"></script>
         <script src="assets/scripts/components/Services/Assignments.js"></script>
         <script src="assets/scripts/components/Services/StudentAssignment.js"></script>
+        <script src="assets/scripts/components/Services/StudentClass.js"></script>
         <script src="assets/scripts/components/Directives/grow_decay_graph.js"></script>
         <script src="assets/scripts/components/Directives/preview_popover.js"></script>
         <script src="assets/scripts/components/Directives/custom_popover.js"></script>
@@ -140,6 +144,7 @@
         <script src="assets/scripts/components/Users/Teacher/Routes/teacher_routes.js"></script>
         <script src="assets/scripts/components/Users/Student/Routes/student_routes.js"></script>
         <script src="assets/scripts/components/Users/Student/Views%20Controllers/student_profile_controller.js"></script>
+        <script src="assets/scripts/components/Users/Student/Views%20Controllers/gettingStartedStudentCtrl.js"></script>
         <script src="assets/scripts/components/Users/Student/Modal%20Controllers/my_class_modal_controller.js"></script>
         <script src="assets/scripts/components/Users/Student/Modal%20Controllers/what_if_modal_controller.js"></script>
         <!-- endbuild -->

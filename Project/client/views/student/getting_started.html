@@ -1,0 +1,100 @@
+<div class="page">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <strong><span class="glyphicon glyphicon-th"></span> Getting Started</strong>
+        </div>
+        <div class="panel-body" style="min-height:450px;">
+            <form data-ng-submit="submitStudentInfo()" data-ng-if="!studentSubmitted">
+                <div class="row">
+                    <div class="col-sm-12 col-md-12">
+                        <h1>
+                            Please Enter your information
+                        </h1>
+
+                        <!--Student Name-->
+                        <div class="form-group">
+                            <label for="studentName">Name</label>
+                            <input type="text" class="form-control" id="studentName"
+                                   data-ng-model="studentInfo.first_name">
+                        </div>
+                        <!--Student Last Name-->
+                        <div class="form-group">
+                            <label for="studentLastName">Last Name</label>
+                            <input type="text" class="form-control" id="studentLastName"
+                                   data-ng-model="studentInfo.last_name">
+                        </div>
+                        <!--Student ID-->
+                        <div class="form-group">
+                            <label for="studentId">Student Id</label>
+                            <input type="text" class="form-control" id="studentId"
+                                   data-ng-model="studentInfo.student_id">
+                        </div>
+                        <!--Grade Level-->
+                        <div class="form-group">
+                            <label for="studentGradeLevel">Grade Level</label>
+                            <input type="text" class="form-control" id="studentGradeLevel"
+                                   data-ng-model="studentInfo.grade_level">
+                        </div>
+                        <button type="submit" class="btn btn-primary form-control">
+                            Submit
+                        </button>
+
+                    </div>
+
+                </div>
+            </form>
+
+            <div class="row" data-ng-if="studentSubmitted">
+                <div class="col-sm-6 ">
+                    <h3> Please enter code of a class</h3>
+                    <form class="form-inline">
+                        <div class="form-group-">
+                            <input class="form-control input-lg " type="text" data-ng-model="data.teacher_class_id"/>
+                        </div>
+                        <div class="form-group ">
+                            <button class="btn btn-primary btn-lg " type="button" data-ng-click="addClasss()">Add
+                            </button>
+                        </div>
+                    </form>
+                    <br/>
+
+
+                </div>
+
+                <div class="col-sm-6">
+                    <h3>Classes</h3>
+                    <table class="table table-bordered">
+                        <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Teacher</th>
+                            <th>Period</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr data-ng-repeat="classs in studentClasses track by classs.id">
+                            <td>{{classs.teacher_class.classs.name}}</td>
+
+                            <td>{{classs.teacher_class.user.user_name}}</td>
+                            <td>{{classs.teacher_class.classs.period}}</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="form-group">
+                    <button type="button" data-ng-click="finish()" style="padding:12px"
+                            data-ng-if="studentSubmitted && studentClasses.length > 0 "
+                            class="btn btn-primary btn-lg pull-right">
+                        Finish
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>
