@@ -83,7 +83,7 @@ var ezApp = angular.module('ezgrade', ['ngRoute', 'ngSanitize', 'ngDropzone', 'l
 			$scope.isSpecificPage = function(){
 			    var path = $location.path();
 			    return _.contains([
-                    '/login', '/signup', '/getting-started'
+                    '/login', '/signup', '/getting-started','/getting-started-student'
                 ], path );
             }
             $scope.isStudent = function(){
