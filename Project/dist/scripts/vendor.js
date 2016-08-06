@@ -738,6 +738,7 @@ c){g.push("<a ");h.isDefined(b)&&g.push('target="',b,'" ');g.push('href="',a.rep
                     if (this.canEmptyHide() && this.content === '') {
                         return;
                     }
+
                     $target.show();
                 }
 
@@ -1052,7 +1053,7 @@ c){g.push("<a ");h.isDefined(b)&&g.push('target="',b,'" ');g.push('href="',a.rep
                 var $ct = this.getContentElement();
                 if (typeof content === 'string') {
                     $ct.html(content);
-                } else if (content instanceof $) {
+                } else if (content instanceof jQuery) {
                     $ct.html('');
                     //Don't want to clone too many times.
                     if (!this.options.cache) {
@@ -1298,29 +1299,19 @@ c){g.push("<a ");h.isDefined(b)&&g.push('target="',b,'" ');g.push('href="',a.rep
             getElementPosition: function() {
                 // If the container is the body or normal conatiner, just use $element.offset()
                 var elRect = this.$element[0].getBoundingClientRect();
-                var container = this.options.container;
-                var cssPos = container.css('position');
-
-                if (container.is(document.body) || cssPos === 'static') {
+                if (this.options.container.is(document.body) || this.options.container.css('position') !== 'fixed') {
                     return $.extend({}, this.$element.offset(), {
                         width: this.$element[0].offsetWidth || elRect.width,
                         height: this.$element[0].offsetHeight || elRect.height
                     });
                     // Else fixed container need recalculate the  position
-                } else if (cssPos === 'fixed') {
-                    var containerRect = container[0].getBoundingClientRect();
+                } else {
+                    var containerRect = this.options.container[0].getBoundingClientRect();
                     return {
-                        top: elRect.top - containerRect.top + container.scrollTop(),
-                        left: elRect.left - containerRect.left + container.scrollLeft(),
+                        top: elRect.top - containerRect.top + this.options.container.scrollTop(),
+                        left: elRect.left - containerRect.left + this.options.container.scrollLeft(),
                         width: elRect.width,
                         height: elRect.height
-                    };
-                } else if (cssPos === 'relative') {
-                    return {
-                        top: this.$element.offset().top - container.offset().top,
-                        left: this.$element.offset().left - container.offset().left,
-                        width: this.$element[0].offsetWidth || elRect.width,
-                        height: this.$element[0].offsetHeight || elRect.height
                     };
                 }
             },
@@ -1332,8 +1323,8 @@ c){g.push("<a ");h.isDefined(b)&&g.push('target="',b,'" ');g.push('href="',a.rep
                     //clientHeight = container.innerHeight(),
                     elementW = this.$element.outerWidth(),
                     elementH = this.$element.outerHeight(),
-                    scrollTop = document.documentElement.scrollTop + container.scrollTop(),
-                    scrollLeft = document.documentElement.scrollLeft + container.scrollLeft(),
+                    scrollTop = container.scrollTop(),
+                    scrollLeft = container.scrollLeft(),
                     position = {},
                     arrowOffset = null,
                     arrowSize = this.options.arrow ? 20 : 0,
@@ -1348,7 +1339,6 @@ c){g.push("<a ");h.isDefined(b)&&g.push('target="',b,'" ');g.push('href="',a.rep
                 var validRight = pos.left + pos.width / 2 + fixedW < pageW;
                 var validTop = pos.top + pos.height / 2 - fixedH > 0;
                 var validBottom = pos.top + pos.height / 2 + fixedH < pageH;
-
 
                 switch (placement) {
                     case 'bottom':
@@ -1489,6 +1479,7 @@ c){g.push("<a ");h.isDefined(b)&&g.push('target="',b,'" ');g.push('href="',a.rep
                     }
                 }
             });
+
             return (results.length) ? results : $result;
         };
 
@@ -1497,23 +1488,8 @@ c){g.push("<a ");h.isDefined(b)&&g.push('target="',b,'" ');g.push('href="',a.rep
             var _hideAll = function() {
                 hideAllPop();
             };
-            var _create = function(selector, options) {
-                options = options || {};
-                $(selector).webuiPopover(options);
-            };
-            var _isCreated = function(selector) {
-                var created = true;
-                $(selector).each(function(item) {
-                    created = created && $(item).data('plugin_' + pluginName) !== undefined;
-                });
-                return created;
-            };
-            var _show = function(selector, options) {
-                if (options) {
-                    $(selector).webuiPopover(options).webuiPopover('show');
-                } else {
-                    $(selector).webuiPopover('show');
-                }
+            var _show = function(selector) {
+                $(selector).webuiPopover('show');
             };
             var _hide = function(selector) {
                 $(selector).webuiPopover('hide');
@@ -1521,8 +1497,6 @@ c){g.push("<a ");h.isDefined(b)&&g.push('target="',b,'" ');g.push('href="',a.rep
             return {
                 show: _show,
                 hide: _hide,
-                create: _create,
-                isCreated: _isCreated,
                 hideAll: _hideAll
             };
         })();

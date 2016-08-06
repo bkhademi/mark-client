@@ -4,7 +4,23 @@
 ezApp.controller('StudentProfileCtrl', ['$scope', '$log', '$modal','ClassService', 'AssignmentService','$localStorage',
     function ($scope, $log, $modal, Classs, Assignment, $localStorage) {
         $scope.user = $localStorage.user;
-
+        function determineClassOf() {
+            var gYear = 0;
+            if($scope.user.student.grade_level == 9){
+                gYear = 2020;
+            }
+            else if($scope.user.student.grade_level == 10){
+                gYear = 2019;
+            }
+            else if($scope.user.student.grade_level == 11){
+                gYear = 2018;
+            }
+            if($scope.user.student.grade_level == 12){
+                gYear = 2017;
+            }
+            return gYear
+        }
+        $scope.classOf = determineClassOf();
         $scope.getClasses = function() {
             $scope.myClassesInfo = Classs.getForStudent().$promise.then(
                 function(data){

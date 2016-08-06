@@ -44,57 +44,54 @@
                 </div>
             </form>
 
-            <div class="row" data-ng-if="studentSubmitted">
-                <div class="col-sm-6 ">
-                    <h3> Please enter code of a class</h3>
-                    <form class="form-inline">
-                        <div class="form-group-">
-                            <input class="form-control input-lg " type="text" data-ng-model="data.teacher_class_id"/>
-                        </div>
-                        <div class="form-group ">
-                            <button class="btn btn-primary btn-lg " type="button" data-ng-click="addClasss()">Add
-                            </button>
-                        </div>
-                    </form>
-                    <br/>
-
-
+            <div data-ng-if="studentSubmitted">
+                <div class="row">
+                    <div class="col-sm-6 col-sm-offset-2">
+                        <input id="classCode" class="form-control input-lg" type="text" placeholder="Enter Class Code"
+                               data-ng-model="data.teacher_class_id"/>
+                    </div>
+                    <div class="col-sm-2">
+                        <button class="btn btn-primary btn-lg" type="button" data-ng-click="addClasss()">Add
+                        </button>
+                    </div>
                 </div>
+                <br>
+                <div class="row">
+                    <div class="col-sm-10 col-sm-offset-1">
+                        <h3 class="text-center">Classes</h3>
+                        <table class="table table-bordered">
+                            <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Teacher</th>
+                                <th>Period</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr data-ng-repeat="classs in studentClasses track by classs.id">
+                                <td>{{classs.teacher_class.classs.name}}</td>
 
-                <div class="col-sm-6">
-                    <h3>Classes</h3>
-                    <table class="table table-bordered">
-                        <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Teacher</th>
-                            <th>Period</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        <tr data-ng-repeat="classs in studentClasses track by classs.id">
-                            <td>{{classs.teacher_class.classs.name}}</td>
-
-                            <td>{{classs.teacher_class.user.user_name}}</td>
-                            <td>{{classs.teacher_class.classs.period}}</td>
-                        </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-
-        </div>
-        <div class="row">
-            <div class="col-sm-12">
-                <div class="form-group">
-                    <button type="button" data-ng-click="finish()" style="padding:12px"
-                            data-ng-if="studentSubmitted && studentClasses.length > 0 "
-                            class="btn btn-primary btn-lg pull-right">
-                        Finish
-                    </button>
+                                <td>{{classs.teacher_class.user.user_name}}</td>
+                                <td>{{classs.teacher_class.classs.period}}</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="form-group">
+                <button type="button" data-ng-click="finish()" style="padding:12px"
+                        data-ng-if="studentSubmitted && studentClasses.length > 0 "
+                        class="btn btn-primary btn-lg pull-right">
+                    Finish
+                </button>
+            </div>
+        </div>
+    </div>
 </div>
+
+
