@@ -5,10 +5,11 @@ function($scope, logger, $auth, $location,$localStorage,$modal) {
 	  $auth.login({ email: $scope.email, password: $scope.password })
 		.then(function(response) {
 			var data = response.data;
-			$scope.$storage = $localStorage;
-			$scope.$storage.user = data.user;
-			logger.logSuccess('You have successfully logged in');
+			$localStorage.user = data.user;
+
 			$location.path(data.route);
+
+			logger.logSuccess('You have successfully logged in');
 		})
 		.catch(function(response) {
 		  logger.logError(response.data.msg);
@@ -19,14 +20,14 @@ function($scope, logger, $auth, $location,$localStorage,$modal) {
 	  $auth.authenticate(provider)
 		.then(function(response) {
 			var data = response.data;
-			$scope.$storage = $localStorage;
-			$scope.$storage.user = data.user;
-			logger.logSuccess('You have successfully logged in');
-			
+			$localStorage.user = data.user;
+
 			if(data.new_user)
 				openSelectUserModal();
 			else
 				$location.path(data.route);
+
+			logger.logSuccess('You have successfully logged in');
 		})
 		.catch(function(response) {
 			logger.logError(response.data ? response.data.msg : response);

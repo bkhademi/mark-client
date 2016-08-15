@@ -9,6 +9,14 @@ ezApp.controller('gettingStartedStudentCtrl',
             $scope.data = {};
             $scope.studentInfo = {};
 
+            // check if the user already did first_time_login
+            $http.get(api+'/me').then(function(response){
+                debugger;
+                $localStorage.user = response.data;
+                if($localStorage.user.first_time_login) // true = completed
+                    $scope.studentSubmitted = true;
+
+            });
             $scope.submitStudentInfo = function () {
                 $http.post(api+'/students/', $scope.studentInfo).then(
                     function(response){
