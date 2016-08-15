@@ -39,9 +39,11 @@
                             <span class="fa fa-angle-down"
                                   data-ng-click="sortBy='classGrade'; reverse =!reverse"></span>
                     </th>
-                    <th>Doc Name</th>
+                    <th data-ng-repeat="ass in classInfo.students[0].student.student_assignments">
+                        {{ass.teacher_assignment.assignment.name}}
+                    </th>
                 </tr>
-                </thead>
+                </thead> 
                 <tbody>
                 <tr data-ng-repeat="studentInfo in classInfo.students | filter: search.student | orderBy: sortBy:reverse">
                     <td style="white-space: nowrap">{{studentInfo.student.student_id}}</td>
@@ -51,8 +53,8 @@
                             {{studentInfo.grade_in_class | number:2}}%
                         </span>
                     </td>
-                    <td>
-                        <input type="number" value="0">
+                    <td data-ng-repeat="ass in studentInfo.student.student_assignments">
+                        <input type="number" value="0" data-ng-model="ass.score" data-ng-change="changeAssignmentScore(ass)">
                     </td>
                 </tr>
                 </tbody>
@@ -61,5 +63,5 @@
     </div>
 </div>
 <div class="modal-footer">
-    <button type="button" data-ng-click="closeModal()" class="btn btn-danger">Close</button>
+    <button type="button" data-ng-click="$dismiss()" class="btn btn-danger">Close</button>
 </div>

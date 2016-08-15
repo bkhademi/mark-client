@@ -131,7 +131,7 @@ ezApp.controller('manageClassesController', ['$scope', '$modal',  '$filter','Cla
                         return $scope.classesGrades[$index];
                     }
                 }
-            })
+            }).result.then(function(){}, function(){ $scope.getClasses(); });
         };
 
 

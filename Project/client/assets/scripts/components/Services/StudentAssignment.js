@@ -7,7 +7,6 @@ ezApp.factory('StudentAssignment', ['$resource',function($resource){
     });
 
     resource.updateScore = function (studentAssignment) {
-        debugger;
         var promise = resource.update({id:studentAssignment.id},{'score':studentAssignment.score});
 
         return promise;
