@@ -50,7 +50,8 @@
                                 <td>{{classs.name}}</td>
                                 <td>{{classs.students.length}}</td>
                                 <td>
-                                    <span data-ng-class="toLetter(classesGrades[$index].avgs.grade,classs)  === 'A' || toLetter(gradeInfo.avgs.grade,classs)  == 'B' ? 'highlight-success': toLetter(gradeInfo.avgs.grade, classs)  === 'C' ? 'highlight-warning' : 'highlight-danger'">
+                                    <span
+                                        data-ng-class="toLetter(classesGrades[$index].avgs.grade,classs)  === 'A' || toLetter(gradeInfo.avgs.grade,classs)  == 'B' ? 'highlight-success': toLetter(gradeInfo.avgs.grade, classs)  === 'C' ? 'highlight-warning' : 'highlight-danger'">
                                         {{toLetter(classesGrades[$index].avgs.grade,classs) }}
                                     </span>
                                 </td>
@@ -83,87 +84,21 @@
     </div>
     <div class="row">
         <!--Assign Points-->
-        <div class="col-sm-8 col-sm-offset-2">
+        <div class="col-sm-12">
             <section class=" panel panel-secondary">
                 <div class="panel-heading">
-                    <strong><span class="fa fa-pencil-square"></span> Add Points</strong>
+                    <strong><span class="fa fa-pencil-square"></span> Selected Class</strong>
                 </div>
                 <div data-ng-show="selected" class="animated fadeInLeft panel-body">
-                    <!--Points Options-->
                     <div class="text-center">
                         <h3 style="display: inline" class="activeRow">{{selected.name}}</h3>
-                        <hr>
-                        <label class="ui-radio">
-                            <input name="pointsOption" type="radio" data-ng-model="pointAssign.option" value="byDoc">
-                            <span>By Document</span>
-                        </label>
-                        <label class="ui-radio">
-                            <input name="pointsOption" type="radio" data-ng-model="pointAssign.option"
-                                   data-ng-click="setDirectly()" value="directly">
-                            <span>Directly to Student(s)</span>
-                        </label>
-                        <br><br>
                     </div>
-                    <!--Point Options-->
+                </div>
+                <div>
 
-                    <!--By Document-->
-                    <div data-ng-if="pointAssign.option == 'byDoc'" class="text-center">
-                        <div style="white-space: nowrap" class="row">
-                            <div style="white-space: nowrap" class="col-sm-3">
-                                <input type="number" class="form-control" placeholder="Points"
-                                       data-ng-model="pointAssign.points">
-                            </div>
-                            <div style="white-space: nowrap" class="col-sm-7">
-                                <select style="overflow-y: visible"
-                                        chosen
-                                        class="form-control"
-                                        data-ng-model="pointAssign.selectedDoc"
-                                        data-ng-options="doc as doc.name for doc in documents"
-                                        placeholder-text-single="'Search or Select'">
-                                </select>
-                            </div>
-                            <div style="white-space: nowrap; width:25px; height: 25px " class="col-sm-2">
-                                <button class="btn btn-primary btn-sm" type="button" data-ng-click="addPoints(selected)"
-                                        data-ng-disabled="!pointAssign.selectedDoc && !pointAssign.points ">OK
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <!--By Document Ends-->
-
-                    <!--Directly to Stu(s)-->
-                    <div data-ng-show="pointAssign.option == 'directly'" class="text-center">
-                        <h4>Points For:</h4>
-                        <table class="table">
-                            <thead>
-                            <tr>
-                                <th data-ng-repeat="component in selectedClassComponents">
-                                    <label class="ui-radio"><input name="pointsFor" type="radio"
-                                                                   data-ng-model="pointAssign.component"
-                                                                   value="{{component.name}}">
-                                        <span>{{component.name}}</span></label>
-                                </th>
-                            </tr>
-                            </thead>
-                        </table>
-                        <br>
-                        <div data-ng-show="pointAssign.component" class="row">
-                            <div class="col-sm-3 col-sm-offset-3">
-                                <input class="form-control" type="number" placeholder="# Points"
-                                       data-ng-model="pointAssign.points">
-                            </div>
-                            <div class="col-sm-3">
-                                <button class="btn btn-primary btn-sm" type="button" data-ng-click="addPoints(selected)"
-                                        data-ng-disabled="!pointAssign.selectedDoc && !pointAssign.points">OK
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                    <!--Directly to Stu(s) Ends-->
                 </div>
             </section>
         </div>
-        <!--Assign Points Ends-->
     </div>
 </div>
 <style>
@@ -175,3 +110,83 @@
         background-color: rgba(103, 78, 158, .3) !important;
     }
 </style>
+<!--<div class="col-sm-8 col-sm-offset-2">-->
+<!--<section class=" panel panel-secondary">-->
+<!--<div class="panel-heading">-->
+<!--<strong><span class="fa fa-pencil-square"></span> Add Points</strong>-->
+<!--</div>-->
+<!--<div data-ng-show="selected" class="animated fadeInLeft panel-body">-->
+<!--&lt;!&ndash;Points Options&ndash;&gt;-->
+<!--<div class="text-center">-->
+<!--<h3 style="display: inline" class="activeRow">{{selected.name}}</h3>-->
+<!--<hr>-->
+<!--<label class="ui-radio">-->
+<!--<input name="pointsOption" type="radio" data-ng-model="pointAssign.option" value="byDoc">-->
+<!--<span>By Document</span>-->
+<!--</label>-->
+<!--<label class="ui-radio">-->
+<!--<input name="pointsOption" type="radio" data-ng-model="pointAssign.option"-->
+<!--data-ng-click="setDirectly()" value="directly">-->
+<!--<span>Directly to Student(s)</span>-->
+<!--</label>-->
+<!--<br><br>-->
+<!--</div>-->
+<!--&lt;!&ndash;Point Options&ndash;&gt;-->
+
+<!--&lt;!&ndash;By Document&ndash;&gt;-->
+<!--<div data-ng-if="pointAssign.option == 'byDoc'" class="text-center">-->
+<!--<div style="white-space: nowrap" class="row">-->
+<!--<div style="white-space: nowrap" class="col-sm-3">-->
+<!--<input type="number" class="form-control" placeholder="Points"-->
+<!--data-ng-model="pointAssign.points">-->
+<!--</div>-->
+<!--<div style="white-space: nowrap" class="col-sm-7">-->
+<!--<select style="overflow-y: visible"-->
+<!--chosen-->
+<!--class="form-control"-->
+<!--data-ng-model="pointAssign.selectedDoc"-->
+<!--data-ng-options="doc as doc.name for doc in documents"-->
+<!--placeholder-text-single="'Search or Select'">-->
+<!--</select>-->
+<!--</div>-->
+<!--<div style="white-space: nowrap; width:25px; height: 25px " class="col-sm-2">-->
+<!--<button class="btn btn-primary btn-sm" type="button" data-ng-click="addPoints(selected)"-->
+<!--data-ng-disabled="!pointAssign.selectedDoc && !pointAssign.points ">OK-->
+<!--</button>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+<!--&lt;!&ndash;By Document Ends&ndash;&gt;-->
+
+<!--&lt;!&ndash;Directly to Stu(s)&ndash;&gt;-->
+<!--<div data-ng-show="pointAssign.option == 'directly'" class="text-center">-->
+<!--<h4>Points For:</h4>-->
+<!--<table class="table">-->
+<!--<thead>-->
+<!--<tr>-->
+<!--<th data-ng-repeat="component in selectedClassComponents">-->
+<!--<label class="ui-radio"><input name="pointsFor" type="radio"-->
+<!--data-ng-model="pointAssign.component"-->
+<!--value="{{component.name}}">-->
+<!--<span>{{component.name}}</span></label>-->
+<!--</th>-->
+<!--</tr>-->
+<!--</thead>-->
+<!--</table>-->
+<!--<br>-->
+<!--<div data-ng-show="pointAssign.component" class="row">-->
+<!--<div class="col-sm-3 col-sm-offset-3">-->
+<!--<input class="form-control" type="number" placeholder="# Points"-->
+<!--data-ng-model="pointAssign.points">-->
+<!--</div>-->
+<!--<div class="col-sm-3">-->
+<!--<button class="btn btn-primary btn-sm" type="button" data-ng-click="addPoints(selected)"-->
+<!--data-ng-disabled="!pointAssign.selectedDoc && !pointAssign.points">OK-->
+<!--</button>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+<!--&lt;!&ndash;Directly to Stu(s) Ends&ndash;&gt;-->
+<!--</div>-->
+<!--</section>-->
+<!--</div>-->

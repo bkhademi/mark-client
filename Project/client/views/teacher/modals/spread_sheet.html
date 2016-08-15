@@ -5,23 +5,24 @@
         </div>
     </div>
 </div>
-<div class="modal-body table-responsive">
+<div class="modal-body table-responsive" style="max-height: calc(100vh - 200px);
+    overflow-y: auto">
     <div class="row">
-        <h3 class="text-center"><span class="highlight">Students</span></h3>
+        <h4 class="text-center"><span class="highlight">Update or Add Scores</span></h4>
         <br>
-        <div class="col-sm-6 col-sm-offset-3">
+        <div class="col-sm-6 col-sm-offset-1">
             <form>
                 <input type="text"
                        placeholder="Search Student..."
                        class="form-control"
                        data-ng-model="search.student"
-                       >
+                >
             </form>
             <br>
         </div>
 
-        <div class="col-sm-12">
-            <table class="table table-bordered table-hover table-condensed">
+        <div class="col-sm-10 col-sm-offset-1">
+            <table id="scoreSheet" class="table table-bordered table-hover table-condensed">
                 <thead>
                 <tr>
                     <th>
@@ -43,18 +44,22 @@
                         {{ass.teacher_assignment.assignment.name}}
                     </th>
                 </tr>
-                </thead> 
+                </thead>
                 <tbody>
                 <tr data-ng-repeat="studentInfo in classInfo.students | filter: search.student | orderBy: sortBy:reverse">
                     <td style="white-space: nowrap">{{studentInfo.student.student_id}}</td>
-                    <td style="white-space: nowrap">{{studentInfo.student.user.first_name + ' '+studentInfo.student.user.last_name}}</td>
+                    <td style="white-space: nowrap">{{studentInfo.student.user.first_name + '
+                        '+studentInfo.student.user.last_name}}
+                    </td>
                     <td style="white-space: nowrap">
-                        <span class="pull-right"data-ng-class="toLetter(studentInfo.grade_in_class) === 'A' || toLetter(studentInfo.grade_in_class)== 'B' ? 'highlight-success': toLetter(studentInfo.grade_in_class) === 'C' ? 'highlight-warning' : 'highlight-danger'">
+                        <span
+                            data-ng-class="studentInfo.grade_in_class > 80 ? 'highlight-success': studentInfo.grade_in_class > 70 ? 'highlight-warning' : 'highlight-danger'">
                             {{studentInfo.grade_in_class | number:2}}%
                         </span>
                     </td>
                     <td data-ng-repeat="ass in studentInfo.student.student_assignments">
-                        <input type="number" value="0" data-ng-model="ass.score" data-ng-change="changeAssignmentScore(ass)">
+                        <input type="number" value="0" data-ng-model="ass.score"
+                               data-ng-change="changeAssignmentScore(ass)">
                     </td>
                 </tr>
                 </tbody>
