@@ -60,7 +60,11 @@
                                     </button>
                                 </td>
                                 <td>
-                                    <button class="btn btn-success btn-xs" type="button"><span class="fa fa-file-excel-o"></span></button>
+                                    <button class="btn btn-success btn-xs"
+                                            type="button"
+                                            ng-click="spreadSheet(classs,$index)">
+                                        <span class="fa fa-file-excel-o"></span>
+                                    </button>
                                 </td>
                                 <td class="text-center">
                                     <button data-ng-click="openClassSetUp(classs, $event)" type="button"

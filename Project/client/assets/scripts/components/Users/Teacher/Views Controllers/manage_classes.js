@@ -62,7 +62,7 @@ ezApp.controller('manageClassesController', ['$scope', '$modal',  '$filter','Cla
         $scope.setDirectly = function(){
             $scope.pointAssign.directly = true;
         };
-        
+
         $scope.addPoints = function(selected){
             selected.pointAssign = $scope.pointAssign;
             var modalInstance;
@@ -77,7 +77,7 @@ ezApp.controller('manageClassesController', ['$scope', '$modal',  '$filter','Cla
                 }
             })
         };
-        
+
         $scope.classSelected = function (classs) {
             $scope.selectedClassComponents = classs.gradeBreakdown;
             $scope.selected = $scope.selected== classs?null:classs;
@@ -114,15 +114,26 @@ ezApp.controller('manageClassesController', ['$scope', '$modal',  '$filter','Cla
                     }
                 }
             });
-            // modalInstance.result.then(function (classesInfo) {
-            //     $scope.notify('success');
-            //     $scope.createClassSuccess = true;
-            //     $scope.createClassHtml = '<del>Create Classes</del>';
-            //     wizardData.classesInfo = classesInfo;
-            //     $scope.stepTwoCompleted = true;
-            //     $scope.stepTwo = true;
-            // });
         };
+
+        $scope.spreadSheet = function (classs,$index) {
+            var modalInstance;
+            modalInstance = $modal.open({
+                size: 'lg',
+                templateUrl: "views/teacher/modals/spread_sheet.html",
+                controller: 'SpreadSheetCtrl',
+                backdrop: 'static',
+                resolve: {
+                    classInfo: function () {
+                        return classs;
+                    },
+                    gradeInfo: function(){
+                        return $scope.classesGrades[$index];
+                    }
+                }
+            })
+        };
+
 
         $scope.toLetter = function(score,classs){
             score = Math.ceil(score);
