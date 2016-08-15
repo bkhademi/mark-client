@@ -1,0 +1,65 @@
+<div class="modal-header">
+    <div class="row">
+        <div class=" text-center col-sm-6 col-sm-offset-3">
+            <h2>Period: {{classInfo.period}} | Class: {{classInfo.name}}</h2>
+        </div>
+    </div>
+</div>
+<div class="modal-body table-responsive">
+    <div class="row">
+        <h3 class="text-center"><span class="highlight">Students</span></h3>
+        <br>
+        <div class="col-sm-6 col-sm-offset-3">
+            <form>
+                <input type="text"
+                       placeholder="Search Student..."
+                       class="form-control"
+                       data-ng-model="search.student"
+                       >
+            </form>
+            <br>
+        </div>
+
+        <div class="col-sm-12">
+            <table class="table table-bordered table-hover table-condensed">
+                <thead>
+                <tr>
+                    <th>
+                        ID
+                            <span class="fa fa-angle-down"
+                                  data-ng-click="sortBy='id'; reverse =!reverse"></span>
+                    </th>
+                    <th>
+                        Name
+                            <span class="fa fa-angle-down"
+                                  data-ng-click="sortBy='name'; reverse =!reverse"></span>
+                    </th>
+                    <th>
+                        Class Grade
+                            <span class="fa fa-angle-down"
+                                  data-ng-click="sortBy='classGrade'; reverse =!reverse"></span>
+                    </th>
+                    <th>Doc Name</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr data-ng-repeat="studentInfo in classInfo.students | filter: search.student | orderBy: sortBy:reverse">
+                    <td style="white-space: nowrap">{{studentInfo.student.student_id}}</td>
+                    <td style="white-space: nowrap">{{studentInfo.student.user.first_name + ' '+studentInfo.student.user.last_name}}</td>
+                    <td style="white-space: nowrap">
+                        <span class="pull-right"data-ng-class="toLetter(studentInfo.grade_in_class) === 'A' || toLetter(studentInfo.grade_in_class)== 'B' ? 'highlight-success': toLetter(studentInfo.grade_in_class) === 'C' ? 'highlight-warning' : 'highlight-danger'">
+                            {{studentInfo.grade_in_class | number:2}}%
+                        </span>
+                    </td>
+                    <td>
+                        <input type="number" value="0">
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" data-ng-click="closeModal()" class="btn btn-danger">Close</button>
+</div>
