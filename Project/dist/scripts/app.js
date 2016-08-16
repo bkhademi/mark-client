@@ -1212,17 +1212,18 @@
                     return $location.path();
                 }, addBg = function(path) {
                     switch ($element.removeClass("body-home body-special body-tasks"), path) {
-                      case "/":
-                        return $element.addClass("body-home");
-
                       case "/404":
+                      case "/401":
+                      case "/500":
                       case "/pages/500":
                       case "/pages/signin":
                       case "/pages/signup":
                       case "/login":
+                      case "/signup":
                       case "/getting-started-student":
                       case "/getting-started":
                       case "/student-profile":
+                      case "/":
                         return $element.addClass("body-special");
 
                       case "/tasks":
@@ -1414,7 +1415,7 @@
     angular.module("app.controllers", []).controller("AppCtrl", [ "$scope", "$location", function($scope, $location) {
         return $scope.isSpecificPage = function() {
             var path;
-            return path = $location.path(), _.contains([ "/404", "/pages/500", "/pages/login", "/pages/signin", "/pages/signin1", "/pages/signin2", "/pages/signup", "/pages/signup1", "/pages/signup2", "/login", "/signup", "/getting-started", "/getting-started-student" ], path);
+            return path = $location.path(), _.contains([ "/404", "/pages/500", "/pages/login", "/pages/signin", "/pages/signin1", "/pages/signin2", "/pages/signup", "/pages/signup1", "/pages/signup2", "/login", "/signup", "/getting-started", "/getting-started-student", "/401", "/500", "/" ], path);
         }, $scope.main = {
             brand: "iFlat",
             name: "Lisa Doe"

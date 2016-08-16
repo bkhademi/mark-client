@@ -1,5 +1,5 @@
 <div class="page">
-    <div class="row">
+    <div class="row animated fadeInRight" collapse="isCollapsed" >
         <!--Classes Table-->
         <div class="col-sm-12">
             <section class="panel panel-default">
@@ -9,7 +9,7 @@
                 </div>
                 <div class="panel-body">
                     <div class="col-sm-12">
-                        <table class="table table-bordered table-hover table-responsive">
+                        <table class="table table-bordered table-responsive">
                             <thead>
                             <tr>
 
@@ -42,16 +42,14 @@
                             </thead>
                             <tbody>
                             <tr class="animated fadeInUp text-center"
-                                data-ng-repeat="classs in classesInfo | filter: search.Class | orderBy: sortBy:reverse"
-                                data-ng-click="classSelected(classs)"
-                                data-ng-class="selected == classs ? 'activeRow': ''">
+                                data-ng-repeat="classs in classesInfo | filter: search.Class | orderBy: sortBy:reverse">
 
                                 <td>{{classs.period}}</td>
                                 <td>{{classs.name}}</td>
                                 <td>{{classs.students.length}}</td>
                                 <td>
                                     <span
-                                        data-ng-class="toLetter(classesGrades[$index].avgs.grade,classs)  === 'A' || toLetter(gradeInfo.avgs.grade,classs)  == 'B' ? 'highlight-success': toLetter(gradeInfo.avgs.grade, classs)  === 'C' ? 'highlight-warning' : 'highlight-danger'">
+                                        data-ng-class="toLetter(classesGrades[$index].avgs.grade,classs)  == 'A' || toLetter(classesGrades[$index].avgs.grade,classs)  == 'B' ? 'highlight-success': toLetter(classesGrades[$index].avgs.grade, classs)  == 'C' ? 'highlight-warning' : 'highlight-danger'">
                                         {{toLetter(classesGrades[$index].avgs.grade,classs) }}
                                     </span>
                                 </td>
@@ -63,7 +61,7 @@
                                 <td>
                                     <button class="btn btn-success btn-xs"
                                             type="button"
-                                            ng-click="spreadSheet(classs,$index)">
+                                            ng-click="classSelected(classs)">
                                         <span class="fa fa-file-excel-o"></span>
                                     </button>
                                 </td>
@@ -82,111 +80,74 @@
         </div>
         <!--Classes Table Ends-->
     </div>
-    <div class="row">
-        <!--Assign Points-->
+    <div class="row" ng-show="isCollapsed">
         <div class="col-sm-12">
             <section class=" panel panel-secondary">
                 <div class="panel-heading">
-                    <strong><span class="fa fa-pencil-square"></span> Selected Class</strong>
+                    <strong><span class="fa fa-pencil-square"></span> Score Sheet</strong>
+                    <button style="float: right;" class="btn btn-danger" type="button" ng-click="closeScoreSheet()">{{buttonName}}</button>
                 </div>
-                <div data-ng-show="selected" class="animated fadeInLeft panel-body">
+                <div class="animated fadeInLeft panel-body">
                     <div class="text-center">
-                        <h3 style="display: inline" class="activeRow">{{selected.name}}</h3>
+                        <h4 style="display: inline" class="highlight">{{selected.name}}</h4>
                     </div>
                 </div>
-                <div>
-
+                <div class="row">
+                    <div class="col-sm-10 col-sm-offset-1 table-responsive" style="max-height: calc(100vh - 270px);overflow-y: auto">
+                        <table id="scoreSheet" class="table table-bordered table-hover">
+                            <thead>
+                            <tr>
+                                <th>
+                                    ID
+                            <span class="fa fa-angle-down"
+                                  data-ng-click="sortBy='id'; reverse =!reverse"></span>
+                                </th>
+                                <th>
+                                    Name
+                            <span class="fa fa-angle-down"
+                                  data-ng-click="sortBy='name'; reverse =!reverse"></span>
+                                </th>
+                                <th>
+                                    Class Grade
+                            <span class="fa fa-angle-down"
+                                  data-ng-click="sortBy='classGrade'; reverse =!reverse"></span>
+                                </th>
+                                <th data-ng-repeat="ass in selected.students[0].student.student_assignments">
+                                    {{ass.teacher_assignment.assignment.name}}
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr data-ng-repeat="studentInfo in selected.students | filter: search.student | orderBy: sortBy:reverse">
+                                <td>{{studentInfo.student.student_id}}</td>
+                                <td>{{studentInfo.student.user.first_name + '
+                                    '+studentInfo.student.user.last_name}}
+                                </td>
+                                <td>
+                        <span
+                            data-ng-class="studentInfo.grade_in_class > 80 ? 'highlight-success': studentInfo.grade_in_class > 70 ? 'highlight-warning' : 'highlight-danger'">
+                            {{studentInfo.grade_in_class | number:2}}%
+                        </span>
+                                </td>
+                                <td data-ng-repeat="ass in studentInfo.student.student_assignments">
+                                    <input type="number" value="0" data-ng-model="ass.score"
+                                           data-ng-change="changeAssignmentScore(ass)">
+                                </td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
             </section>
         </div>
     </div>
 </div>
-<style>
-    tr.activeRow {
-        background-color: rgba(103, 78, 158, .3) !important;
-    }
+<!--<style>-->
+    <!--tr.activeRow {-->
+        <!--background-color: rgba(103, 78, 158, .3) !important;-->
+    <!--}-->
 
-    h3.activeRow {
-        background-color: rgba(103, 78, 158, .3) !important;
-    }
-</style>
-<!--<div class="col-sm-8 col-sm-offset-2">-->
-<!--<section class=" panel panel-secondary">-->
-<!--<div class="panel-heading">-->
-<!--<strong><span class="fa fa-pencil-square"></span> Add Points</strong>-->
-<!--</div>-->
-<!--<div data-ng-show="selected" class="animated fadeInLeft panel-body">-->
-<!--&lt;!&ndash;Points Options&ndash;&gt;-->
-<!--<div class="text-center">-->
-<!--<h3 style="display: inline" class="activeRow">{{selected.name}}</h3>-->
-<!--<hr>-->
-<!--<label class="ui-radio">-->
-<!--<input name="pointsOption" type="radio" data-ng-model="pointAssign.option" value="byDoc">-->
-<!--<span>By Document</span>-->
-<!--</label>-->
-<!--<label class="ui-radio">-->
-<!--<input name="pointsOption" type="radio" data-ng-model="pointAssign.option"-->
-<!--data-ng-click="setDirectly()" value="directly">-->
-<!--<span>Directly to Student(s)</span>-->
-<!--</label>-->
-<!--<br><br>-->
-<!--</div>-->
-<!--&lt;!&ndash;Point Options&ndash;&gt;-->
-
-<!--&lt;!&ndash;By Document&ndash;&gt;-->
-<!--<div data-ng-if="pointAssign.option == 'byDoc'" class="text-center">-->
-<!--<div style="white-space: nowrap" class="row">-->
-<!--<div style="white-space: nowrap" class="col-sm-3">-->
-<!--<input type="number" class="form-control" placeholder="Points"-->
-<!--data-ng-model="pointAssign.points">-->
-<!--</div>-->
-<!--<div style="white-space: nowrap" class="col-sm-7">-->
-<!--<select style="overflow-y: visible"-->
-<!--chosen-->
-<!--class="form-control"-->
-<!--data-ng-model="pointAssign.selectedDoc"-->
-<!--data-ng-options="doc as doc.name for doc in documents"-->
-<!--placeholder-text-single="'Search or Select'">-->
-<!--</select>-->
-<!--</div>-->
-<!--<div style="white-space: nowrap; width:25px; height: 25px " class="col-sm-2">-->
-<!--<button class="btn btn-primary btn-sm" type="button" data-ng-click="addPoints(selected)"-->
-<!--data-ng-disabled="!pointAssign.selectedDoc && !pointAssign.points ">OK-->
-<!--</button>-->
-<!--</div>-->
-<!--</div>-->
-<!--</div>-->
-<!--&lt;!&ndash;By Document Ends&ndash;&gt;-->
-
-<!--&lt;!&ndash;Directly to Stu(s)&ndash;&gt;-->
-<!--<div data-ng-show="pointAssign.option == 'directly'" class="text-center">-->
-<!--<h4>Points For:</h4>-->
-<!--<table class="table">-->
-<!--<thead>-->
-<!--<tr>-->
-<!--<th data-ng-repeat="component in selectedClassComponents">-->
-<!--<label class="ui-radio"><input name="pointsFor" type="radio"-->
-<!--data-ng-model="pointAssign.component"-->
-<!--value="{{component.name}}">-->
-<!--<span>{{component.name}}</span></label>-->
-<!--</th>-->
-<!--</tr>-->
-<!--</thead>-->
-<!--</table>-->
-<!--<br>-->
-<!--<div data-ng-show="pointAssign.component" class="row">-->
-<!--<div class="col-sm-3 col-sm-offset-3">-->
-<!--<input class="form-control" type="number" placeholder="# Points"-->
-<!--data-ng-model="pointAssign.points">-->
-<!--</div>-->
-<!--<div class="col-sm-3">-->
-<!--<button class="btn btn-primary btn-sm" type="button" data-ng-click="addPoints(selected)"-->
-<!--data-ng-disabled="!pointAssign.selectedDoc && !pointAssign.points">OK-->
-<!--</button>-->
-<!--</div>-->
-<!--</div>-->
-<!--</div>-->
-<!--&lt;!&ndash;Directly to Stu(s) Ends&ndash;&gt;-->
-<!--</div>-->
-<!--</section>-->
-<!--</div>-->
+    <!--h3.activeRow {-->
+        <!--background-color: rgba(103, 78, 158, .3) !important;-->
+    <!--}-->
+<!--</style>-->

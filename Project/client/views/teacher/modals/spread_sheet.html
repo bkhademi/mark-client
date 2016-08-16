@@ -5,12 +5,12 @@
         </div>
     </div>
 </div>
-<div class="modal-body table-responsive" style="max-height: calc(100vh - 200px);
+<div class="modal-body" style="max-height: calc(100vh - 200px);
     overflow-y: auto">
     <div class="row">
         <h4 class="text-center"><span class="highlight">Update or Add Scores</span></h4>
         <br>
-        <div class="col-sm-6 col-sm-offset-1">
+        <div class="col-sm-6">
             <form>
                 <input type="text"
                        placeholder="Search Student..."
@@ -21,8 +21,8 @@
             <br>
         </div>
 
-        <div class="col-sm-10 col-sm-offset-1">
-            <table id="scoreSheet" class="table table-bordered table-hover table-condensed">
+        <div class="col-sm-12">
+            <table id="scoreSheet" class="table table-bordered table-hover table-condensed" style="overflow-x: auto">
                 <thead>
                 <tr>
                     <th>
@@ -47,11 +47,11 @@
                 </thead>
                 <tbody>
                 <tr data-ng-repeat="studentInfo in classInfo.students | filter: search.student | orderBy: sortBy:reverse">
-                    <td style="white-space: nowrap">{{studentInfo.student.student_id}}</td>
-                    <td style="white-space: nowrap">{{studentInfo.student.user.first_name + '
+                    <td>{{studentInfo.student.student_id}}</td>
+                    <td>{{studentInfo.student.user.first_name + '
                         '+studentInfo.student.user.last_name}}
                     </td>
-                    <td style="white-space: nowrap">
+                    <td>
                         <span
                             data-ng-class="studentInfo.grade_in_class > 80 ? 'highlight-success': studentInfo.grade_in_class > 70 ? 'highlight-warning' : 'highlight-danger'">
                             {{studentInfo.grade_in_class | number:2}}%

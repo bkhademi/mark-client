@@ -1,15 +1,15 @@
 /**
  * Created by Brandon on 7/7/2016.
  */
-ezApp.controller('manageClassesController', ['$scope', '$modal',  '$filter','ClassService',
-    function ($scope, $modal, $filter, classs) {
-        $scope.getClasses = function(){
-            classs.getForTeacher().$promise.then(function(data){
+ezApp.controller('manageClassesController', ['$scope', '$modal', '$filter', 'ClassService', 'StudentAssignment',
+    function ($scope, $modal, $filter, classs, StudentAssignment) {
+        $scope.getClasses = function () {
+            classs.getForTeacher().$promise.then(function (data) {
                 $scope.classesInfo = data.classes;
                 $scope.classesGrades = data.classes_breakdowns;
             });
         };
-		$scope.getClasses();
+        $scope.getClasses();
 
         //Data to pull from DB
         $scope.documents = [
@@ -52,38 +52,56 @@ ezApp.controller('manageClassesController', ['$scope', '$modal',  '$filter','Cla
 
         $scope.pointAssign = {
             classId: null,
-            directly : false,
-            allStudents : false,
+            directly: false,
+            allStudents: false,
             selectedDoc: null,
-            selectedStudents:[],
+            selectedStudents: [],
             component: null,
             points: null
         };
-        $scope.setDirectly = function(){
+        $scope.setDirectly = function () {
             $scope.pointAssign.directly = true;
         };
 
-        $scope.addPoints = function(selected){
+        $scope.addPoints = function (selected) {
             selected.pointAssign = $scope.pointAssign;
             var modalInstance;
             modalInstance = $modal.open({
-                size:'lg',
-                templateUrl:'views/teacher/modals/add_points.html',
+                size: 'lg',
+                templateUrl: 'views/teacher/modals/add_points.html',
                 controller: 'addPointsController',
-                resolve:{
+                resolve: {
                     classInfo: function () {
                         return selected
                     }
                 }
             })
         };
-
+        $scope.isCollapsed = false;
+        $scope.closeScoreSheet = function () {
+            if (!$scope.isCollapsed) {
+                $scope.buttonName = 'Back';
+                $scope.isCollapsed = true;
+            }
+            else {
+                $scope.isCollapsed = false;
+            }
+        };
         $scope.classSelected = function (classs) {
             $scope.selectedClassComponents = classs.gradeBreakdown;
-            $scope.selected = $scope.selected== classs?null:classs;
+            $scope.selected = $scope.selected == classs ? null : classs;
+            if (!$scope.isCollapsed) {
+                $scope.buttonName = 'Back';
+                $scope.isCollapsed = true;
+                $scope.viewLimit = '';
+            }
+            else {
+                $scope.isCollapsed = false;
+                $scope.viewLimit = 3;
+            }
         };
 
-        $scope.openClassSetUp = function (classs,$event) {
+        $scope.openClassSetUp = function (classs, $event) {
             cancelEventPropagation($event);
             var modalInstance;
             modalInstance = $modal.open({
@@ -98,7 +116,7 @@ ezApp.controller('manageClassesController', ['$scope', '$modal',  '$filter','Cla
             });
         };
 
-        $scope.openClassStudents = function (classs,$index,$event) {
+        $scope.openClassStudents = function (classs, $index, $event) {
             cancelEventPropagation($event);
             var modalInstance;
             modalInstance = $modal.open({
@@ -109,14 +127,14 @@ ezApp.controller('manageClassesController', ['$scope', '$modal',  '$filter','Cla
                     classInfo: function () {
                         return classs;
                     },
-                    gradeInfo: function(){
+                    gradeInfo: function () {
                         return $scope.classesGrades[$index];
                     }
                 }
             });
         };
-
-        $scope.spreadSheet = function (classs,$index) {
+        $scope.changeAssignmentScore = StudentAssignment.updateScore;
+        $scope.spreadSheet = function (classs, $index) {
             var modalInstance;
             modalInstance = $modal.open({
                 size: 'lg',
@@ -127,30 +145,33 @@ ezApp.controller('manageClassesController', ['$scope', '$modal',  '$filter','Cla
                     classInfo: function () {
                         return classs;
                     },
-                    gradeInfo: function(){
+                    gradeInfo: function () {
                         return $scope.classesGrades[$index];
                     }
                 }
-            }).result.then(function(){}, function(){ $scope.getClasses(); });
+            }).result.then(function () {
+            }, function () {
+                $scope.getClasses();
+            });
         };
 
 
-        $scope.toLetter = function(score,classs){
+        $scope.toLetter = function (score, classs) {
             score = Math.ceil(score);
             var letter_ranges = classs.grade_scale;
             var letter = false;
-            angular.forEach(letter_ranges, function(range){
-                var lo  = parseInt(range.lower_bound);
-                var hi  = parseInt(range.upper_bound);
-                if(score <= hi && score >= lo)
+            angular.forEach(letter_ranges, function (range) {
+                var lo = parseInt(range.lower_bound);
+                var hi = parseInt(range.upper_bound);
+                if (score <= hi && score >= lo)
                     letter = range.letter;
             });
-            if(!letter)
+            if (!letter)
                 letter = 'F';
             return letter;
         };
 
-        function cancelEventPropagation($event){
+        function cancelEventPropagation($event) {
             $event.stopPropagation && $event.stopPropagation();
             $event.preventDefault && $event.preventDefault();
             $event.cancelBubble = true;

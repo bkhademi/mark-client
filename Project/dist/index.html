@@ -33,7 +33,7 @@
 
 
             <div class="view-container">
-                <section data-ng-view id="content" style="{{isStudent()?'top: 80px;':''}}" class="animate-fade-up"></section>
+                <section data-ng-view id="content" style="{{isStudent() && !isSpecificPage()?'top: 80px;':''}}" class="animate-fade-up"></section>
             </div>
         </div>
 
